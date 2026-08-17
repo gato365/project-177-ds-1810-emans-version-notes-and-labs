@@ -82,6 +82,7 @@ format:
     toc: true
     toc-depth: 2
     toc-location: right
+    toc-expand: true
     code-copy: true
     code-overflow: wrap
     highlight-style: github
