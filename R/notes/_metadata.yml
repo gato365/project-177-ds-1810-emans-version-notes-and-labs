@@ -1,0 +1,3 @@
+# applies to every document under R/notes/
+shift-heading-level-by: 1
+toc-depth: 2

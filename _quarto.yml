@@ -1,0 +1,96 @@
+project:
+  type: website
+  output-dir: docs
+  execute-dir: project
+  render:
+    - index.qmd
+    - "R/notes/**/*.qmd"
+  resources:
+    - "R/notes/**/*_empty.qmd"
+    - "Data/*"
+
+website:
+  title: "STAT/DATA 1810 · Notes"
+  description: "In-class notes and instructor keys for STAT/DATA 1810 — Foundations and ETV cycles."
+  navbar:
+    background: primary
+    search: true
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "Foundations"
+        menu:
+          - text: "01 · Positron & the R Environment"
+            href: R/notes/week_1/wed_foundation_1/fnd01_positron_solution.qmd
+          - text: "02 · Data Types & Structures"
+            href: R/notes/week_2/mon_foundation_2/fnd02_types_structures_solution.qmd
+          - text: "03 · Inspecting & Accessing Data"
+            href: R/notes/week_2/wed_foundation_3/fnd03_inspect_access_solution.qmd
+      - text: "ETV Cycles"
+        menu:
+          - text: "01 · Coffee Spending"
+            href: R/notes/week_3/mon_etv_cycle_1/etv01_coffee_solution.qmd
+          - text: "02 · NBA GOATs"
+            href: R/notes/week_3/wed_etv_cycle_2/etv02_nba_solution.qmd
+          - text: "03 · Crime Data (template)"
+            href: R/notes/week_4/mon_etv_cycle_3/etv03_crime_solution.qmd
+  sidebar:
+    style: docked
+    collapse-level: 1
+    contents:
+      - index.qmd
+      - section: "Week 1"
+        contents:
+          - text: "Fnd 01 · Solution"
+            href: R/notes/week_1/wed_foundation_1/fnd01_positron_solution.qmd
+          - text: "Fnd 01 · Student"
+            href: R/notes/week_1/wed_foundation_1/fnd01_positron_empty.qmd
+      - section: "Week 2"
+        contents:
+          - text: "Fnd 02 · Solution"
+            href: R/notes/week_2/mon_foundation_2/fnd02_types_structures_solution.qmd
+          - text: "Fnd 02 · Student"
+            href: R/notes/week_2/mon_foundation_2/fnd02_types_structures_empty.qmd
+          - text: "Fnd 03 · Solution"
+            href: R/notes/week_2/wed_foundation_3/fnd03_inspect_access_solution.qmd
+          - text: "Fnd 03 · Student"
+            href: R/notes/week_2/wed_foundation_3/fnd03_inspect_access_empty.qmd
+      - section: "Week 3"
+        contents:
+          - text: "ETV 01 · Solution"
+            href: R/notes/week_3/mon_etv_cycle_1/etv01_coffee_solution.qmd
+          - text: "ETV 01 · Student"
+            href: R/notes/week_3/mon_etv_cycle_1/etv01_coffee_empty.qmd
+          - text: "ETV 02 · Solution"
+            href: R/notes/week_3/wed_etv_cycle_2/etv02_nba_solution.qmd
+          - text: "ETV 02 · Student"
+            href: R/notes/week_3/wed_etv_cycle_2/etv02_nba_empty.qmd
+      - section: "Week 4"
+        contents:
+          - text: "ETV 03 · Solution (template)"
+            href: R/notes/week_4/mon_etv_cycle_3/etv03_crime_solution.qmd
+          - text: "ETV 03 · Student (template)"
+            href: R/notes/week_4/mon_etv_cycle_3/etv03_crime_empty.qmd
+  page-footer:
+    left: "STAT/DATA 1810 · Data Science I"
+    right: "Built with [Quarto](https://quarto.org)"
+
+format:
+  html:
+    theme:
+      light: [cosmo, styles/theme.scss]
+    toc: true
+    toc-depth: 2
+    toc-location: right
+    code-copy: true
+    code-overflow: wrap
+    highlight-style: github
+    df-print: paged
+    smooth-scroll: true
+    page-navigation: true
+    link-external-newwindow: true
+
+execute:
+  freeze: auto
+  warning: false
+  message: false

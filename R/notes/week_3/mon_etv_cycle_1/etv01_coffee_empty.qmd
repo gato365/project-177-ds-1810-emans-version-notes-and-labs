@@ -1,0 +1,145 @@
+---
+title: "ETV Cycle 01 — Coffee Spending"
+subtitle: "STAT/DATA 1810 · In-class activity · Student version"
+author: "Your name here"
+format:
+  html:
+    toc: true
+execute:
+  warning: false
+  message: false
+  eval: false
+---
+
+<!--
+CLO ALIGNMENT
+  CLO 2 (2.1 read_csv extraction; 2.5 export awareness)
+  CLO 3 (3.1 core dplyr verbs: select, filter, mutate, summarize, arrange)
+  CLO 4 (4.1 ggplot2 grammar + geom_point; 4.4 center & spread; 4.5 defensible claim)
+  CLO 12 (12.4 Privacy — consent & transparency in transaction data)
+Time budget: 80 minutes. LM = short learning moment.
+-->
+
+# 0 · Context & ethics (8 min)
+
+Our data are 821 entries from a personal transaction ledger. Before touching
+them, two questions we owe the people in the data:
+
+- **Privacy (CLO 12.4):** every row records a purchase. Transaction data can
+  reveal routines, locations, and financial habits. *Did the people represented
+  here knowingly consent to their spending being analyzed?*
+- **Transparency:** if the shop uses this analysis to change prices, who should
+  be told?
+
+Write one sentence: what is one way this data could be used that a customer
+might not expect?
+
+> *Your sentence:*
+
+# 1 · The central question
+
+> **How much do customers spend on coffee, and how does the amount spent vary?**
+
+Every chunk below exists only to answer this. If a line of code doesn't serve
+the question, it doesn't belong.
+
+# 2 · E — Extraction (12 min)
+
+**LM1 — import.** The file is `Data/coffee_purchases.csv`. Import it with
+`read_csv()` and store it as `coffee_df`.
+
+```{r}
+library(tidyverse)
+
+# LM1: import the data
+coffee_df <- read_csv("____")
+```
+
+**LM2 — inspect.** Look at what arrived. How many rows? Which variable answers
+our question, and what type is it?
+
+```{r}
+# LM2: inspect with glimpse()
+
+```
+
+> *Which variables identify the purchase, and what does the sign of `amount`
+> mean?*
+
+# 3 · T — Transformation (30 min)
+
+**LM3 — select (CLO 3.1).** We don't need every column. Keep
+`description`, `amount`, `account`, `month`, and `year`.
+
+```{r}
+# LM3: select the relevant variables
+coffee_small_df <- coffee_df |>
+  select(____)
+```
+
+**LM4 — filter.** Keep descriptions that identify coffee purchases and remove
+missing amounts. The ledger stores spending as negative debits, so a negative
+amount is expected here, not impossible.
+
+```{r}
+# LM4: filter out missing / impossible amounts
+coffee_clean_df <- coffee_small_df |>
+  filter(____)
+```
+
+> *How many rows did you remove? Why is filtering by description a reasonable
+> operational definition of a coffee purchase?*
+
+**LM5 — mutate.** Create `spending = -amount` so the dollar amount is positive.
+
+```{r}
+# LM5: create a new variable
+
+```
+
+**LM6 — summarize.** Compute the **mean** and **standard deviation** of
+`spending`, and the count `n()`.
+
+```{r}
+# LM6: center and spread in one summarize()
+spending_summary_df <- coffee_clean_df |>
+  summarize(
+    mean_amount = ____,
+    sd_amount   = ____,
+    n           = n()
+  )
+
+spending_summary_df
+```
+
+# 4 · V — Visualization & summary (20 min)
+
+**LM7 — the distribution.** A histogram shows *how coffee spending varies*.
+
+```{r}
+# LM7: histogram of amount
+
+```
+
+**LM8 — geom_point().** Plot `spending` by `account` as points, one point per
+purchase. Points let you see every purchase the summary compressed away.
+
+```{r}
+# LM8: ggplot(...) + geom_point()
+ggplot(coffee_clean_df, aes(x = ____, y = ____)) +
+  geom_point() +
+  labs(x = ____, y = ____, title = ____)
+```
+
+*(Optional, if time: make a boxplot of `spending` by `account` — does it help
+answer the question?)*
+
+# 5 · Interpretation & final answer (10 min)
+
+Using your summary table AND one plot, answer the central question in 2–3
+sentences. A complete answer names: a typical amount (the mean), how much
+amounts vary (the sd, in dollars), and one caveat (what you filtered out).
+
+> *Your answer:*
+
+<!-- End of class: render this document. Rendering IS the receipt. -->

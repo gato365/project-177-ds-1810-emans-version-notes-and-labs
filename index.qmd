@@ -1,0 +1,35 @@
+---
+title: "STAT/DATA 1810 · Class Notes"
+subtitle: "Foundations and ETV cycles — instructor keys and student versions"
+toc: false
+---
+
+Each class meeting has a **student version** (blanks to fill, chunks to insert)
+and an **instructor key** (expected output, model answers, timing notes).
+Both are Quarto documents; the pages here are the rendered keys. Download the
+student `.qmd` to work along in Positron.
+
+<span class="badge-key">KEY</span> rendered instructor solution ·
+<span class="badge-stu">STUDENT</span> rendered student version ·
+`.qmd` download the student file
+
+## Foundations
+
+| Week | Day | Lesson | Key | Student | File |
+|:--|:--|:--|:--:|:--:|:--:|
+| 1 | Wed | Positron and the R Environment | [KEY](R/notes/week_1/wed_foundation_1/fnd01_positron_solution.qmd) | [STUDENT](R/notes/week_1/wed_foundation_1/fnd01_positron_empty.qmd) | [.qmd](R/notes/week_1/wed_foundation_1/fnd01_positron_empty.qmd){download="fnd01_positron_empty.qmd" target="_self"} |
+| 2 | Mon | Data Types and Data Structures | [KEY](R/notes/week_2/mon_foundation_2/fnd02_types_structures_solution.qmd) | [STUDENT](R/notes/week_2/mon_foundation_2/fnd02_types_structures_empty.qmd) | [.qmd](R/notes/week_2/mon_foundation_2/fnd02_types_structures_empty.qmd){download="fnd02_types_structures_empty.qmd" target="_self"} |
+| 2 | Wed | Inspecting and Accessing Data | [KEY](R/notes/week_2/wed_foundation_3/fnd03_inspect_access_solution.qmd) | [STUDENT](R/notes/week_2/wed_foundation_3/fnd03_inspect_access_empty.qmd) | [.qmd](R/notes/week_2/wed_foundation_3/fnd03_inspect_access_empty.qmd){download="fnd03_inspect_access_empty.qmd" target="_self"} |
+
+## ETV Cycles
+
+| Week | Day | Cycle | Key | Student | File |
+|:--|:--|:--|:--:|:--:|:--:|
+| 3 | Mon | 01 · Coffee Spending | [KEY](R/notes/week_3/mon_etv_cycle_1/etv01_coffee_solution.qmd) | [STUDENT](R/notes/week_3/mon_etv_cycle_1/etv01_coffee_empty.qmd) | [.qmd](R/notes/week_3/mon_etv_cycle_1/etv01_coffee_empty.qmd){download="etv01_coffee_empty.qmd" target="_self"} |
+| 3 | Wed | 02 · NBA GOATs | [KEY](R/notes/week_3/wed_etv_cycle_2/etv02_nba_solution.qmd) | [STUDENT](R/notes/week_3/wed_etv_cycle_2/etv02_nba_empty.qmd) | [.qmd](R/notes/week_3/wed_etv_cycle_2/etv02_nba_empty.qmd){download="etv02_nba_empty.qmd" target="_self"} |
+| 4 | Mon | 03 · Crime Data *(template)* | [KEY](R/notes/week_4/mon_etv_cycle_3/etv03_crime_solution.qmd) | [STUDENT](R/notes/week_4/mon_etv_cycle_3/etv03_crime_empty.qmd) | [.qmd](R/notes/week_4/mon_etv_cycle_3/etv03_crime_empty.qmd){download="etv03_crime_empty.qmd" target="_self"} |
+
+## Data
+
+- [`Data/coffee_purchases.csv`](Data/coffee_purchases.csv) — used in ETV 01
+- [`Data/nba_goats.xlsx`](Data/nba_goats.xlsx) — used in ETV 02

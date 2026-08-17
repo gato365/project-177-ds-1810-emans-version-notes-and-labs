@@ -1,0 +1,148 @@
+---
+title: "ETV Cycle 03 — [Crime Data: Title TBD]"
+subtitle: "STAT/DATA 1810 · In-class activity · Student version (TEMPLATE)"
+author: "Your name here"
+format:
+  html:
+    toc: true
+execute:
+  warning: false
+  message: false
+  eval: false
+---
+
+<!--
+TEMPLATE STATUS: structural template only. Instructor fills every [bracketed]
+placeholder once a specific crime dataset is chosen. Chunks are eval: false
+until the dataset exists; flip execute.eval to true at that point.
+
+CLO ALIGNMENT (planned)
+  CLO 2 (2.7 extraction from .RData — a NEW file type: load(), not read_*())
+  CLO 3 (3.1 dplyr: select, filter, mutate/recode, group_by, summarize, arrange)
+  CLO 4 (4.1 ggplot + geom_point; 4.3 counts; 4.5 defensible claim)
+  CLO 12 ([select 4–5 of the categories below])
+Time budget: 80 minutes.
+-->
+
+# 0 · Context & ethics (10 min)
+
+Crime data are about people at some of the worst moments of their lives, and
+about neighborhoods that live with the numbers afterward. Before any code,
+discuss **[instructor: keep 4–5]**:
+
+- **Privacy & confidentiality:** [Can individuals — victims or accused — be
+  identified from location, time, and offense together?]
+- **Geographic stigmatization:** [What happens to a neighborhood when its dot
+  density becomes its reputation?]
+- **Underreporting / inconsistent reporting:** [Which offenses are least
+  reported, and how does that bend every count we compute?]
+- **Bias in policing or data collection:** [Do these records measure crime, or
+  measure *enforcement*?]
+- **Responsible communication:** [What must accompany a crime chart before it
+  is shared outside this room?]
+
+> *Write one sentence on the consideration that most changes how you'd present
+> this analysis:*
+
+# 1 · The central question
+
+> **[Insert ONE focused research question about the crime data — e.g., "How
+> does the count of [offense type] vary by [hour of day / month / category]?"]**
+
+# 2 · E — Extraction (12 min)
+
+**LM1 — a new file type.** This dataset arrives as an **`.RData` file** — an R
+object saved to disk. Unlike `read_csv()` or `read_excel()`, you don't assign
+the result: `load()` places the saved object(s) directly into your environment.
+
+```{r}
+library(tidyverse)
+
+# LM1: load the .RData file
+load("Data/[FILENAME].RData")
+
+# What just appeared? List the environment:
+ls()
+```
+
+**LM2 — inspect.** The loaded object is named `[OBJECT_NAME]`.
+
+```{r}
+# LM2: inspect
+glimpse([OBJECT_NAME])
+
+# [Instructor: one line noting rows, date range, and unit of observation]
+```
+
+# 3 · T — Transformation (28 min)
+
+**LM3 — select.** [Keep the variables needed for the question: e.g.,
+`offense`, `date_time`, `neighborhood` … ]
+
+```{r}
+# LM3: select the relevant variables
+crime_small_df <- [OBJECT_NAME] |>
+  select([ ... ])
+```
+
+**LM4 — filter.** [Keep the relevant observations: offense type(s), date
+window, records with usable values. State the rule you applied.]
+
+```{r}
+# LM4: filter the relevant observations
+crime_clean_df <- crime_small_df |>
+  filter([ ... ])
+```
+
+> *How many rows removed, and why is that rule defensible? (Underreporting
+> beat returns here.)*
+
+**LM5 — mutate / recode.** [Create or recode one variable the question needs —
+e.g., extract hour from the timestamp, or collapse offense categories.]
+
+```{r}
+# LM5: create or recode
+
+```
+
+**LM6 — group + summarize + arrange.** [Group by the question's key variable,
+count with `n()` or summarize, arrange descending.]
+
+```{r}
+# LM6: group_by() |> summarize() |> arrange()
+crime_summary_df <- crime_clean_df |>
+  group_by([ ... ]) |>
+  summarize(n = n()) |>
+  arrange(desc(n))
+
+crime_summary_df
+```
+
+# 4 · V — Visualization & summary (20 min)
+
+**LM7 — the summary table.** [Present `crime_summary_df` — this table should
+already half-answer the question.]
+
+**LM8 — geom_point().** [Plot the summarized counts as points — e.g., count by
+hour of day. Add honest labels; per the ethics discussion, the title must not
+overclaim.]
+
+```{r}
+# LM8: ggplot(...) + geom_point()
+ggplot(crime_summary_df, aes(x = [ ... ], y = n)) +
+  geom_point(size = 3) +
+  labs(
+    x = "[ ... ]",
+    y = "Number of reported incidents",
+    title = "[Pattern, stated carefully — 'reported', not 'occurred']"
+  )
+```
+
+> *[Describe the important pattern in one sentence — and one sentence on what
+> the pattern might reflect besides crime itself.]*
+
+# 5 · Interpretation & final answer (10 min)
+
+> **[Use evidence from the table and the plot to answer the central question
+> in 2–3 sentences. Required trio: the pattern, its size, and one caveat drawn
+> from section 0 — most likely reporting or enforcement bias.]**

@@ -1,0 +1,301 @@
+---
+title: "Foundations 01 — Positron and the R Environment"
+subtitle: "STAT/DATA 1810 · Week 1 Wednesday · Student version"
+author: "Your name here"
+format:
+  html:
+    toc: true
+execute:
+  warning: false
+  message: false
+---
+
+<!--
+CLO ALIGNMENT
+  CLO 1 (1.1 what R is · 1.2 Positron · 1.3 projects/directories ·
+         1.4 assignment · 1.7 packages vs libraries)
+  CLO 11 (11.1 ?function help)
+  CLO 9 practiced, not graded (this document IS a Quarto doc)
+Time: 80 min. Dataset: mtcars (built in — no import needed yet).
+LM = learning moment. YT = your turn (practice). Fill every ____ and every
+empty chunk. Times in headers are the budget for that section.
+-->
+
+# 0 · What you are looking at (12 min)
+
+**R** is a programming language for working with data. **Positron** is the
+program we use to *talk to* R — an integrated development environment (IDE).
+R does the work; Positron is the workshop it happens in.
+
+## The panes (6 min)
+
+Positron is divided into **panes**. Find each one on your screen and check it
+off — physically point at it:
+
+- [ ] **Editor** (Source) — the big middle area where this `.qmd` file is open.
+  Code you *keep* lives here.
+- [ ] **Console** — bottom. R answers here, one command at a time. Code you
+  type here is *not saved*.
+- [ ] **Variables** — right side (RStudio calls it *Environment*). Every object
+  you create this session shows up here.
+- [ ] **Plots** — right side. Pictures appear here.
+- [ ] **Help** — right side. Documentation appears here when you ask for it.
+- [ ] **Explorer** (Files) — left sidebar. The files in your project folder.
+- [ ] Terminal · Viewer · Connections — know they exist; we'll meet them when
+  we need them.
+
+> *YT1 (1 min). A neighbor asks "where do I look to see what objects I've
+> made?" Which pane do you point at? ____*
+>
+> *YT2 (1 min). You type code and want it to be there tomorrow. Which pane
+> does it go in? ____*
+
+## The Session (6 min)
+
+R runs inside a **session** — a running copy of R that Positron is talking to.
+Look at the **top-right corner** of Positron: it shows which R is running
+(something like `R 4.x.x`). That is your session.
+
+Three things to know about the session, today:
+
+1. **It has memory.** Every object you create lives in the session, and shows
+   up in Variables.
+2. **It can be restarted.** In the Console toolbar (or the top-right session
+   menu) there is a **Restart** button. Restarting wipes the session's memory
+   clean — Variables empties out. Your *files* are untouched.
+3. **It can be replaced.** The same menu lets you pick a different R (or
+   Python) if more than one is installed. Don't do that today; just know the
+   button exists.
+
+Do this now: create nothing yet, look at Variables (empty), and remember what
+empty looks like — we'll come back after we've made some objects.
+
+> *Q1. In one sentence: what is the difference between the Console and the
+> Editor?*
+>
+> *Your answer:*
+
+# 1 · Running code and code chunks (12 min)
+
+**LM1 — the Console (2 min).** Click into the Console, type `2 + 2`, press
+Enter. R answers. Now press the up-arrow — the Console remembers your last
+line. Edit it to `2 + 3` and press Enter.
+
+**LM2 — a code chunk (5 min).** This document is a **Quarto** file: text and
+code mixed together. The gray boxes are **code chunks**. A chunk is:
+
+- opened by a line that reads ```` ```{r} ```` (three backticks, then `{r}`)
+- closed by a line of three backticks ```` ``` ````
+- everything between the two is R code
+
+Look at the chunk below in the Editor. Notice the small **play button** at
+its top-right corner. Click it (or put your cursor on a line and press
+**Cmd/Ctrl + Enter** to run just that line):
+
+```{r}
+# LM2: this line is a COMMENT — R ignores anything after #
+2 + 2
+3 * 7
+10 / 4
+```
+
+Two things happened: the results appeared **under the chunk** *and* the same
+code ran in the **Console**. A chunk is just a saved bundle of Console lines.
+
+**LM3 — chunk options (2 min).** Lines that start with `#|` at the top of a
+chunk are **options** — instructions to Quarto, not R. You will see
+`#| eval: false` in this document; it means "show this code, but don't run
+it when rendering." Useful for code that is broken on purpose.
+
+```{r}
+#| eval: false
+# LM3: this chunk is displayed but never runs
+this_would_be_an_error
+```
+
+> *YT3 (3 min). Edit the chunk below so it computes THREE things: 5 minus
+> something to give 1; 100 divided by 8; and 2 to the 10th power (hint: `^`).*
+
+```{r}
+# YT3: edit and run — start with:  5 - ____
+
+```
+
+> *Q2. Where did the output show up — under the chunk, in the Console, or
+> both? ____*
+
+# 2 · Objects and assignment (16 min)
+
+**LM4 — the arrow (3 min).** `<-` stores a value under a name. Without it,
+R computes and forgets. (Type it fast: `Alt + -` inserts `<-` in Positron.)
+
+```{r}
+# LM4: create an object, then call its name
+cups <- 3
+cups
+```
+
+Look at the **Variables pane** — `cups` is there now, with its value.
+
+**LM5 — objects combine (4 min).** Predict before you run: what will `total`
+be?
+
+```{r}
+# LM5: predict, then run
+price <- 4.50
+total <- cups * price
+total
+```
+
+> *Q3. Prediction: ____  · What R said: ____*
+
+**LM6 — overwriting (4 min).** Run this, then check the Variables pane again.
+
+```{r}
+# LM6: same name, new value
+cups <- 10
+total
+```
+
+> *Q4. `total` did NOT change to 45. Why not? (Hint: WHEN was `total`
+> computed?)*
+>
+> *Your answer:*
+
+> *YT4 (5 min). In the chunk below:*
+> *(a) create `hours` holding how many hours you slept last night;*
+> *(b) create `minutes` as `hours` times 60;*
+> *(c) print `minutes`;*
+> *(d) predict — if you now change `hours` to 8, does `minutes` change? Test it.*
+
+```{r}
+# YT4:
+
+```
+
+> *Your prediction for (d): ____ · What happened: ____*
+
+Now look at Variables: how many objects are there? Names are on the left,
+values on the right — this pane is your session's memory, made visible.
+
+# 3 · Functions, packages, help (20 min)
+
+**LM7 — a function (4 min).** A function is a named action: `name(arguments)`.
+`mtcars` is a dataset built into R — 32 cars from 1974. No import needed.
+The `$` pulls one column out of it (much more on `$` next week).
+
+```{r}
+# LM7: call functions on built-in data
+mean(mtcars$mpg)
+nrow(mtcars)
+```
+
+> *YT5 (4 min). One line each:*
+> *(a) `max()` of horsepower, `mtcars$hp`;*
+> *(b) `min()` of miles-per-gallon;*
+> *(c) `ncol()` of `mtcars` — how many columns?*
+> *(d) `round()` the mean mpg to 1 decimal place. (Hint: `round(x, 1)`.)*
+
+```{r}
+# YT5:
+
+```
+
+**LM8 — help (5 min).** Every function has documentation. Run this, and the
+Help pane opens:
+
+```{r}
+#| eval: false
+?mean
+```
+
+Read the **Usage** and **Arguments** sections. That's where the answers to
+"what does this function want from me?" always live.
+
+> *Q5. From the help page: what does the `na.rm` argument do?*
+>
+> *Your answer:*
+
+> *YT6 (2 min). Look up `?round`. What is the name of its second argument,
+> and what is its default value? ____ · ____*
+
+**LM9 — packages (5 min).** A **package** is a collection of functions
+someone wrote. You **install** once (download to your computer), you **load**
+every session (open the toolbox):
+
+```{r}
+#| eval: false
+install.packages("tidyverse")   # ONCE per computer — done in setup
+library(tidyverse)              # EVERY session you use it
+```
+
+```{r}
+# LM9: load it now (already installed)
+library(tidyverse)
+```
+
+> *Q6. Fill the blanks: install.packages() runs ____ per computer;
+> library() runs ____ per session.*
+
+# 4 · When things break (12 min)
+
+**LM10 — read the error (4 min).** Run this broken line. Read the message
+*slowly* before fixing it.
+
+```{r}
+#| eval: false
+# LM10: broken on purpose — fix it in the chunk below
+meen(mtcars$mpg)
+```
+
+```{r}
+# LM10 fixed:
+
+```
+
+> *Q7. What did the error message say, and what did it mean?*
+>
+> *Your answer:*
+
+> *YT7 (4 min). Each chunk below has ONE bug. Read the error, then fix it
+> in place. Write the error family in the comment (typo in a function name?
+> object that doesn't exist? something else?).*
+
+```{r}
+#| eval: false
+# YT7a — error family: ____
+mean(mtcars$mgp)
+```
+
+```{r}
+#| eval: false
+# YT7b — error family: ____
+mean(Mtcars$mpg)
+```
+
+```{r}
+#| eval: false
+# YT7c — error family: ____
+mean(mtcars$mpg
+```
+
+**LM11 — the reset button (4 min).** If R gets confused, restart the session:
+Console toolbar → **Restart R** (or the top-right session menu). Do it now,
+for real. Then look at Variables.
+
+> *Q8. After the restart: is `cups` still in Variables? ____ · Is the code
+> that CREATED `cups` still in this file? ____ · Re-run section 2's chunks —
+> how long did it take to get `cups` back? ____*
+
+# 5 · Save & render (8 min)
+
+Save this file into your project's `R/` folder as
+`fnd01_yourlastname.qmd`, then press **Render** (the button above the
+Editor, or Cmd/Ctrl + Shift + K). A webpage appears — your first
+reproducible document. Every chunk in it re-ran from a *fresh* session to
+build that page.
+
+> *Exit question: name one thing that lives in the Variables pane and one
+> thing that lives in the Editor, and say which one survives a restart.*
+>
+> *Your answer:*

@@ -1,0 +1,207 @@
+---
+title: "Foundations 03 — Inspecting and Accessing Data"
+subtitle: "STAT/DATA 1810 · Week 2 Wednesday · SOLUTION"
+author: "Instructor key"
+format:
+  html:
+    toc: true
+execute:
+  warning: false
+  message: false
+---
+
+<!--
+CLO: 1.6, 1.12, accessing ($ / [ ] / [[ ]]) · 7.6 · 9 practiced
+Timing: job 2' · inspecting 22' · accessing 33' · storage 10' · ETV preview 5'
+        · exit 8' = 80'
+Checkpoint: §2 starts at 24'. If behind, cut YT5 and shorten YT4 to (a)–(c).
+The ETV preview closes foundations: run Cycle-0-style coffee import→plot live,
+narrating nothing but the three stage names. Monday they drive C1.
+-->
+
+```{r}
+#| label: setup
+library(tidyverse)
+```
+
+# 1 · Inspecting data (22 min)
+
+```{r}
+head(airquality); tail(airquality)
+dim(airquality); nrow(airquality); ncol(airquality)
+```
+
+**Q1: 153 rows × 6 columns; one row = one day** of measurements (May–Sep
+1973). The observation question matters more than the numbers — every dataset
+this term starts with "what is a row?"
+
+```{r}
+names(airquality)
+str(airquality)
+glimpse(airquality)
+```
+
+**Q2 model:** `glimpse()` is easier (one line per variable, fits any width);
+the tags are the **types from Monday** — `int` integers, `dbl` doubles. Point
+made: Monday's vocabulary is now reading equipment.
+
+```{r}
+summary(airquality)
+```
+
+**Q3: Ozone (37 NA) and Solar.R (7 NA).** `summary()` prints the NA counts
+in-column — students should find them without help.
+
+```{r}
+# YT1 — mtcars, unseen
+dim(mtcars)
+head(mtcars)
+glimpse(mtcars)
+summary(mtcars)
+```
+
+**YT1: (a) 32 × 11 · (b) one row = one car model** (the row *names* are the
+cars — first time they've seen row names carry meaning) · **(c) all
+numeric** (`dbl` everywhere — even `cyl`, `am`, `gear`, which are really
+categories; connect to Monday's item E) · **(d) none** — `summary()` shows
+no NA row · **(e) median mpg = 19.2**. Teaching note: the point of YT1 is
+that they choose the functions themselves; don't prescribe which.
+
+# 2 · Accessing data (33 min)
+
+```{r}
+mean(airquality$Temp)
+```
+
+**Expected: 77.88°F.**
+
+```{r}
+# YT2
+mean(airquality$Wind)
+max(airquality$Temp)
+mean(airquality$Ozone)
+mean(airquality$Ozone, na.rm = TRUE)
+sum(airquality$Temp > 90)
+```
+
+**YT2: (a) 9.96 mph · (b) 97 · (c) NA, then 42.13 with `na.rm = TRUE`** —
+this is the callback to Foundations 01 Q5; let someone remember it before
+you say it · **(d) 14 days**. Part (d) is the first *logical vector doing
+arithmetic* — TRUE = 1 — say it once, it returns with `filter()` Monday.
+
+```{r}
+airquality[1, ]
+airquality[, 4]
+airquality[1:5, c("Ozone", "Temp")]
+```
+
+**LM5 predictions worth pausing on:** `airquality[, 4]` returns a *vector*
+(single column drops the frame in base R) — don't belabor it; Q4 lands it.
+
+```{r}
+# YT3
+airquality[10:15, c("Month", "Day")]
+airquality[nrow(airquality), ]
+airquality[1:3, 1:3]
+head(airquality["Temp"])
+```
+
+**YT3 (b)** is the one to check: `nrow()` *inside* the bracket. Ask "what if
+tomorrow the file has 200 rows?" — that's why we don't type 153.
+**(d)** previews Q4: no comma → column selection → still a data frame.
+
+```{r}
+airquality[[1, "Temp"]]
+my_list <- list(nums = c(1, 2, 3), word = "hello")
+my_list[["nums"]]
+my_list$word
+```
+
+```{r}
+head(airquality$Temp)
+head(airquality["Temp"])
+head(airquality[["Temp"]])
+```
+
+**Q4: the middle one — `airquality["Temp"]`** keeps the data frame wrapping
+(the printed header gives it away). Rule of thumb to leave them with:
+**`$` for a column you'll compute on; `[rows, cols]` for a rectangle;
+`[[ ]]` to dig one thing out of a container.** Deeper indexing rules are drill
+material (M4), not lecture material.
+
+```{r}
+which(is.na(airquality$Ozone)) |> head()
+```
+
+**Expected: rows 5, 10, 25, 26, 27, 32.** First `|>` sighting — name it ("read
+it as *then*"), promise it becomes the backbone Monday, move on.
+
+```{r}
+# YT4 — access challenge on iris
+length(iris$Species)                       # (a) 150
+iris[51:53, ]                              # (b) versicolor
+iris[[100, "Petal.Width"]]                 # (c) 1.3
+mean(iris$Sepal.Length[1:50])              # (d) 5.006
+my_list2 <- list(flowers = iris, n = nrow(iris))
+my_list2[["n"]]                            # (e) 150
+my_list2$n                                 # (e) 150 — same
+```
+
+**YT4 notes:** (d) is the sneaky one — `$` then `[1:50]` on the *vector*.
+Some students will write `mean(iris[1:50, "Sepal.Length"])`; also correct —
+show both on the projector, same answer, and say the rule of thumb again.
+Stretch: `$` wins, by a lot; that's the honest answer and it's why the
+tidyverse is built around column names.
+
+# 3 · How big is data? (10 min)
+
+```{r}
+object.size(airquality)
+object.size(iris)
+object.size(mtcars)
+```
+
+**Q5 expected order:** actually run it: airquality ≈ 5.6 KB, mtcars ≈ 7.2 KB,
+iris ≈ 7.8 KB, so **airquality < mtcars < iris**. (mtcars is small in rows
+but its row *names* cost bytes — a fun 20-second aside if asked; otherwise
+just confirm the order from the output.)
+
+**Q6: about 16 copies** (8 GB ≈ 8,000 MB; 8,000 / 500 = 16). The honest
+version: overhead means fewer in practice — the point is the *order of
+magnitude* reasoning, which is sub-outcome 1.12's whole job.
+
+```{r}
+# YT5
+object.size(iris)
+object.size(iris$Sepal.Length)
+```
+
+**YT5:** one column ≈ 1.2 KB of ≈ 7.8 KB — about 15%, less than 1/5. Why:
+the data frame carries overhead (names, row labels, the factor's level
+table) beyond its raw numbers. Any answer noticing "less than 1/5, because
+the container itself costs something" is full credit.
+
+# 4 · Where this is going (5 min)
+
+Run the coffee import → `filter` → histogram in under three minutes, saying
+only: *"Extraction. Transformation. Visualization. Monday, this is yours."*
+No function explanations — the mystique is the motivation.
+
+# 5 · Exit question (8 min)
+
+**Model answer:**
+
+```{r}
+#| eval: false
+glimpse(mysterydata)      # structure: rows, columns, names, types
+summary(mysterydata)      # ranges + WHERE the NAs are
+head(mysterydata)         # what the values actually look like
+
+mysterydata$score         # one column, as a vector
+```
+
+Any three of {glimpse/str, summary, head/tail, dim/nrow+ncol, names} with
+correct one-line justifications passes; the access line must be `$score`
+or `[["score"]]` (a vector) — `["score"]` is a data frame, half credit with
+the explanation. The habit being graded: **inspect before you compute** —
+which is the E stage's second half, forever.

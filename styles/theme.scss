@@ -1,0 +1,35 @@
+/*-- scss:defaults --*/
+$primary: #1f5f8b;
+$secondary: #e8a33d;
+$body-color: #232629;
+$link-color: #1f5f8b;
+$font-family-sans-serif: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+$font-family-monospace: "JetBrains Mono", "SF Mono", Menlo, monospace;
+$code-block-bg: #f6f8fa;
+$code-block-border-left: #1f5f8b;
+$navbar-bg: $primary;
+$sidebar-bg: #f8f9fb;
+$h1-font-size: 1.9rem;
+$h2-font-size: 1.45rem;
+
+/*-- scss:rules --*/
+.title { font-weight: 700; letter-spacing: -0.01em; }
+.subtitle.lead { color: #5b6470; font-size: 1.05rem; }
+h1, .h1 { border-bottom: 2px solid #e5e8ec; padding-bottom: .25rem; margin-top: 2.2rem; }
+blockquote {
+  border-left: 4px solid $secondary;
+  background: #fff8ec;
+  padding: .6rem 1rem;
+  border-radius: 0 6px 6px 0;
+  color: #4a4a4a;
+}
+blockquote p { margin-bottom: .3rem; }
+div.sourceCode { border-radius: 6px; }
+pre.sourceCode { font-size: .9rem; }
+.cell-output pre { background: #ffffff; border: 1px solid #e5e8ec; border-radius: 6px; font-size: .88rem; }
+table { font-size: .93rem; }
+.sidebar-item-text { font-size: .92rem; }
+.card-lesson { border: 1px solid #e5e8ec; border-radius: 8px; padding: 1rem 1.2rem; height: 100%; }
+.card-lesson h3 { margin-top: 0; font-size: 1.1rem; }
+.badge-key { background: $primary; color: #fff; border-radius: 4px; padding: .1rem .45rem; font-size: .75rem; }
+.badge-stu { background: $secondary; color: #fff; border-radius: 4px; padding: .1rem .45rem; font-size: .75rem; }

@@ -1,0 +1,249 @@
+---
+title: "Foundations 02 — Data Types and Data Structures"
+subtitle: "STAT/DATA 1810 · Week 2 Monday · Student version"
+author: "Your name here"
+format:
+  html:
+    toc: true
+execute:
+  warning: false
+  message: false
+---
+
+<!--
+CLO ALIGNMENT
+  CLO 1 (1.5 data types: numeric/character/factor/date · 1.6 containers:
+         vector, data frame/tibble, list, matrix · 1.4 assignment reinforced)
+  CLO 7 preview (7.6 is.na())
+  CLO 9 practiced: students INSERT THEIR OWN CHUNKS today
+Time: 80 min. Datasets: iris, airquality (built in) + tiny constructed examples.
+Rule of the day: a TYPE is what one value is; a STRUCTURE is how values are held.
+LM = learning moment. YT = your turn. Times in headers are the section budget.
+-->
+
+```{r}
+#| label: setup
+library(tidyverse)
+```
+
+# 0 · The one distinction, and your own chunks (8 min)
+
+> **Type** = what a single value *is* (number? text? TRUE/FALSE?).
+> **Structure** = the container holding many values (vector? data frame? list?).
+
+Everything today hangs off that sentence.
+
+**New skill today: you make the chunks.** Last week every chunk was provided.
+From now on, when you see **"➕ insert a chunk"**, you create one yourself.
+Three ways — pick one and practice it until it's automatic:
+
+1. Keyboard: **Cmd + Shift + I** (Mac) / **Ctrl + Shift + I** (Windows).
+2. Command Palette (Cmd/Ctrl + Shift + P) → type *Quarto: Insert Code Cell*.
+3. Type it by hand: a line with ```` ```{r} ````, your code, then a line with
+   ```` ``` ````.
+
+> *YT0 (3 min). Directly below this line, insert a chunk. Inside it, write a
+> comment `# YT0` and the line `1 + 1`. Run it. If output appears under your
+> chunk, you're ready.*
+
+<!-- ➕ insert a chunk here -->
+
+# 1 · Data types (22 min)
+
+**LM1 — the four you'll live with (4 min).** Predict each `class()` before
+running:
+
+```{r}
+# LM1: predict, then run
+class(4.75)
+class(4L)
+class("latte")
+class(TRUE)
+```
+
+> *Q1. Predictions: ____ · ____ · ____ · ____*
+
+**LM2 — doubles vs integers (2 min).** Both are numeric; `typeof()` tells
+them apart.
+
+```{r}
+# LM2
+typeof(4.75)
+typeof(4L)
+```
+
+**LM3 — factors (4 min).** A factor is text with a fixed menu of allowed
+values (levels). `iris$Species` is built in:
+
+```{r}
+# LM3: character vs factor
+class(iris$Species)
+levels(iris$Species)
+```
+
+> *Q2. How many levels does Species have, and what are they?*
+>
+> *Your answer:*
+
+**LM4 — dates and date-times (2 min).**
+
+```{r}
+# LM4
+today <- Sys.Date()
+class(today)
+
+right_now <- Sys.time()
+class(right_now)
+```
+
+**LM5 — NA, the missing value (3 min).** `airquality` (built in) has real
+missing ozone readings:
+
+```{r}
+# LM5: count the missing values in Ozone
+sum(is.na(airquality$Ozone))
+```
+
+> *Q3. How many Ozone values are missing? ____*
+
+**LM6 — the is.\* family (3 min).** Test types with functions that return
+TRUE/FALSE:
+
+```{r}
+#| eval: false
+# LM6: fill each blank so all four return TRUE, then delete the eval line
+is.numeric(____)
+is.character(____)
+is.logical(____)
+is.factor(____)
+```
+
+> *YT1 (4 min). ➕ Insert a chunk below. In it, find the `class()` of each of
+> the following, predicting first: `"TRUE"` (with quotes) · `3 > 2` ·
+> `mtcars$cyl` · `Sys.Date() + 7`. Then in the comment, write which one
+> surprised you.*
+
+<!-- ➕ insert a chunk here -->
+
+> *Predictions: ____ · ____ · ____ · ____*
+
+# 2 · Data structures (30 min)
+
+**LM7 — vector: one type, many values (4 min).** Built with `c()`:
+
+```{r}
+# LM7: a vector
+drinks <- c("latte", "drip", "mocha")
+drinks
+length(drinks)
+class(drinks)
+```
+
+> *YT2 (4 min). ➕ Insert a chunk. Build THREE vectors and print each:*
+> *(a) `prices` — three numbers, one price per drink above;*
+> *(b) `sizes` — three sizes as text ("small", "medium", "large");*
+> *(c) `iced` — three TRUE/FALSE values, whether each drink is iced.*
+> *Then run `class()` on each. What happens if you run `c(1, "two", 3)`? Try
+> it and look at the class.*
+
+<!-- ➕ insert a chunk here -->
+
+> *Q4. `c(1, "two", 3)` has class ____. In one phrase, why?*
+>
+> *Your answer:*
+
+**LM8 — data frame & tibble: vectors standing side by side (6 min).** Each
+column is a vector; every column has the same length.
+
+```{r}
+# LM8: same data, two containers
+menu_df  <- data.frame(drink = drinks, price = c(4.75, 2.75, 5.25))
+menu_tbl <- tibble(drink = drinks, price = c(4.75, 2.75, 5.25))
+
+menu_df
+menu_tbl
+```
+
+> *Q5. Name one visible difference between how the data frame and the tibble
+> printed:*
+>
+> *Your answer:*
+
+> *YT3 (5 min). ➕ Insert a chunk. Build a tibble called `menu` from YOUR
+> vectors from YT2 — columns `drink`, `price`, `size`, `iced`. Print it.
+> Then run `nrow(menu)`, `ncol(menu)`, and `class(menu)`. What happens if one
+> vector has only two values? Try it (make a broken one on purpose), read
+> the error, then fix it.*
+
+<!-- ➕ insert a chunk here -->
+
+**LM9 — tribble: a tibble typed row by row (2 min)** (brief — you'll rarely
+need it):
+
+```{r}
+# LM9
+tribble(
+  ~drink,  ~price,
+  "chai",   4.50,
+  "espresso", 3.00
+)
+```
+
+**LM10 — list: the junk drawer (4 min).** A list holds *anything*, even other
+structures:
+
+```{r}
+# LM10
+my_list <- list(name = "week 2", nums = c(1, 2, 3), data = menu_tbl)
+my_list
+length(my_list)
+```
+
+> *YT4 (3 min). ➕ Insert a chunk. Build a list called `me` with three named
+> parts: your first name (text), the number of classes you're taking, and
+> your `menu` tibble. Print it. Notice how each part keeps its own type.*
+
+<!-- ➕ insert a chunk here -->
+
+**LM11 — matrix: all one type, rows × columns (2 min)** (brief):
+
+```{r}
+# LM11
+matrix(1:6, nrow = 2)
+```
+
+> *Q6. Which structure could hold a column of names AND a column of numbers:
+> a matrix or a data frame? Why?*
+>
+> *Your answer:*
+
+# 3 · In-class activity: type it or contain it (15 min)
+
+For each item, write **T** if the question is about a type and **S** if it's
+about a structure, then answer it with code. ➕ Insert **one chunk per item**
+(A through F) so each answer is its own runnable piece.
+
+- **A.** What is `iris` — its structure?
+- **B.** What is `iris$Sepal.Length` — its type?
+- **C.** Is there any NA anywhere in `airquality$Solar.R`? How many?
+- **D.** Build a tibble with 2 columns: your three favorite foods and a
+  rating (1–10) for each.
+- **E.** What is `airquality$Month` — its type? Should it be? (Months are
+  numbers here — would a factor make more sense? One sentence.)
+- **F.** Build a list holding your food tibble from D *and* a character
+  vector of the three places you eat those foods.
+
+<!-- ➕ insert chunks A–F here -->
+
+> *A: ____ · B: ____ · C: ____ · D: ____ · E: ____ · F: ____*
+
+# 4 · Exit question (5 min)
+
+> *In your own words, one sentence each: what is a data type, and what is a
+> data structure? Use one example of each from today — and at least one must
+> be something YOU built.*
+>
+> *Your answer:*
+
+Save as `fnd02_yourlastname.qmd` in your `R/` folder and **Render**. If a
+chunk you inserted breaks the render, read the error: it names the chunk.

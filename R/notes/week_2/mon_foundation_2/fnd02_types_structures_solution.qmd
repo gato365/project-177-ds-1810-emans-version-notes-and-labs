@@ -1,0 +1,265 @@
+---
+title: "Foundations 02 — Data Types and Data Structures"
+subtitle: "STAT/DATA 1810 · Week 2 Monday · SOLUTION"
+author: "Instructor key"
+format:
+  html:
+    toc: true
+execute:
+  warning: false
+  message: false
+---
+
+<!--
+CLO: 1.5, 1.6, 1.4 · 7.6 preview · 9 practiced (students insert chunks)
+Timing: distinction+chunks 8' · types 22' · structures 30' · activity 15'
+        · exit 5' = 80'
+Emphasis per spec: vectors, data frames/tibbles, lists get practice;
+matrix & tribble get one chunk each, no drills.
+Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
+-->
+
+```{r}
+#| label: setup
+library(tidyverse)
+```
+
+# 0 · The one distinction, and your own chunks (8 min)
+
+Write the sentence on the board and leave it there all class:
+**type = one value's nature; structure = the container.**
+
+**Teaching note — inserting chunks.** Demonstrate the shortcut
+(Cmd/Ctrl + Shift + I) *once*, slowly, on the projector: cursor on a blank
+line, press it, the fence appears, type `1 + 1`, run. Then YT0 — walk the
+room for 2 minutes and make sure every screen shows output under a
+student-made chunk before moving on. This is the one thing today that can't
+be caught up on later; every later YT depends on it. Students who type the
+fence by hand are fine — the skill is "I can make a chunk," not the shortcut.
+
+```{r}
+# YT0
+1 + 1
+```
+
+# 1 · Data types (22 min)
+
+```{r}
+# LM1 — expected: "numeric", "integer", "character", "logical"
+class(4.75)
+class(4L)
+class("latte")
+class(TRUE)
+```
+
+**Q1 note:** most students predict `"numeric"` for `4L` — good; the surprise
+is the point. The `L` suffix is worth 30 seconds, no more.
+
+```{r}
+# LM2 — "double" vs "integer"
+typeof(4.75)
+typeof(4L)
+```
+
+```{r}
+# LM3 — factor with 3 levels
+class(iris$Species)
+levels(iris$Species)
+```
+
+**Q2:** 3 levels — setosa, versicolor, virginica. **Teaching note:** the menu
+metaphor ("a factor is text with a fixed menu") pays rent in week 6 when
+forcats arrives.
+
+```{r}
+# LM4
+today <- Sys.Date()
+class(today)
+right_now <- Sys.time()
+class(right_now)
+```
+
+Expected classes: `"Date"` and `"POSIXct" "POSIXt"` — say "date-time" and
+move on; lubridate handles the ugliness in week 4.
+
+```{r}
+# LM5
+sum(is.na(airquality$Ozone))
+```
+
+**Q3: 37 missing.** Real 1973 NYC air data — the missing values are genuinely
+missing, not planted. First appearance of the `is.na()` + `sum()` idiom;
+students will use it in every cycle.
+
+```{r}
+# LM6 — any correct fills, e.g.
+is.numeric(4.75)
+is.character("latte")
+is.logical(TRUE)
+is.factor(iris$Species)
+```
+
+```{r}
+# YT1 — expected: "character", "logical", "numeric", "Date"
+class("TRUE")
+class(3 > 2)
+class(mtcars$cyl)
+class(Sys.Date() + 7)
+```
+
+**YT1 teaching note:** the surprise is almost always `"TRUE"` — quotes make
+it text. Second surprise: `3 > 2` *produces* a logical; comparisons are how
+logicals get made in practice (filter() in two weeks). `mtcars$cyl` being
+numeric though it only takes 4/6/8 is a preview of activity item E.
+
+# 2 · Data structures (30 min)
+
+```{r}
+# LM7
+drinks <- c("latte", "drip", "mocha")
+drinks
+length(drinks)
+class(drinks)
+```
+
+```{r}
+# YT2
+prices <- c(4.75, 2.75, 5.25)
+sizes  <- c("small", "medium", "large")
+iced   <- c(TRUE, FALSE, TRUE)
+prices; sizes; iced
+class(prices); class(sizes); class(iced)
+c(1, "two", 3)
+class(c(1, "two", 3))
+```
+
+**Q4: character.** A vector holds *one* type, so R converts everything to
+the type that can hold all of it — text. This is **coercion**, arriving by
+accident rather than lecture. Say the word once; students meet it again
+when a numeric column imports as `<chr>` because of one stray "N/A".
+
+```{r}
+# LM8
+menu_df  <- data.frame(drink = drinks, price = c(4.75, 2.75, 5.25))
+menu_tbl <- tibble(drink = drinks, price = c(4.75, 2.75, 5.25))
+menu_df
+menu_tbl
+```
+
+**Q5 model answers (any one):** the tibble announces its dimensions
+(`# A tibble: 3 × 2`); the tibble shows column types (`<chr>`, `<dbl>`); the
+data frame shows row numbers without types. **Framing:** a tibble IS a data
+frame with better manners — we'll say "data frame" for both.
+
+```{r}
+# YT3
+menu <- tibble(drink = drinks, price = prices, size = sizes, iced = iced)
+menu
+nrow(menu); ncol(menu); class(menu)
+```
+
+```{r}
+#| eval: false
+# YT3 — the deliberate break
+tibble(drink = drinks, price = c(4.75, 2.75))
+#> Error: Tibble columns must have compatible sizes.
+#> • Size 3: Existing data.
+#> • Size 2: Column `price`.
+```
+
+**YT3 teaching note:** the error is a *good* error — it names the sizes and
+the column. Have someone read it aloud. "Every column the same length" is
+now something they've felt, not heard. (`class(menu)` returns three things —
+`tbl_df`, `tbl`, `data.frame` — say "it's a data frame, with extra labels"
+and move on.)
+
+```{r}
+# LM9 — tribble, briefly
+tribble(
+  ~drink,  ~price,
+  "chai",   4.50,
+  "espresso", 3.00
+)
+```
+
+```{r}
+# LM10 — list
+my_list <- list(name = "week 2", nums = c(1, 2, 3), data = menu_tbl)
+my_list
+length(my_list)
+```
+
+**Junk-drawer framing:** a list holds anything, including a whole tibble.
+`length()` is 3 — three drawers, whatever's inside them. Plant the flag:
+*"when we pull data from an API in week 8, it arrives as a list."*
+
+```{r}
+# YT4 — e.g.
+me <- list(first = "Eman", n_classes = 4, menu = menu)
+me
+```
+
+```{r}
+# LM11 — matrix, briefly
+matrix(1:6, nrow = 2)
+```
+
+**Q6:** a data frame — a matrix forces every cell to one type, so names +
+numbers would coerce the numbers to text (same coercion as Q4, now at the
+structure level).
+
+# 3 · In-class activity (15 min)
+
+One chunk per item — check that students actually made six chunks; the
+habit of "one idea, one chunk" is what makes ETV documents readable.
+
+```{r}
+# A — Structure
+class(iris)          # "data.frame"
+```
+
+```{r}
+# B — Type
+class(iris$Sepal.Length)   # "numeric"
+```
+
+```{r}
+# C — Type question (is.na tests values)
+sum(is.na(airquality$Solar.R))   # 7
+```
+
+```{r}
+# D — Structure built by the student, e.g.
+foods_tbl <- tibble(
+  food   = c("tacos", "pho", "pizza"),
+  rating = c(10, 9, 8)
+)
+foods_tbl
+```
+
+```{r}
+# E — Type; stored as integer, arguably should be a factor (or a Date)
+class(airquality$Month)
+```
+
+```{r}
+# F — Structure: a list holding a tibble and a vector
+food_places <- list(
+  foods  = foods_tbl,
+  places = c("truck on Higuera", "home", "campus")
+)
+food_places
+```
+
+**Answers: A = S · B = T · C = T (7 missing) · D = S · E = T ("integer";
+a factor would make sense since 5–9 are labels, not amounts) · F = S.**
+E is the discussion item: *the type R stores is not always the type the
+data means* — that's the whole reason `mutate()` + `factor()` exists.
+
+# 4 · Exit question (5 min)
+
+**Model answer:** "A data type is what one value is — `4.75` is numeric. A
+data structure is the container holding values — my `menu` tibble is a data
+frame whose `iced` column is logical." Any answer pairing one correct type
+example with one correct structure example passes; at least one example
+should be from a student-built object.

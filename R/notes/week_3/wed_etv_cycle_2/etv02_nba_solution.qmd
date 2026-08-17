@@ -1,0 +1,143 @@
+---
+title: "ETV Cycle 02 — Kobe Bryant's First Five Seasons"
+subtitle: "STAT/DATA 1810 · In-class activity · SOLUTION"
+author: "Instructor key"
+format:
+  html:
+    toc: true
+execute:
+  warning: false
+  message: false
+---
+
+<!--
+CLO ALIGNMENT (assessed via lab receipt + drills)
+  CLO 2.2 read_excel (sheets) · CLO 3.1 filter/select/mutate/group_by/summarize
+  CLO 4.1 geom_point · CLO 4.5 claim · CLO 12.2 measurement · 12.6 transparency
+Timing: 0 Ethics 8' · E 15' · T 27' · V 20' · Answer 10' = 80'
+-->
+
+# 0 · Context & ethics (8 min)
+
+Our data are Kobe Bryant's game-level records compiled from Basketball-Reference.
+
+**Talking points.** Check terms of service and `robots.txt` before scraping;
+use the prepared workbook and its `variable_names` sheet for provenance. Raw
+point totals also depend on games played and minutes, so a rate makes the
+comparison more defensible.
+
+# 1 · The central question
+
+> **How did Kobe Bryant's scoring performance change across his first five
+> NBA seasons?** Measure: points per minute.
+
+# 2 · E — Extraction (15 min)
+
+```{r}
+library(tidyverse)
+library(readxl)
+
+# LM1a: sheets
+excel_sheets("Data/nba_goats.xlsx")
+```
+
+**Expected:** `KB`, `LJ`, `MJ`, `variable_names`, and `divisions`. The `KB` sheet
+contains Kobe's game-level records; the metadata sheet documents the fields.
+
+```{r}
+# LM1b: read Kobe's game-level data
+nba_df <- read_excel("Data/nba_goats.xlsx", sheet = "KB")
+```
+
+```{r}
+# LM2: inspect
+ glimpse(nba_df)
+ nba_df |> count(Season)
+```
+
+**Expected:** 1,156 rows and 38 variables. The performance fields are `MP`
+(minutes played) and `PTS` (points). The season counts include `season_1` with
+82 rows but only 71 complete game records, because some rows have no box-score
+values; that is why LM3 filters for non-missing performance values.
+
+# 3 · T — Transformation (27 min)
+
+```{r}
+# LM3: first five seasons with complete game records
+kobe_df <- nba_df |>
+  filter(Season %in% paste0("season_", 1:5),
+         !is.na(MP), !is.na(PTS))
+
+nrow(kobe_df)
+```
+
+**Expected:** 334 complete game rows.
+
+```{r}
+# LM4: select what matters and create the rate
+kobe_df <- kobe_df |>
+  select(Season, MP, PTS) |>
+  mutate(season_number = readr::parse_number(Season),
+         ppm = PTS / MP)
+```
+
+```{r}
+# LM5: summarize and arrange by season_number
+kobe_table_df <- kobe_df |>
+  group_by(Season, season_number) |>
+  summarize(games = n(),
+            points = sum(PTS),
+            minutes = sum(MP),
+            ppm = points / minutes,
+            .groups = "drop") |>
+  arrange(season_number) |>
+  mutate(ppm = round(ppm, 3))
+
+kobe_table_df
+```
+
+**Expected table:**
+
+| Season | games | points | minutes | ppm |
+|---|---:|---:|---:|---:|
+| season_1 | 71 | 539 | 1087.70 | 0.496 |
+| season_2 | 79 | 1220 | 2042.93 | 0.597 |
+| season_3 | 50 | 996 | 1882.57 | 0.529 |
+| season_4 | 66 | 1485 | 2509.82 | 0.592 |
+| season_5 | 68 | 1938 | 2778.23 | 0.697 |
+
+# 4 · V — Visualization (20 min)
+
+```{r}
+# LM6: time-ordered point plot
+ggplot(kobe_table_df, aes(x = season_number, y = ppm)) +
+  geom_point(size = 3, color = "#12263A") +
+  scale_x_continuous(breaks = 1:5) +
+  labs(x = "Season number", y = "Points per minute",
+       title = "Kobe's scoring rate climbed across his first five seasons")
+```
+
+*(Optional companion plot — the measurement beat made visible:)*
+
+```{r}
+ggplot(kobe_table_df, aes(x = season_number, y = points)) +
+  geom_point(size = 3, color = "#A63D2F") +
+  scale_x_continuous(breaks = 1:5) +
+  labs(x = "Season number", y = "Total points",
+       title = "Raw totals dip in season 3, the 50-game lockout season")
+```
+
+**Teaching note:** the two plots disagree about season 3. Totals decline
+because the season had only 50 games; the rate remains near the surrounding
+seasons. That disagreement is the measurement lesson.
+
+# 5 · Interpretation & final answer (10 min)
+
+**Model answer:** *"Kobe's scoring rate rose from about 0.496 points per minute
+in season 1 to about 0.697 in season 5, an increase of roughly 41%. The climb
+was not perfectly steady: season 3 has fewer total points because the lockout
+limited the schedule to 50 games, while its per-minute rate remained near 0.53.
+A raw total would have misled us there."*
+
+Required elements: **direction, magnitude, and the lockout caveat** —
+direction/size/caveat is the CLO 4.5 trio for this cycle.
