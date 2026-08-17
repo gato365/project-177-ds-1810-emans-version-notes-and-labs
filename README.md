@@ -1,5 +1,7 @@
 # STAT/DATA 1810 — Notes & Labs
 
+**Live site:** https://gato365.github.io/project-177-ds-1810-emans-version-notes-and-labs/
+
 Quarto website of in-class notes for STAT/DATA 1810 (Foundations + ETV cycles).
 Each lesson has a student `.qmd` (blanks / chunks to insert) and an instructor
 solution `.qmd`; the site renders both.
