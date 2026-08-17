@@ -12,6 +12,7 @@ solution `.qmd`; the site renders both.
 _quarto.yml          site config (renders index.qmd + R/notes/**/*.qmd → docs/)
 index.qmd            landing page: schedule table with KEY / STUDENT / .qmd links
 styles/theme.scss    site theme
+assets/             favicon.svg (source, edit this) + favicon.png (used by the site)
 R/notes/week_N/...   *_empty.qmd (student) and *_solution.qmd (instructor key)
 Data/                datasets read by the ETV cycles (paths are project-relative)
 docs/                rendered site (GitHub Pages: Settings → Pages → main /docs)

@@ -6,11 +6,13 @@ project:
     - index.qmd
     - "R/notes/**/*.qmd"
   resources:
+    - "assets/*"
     - "R/notes/**/*_empty.qmd"
     - "Data/*"
 
 website:
   title: "STAT/DATA 1810 · Notes"
+  favicon: assets/favicon.png
   description: "In-class notes and instructor keys for STAT/DATA 1810 — Foundations and ETV cycles."
   navbar:
     background: primary
