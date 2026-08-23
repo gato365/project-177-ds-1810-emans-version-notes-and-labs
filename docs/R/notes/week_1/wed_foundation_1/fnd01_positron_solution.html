@@ -328,7 +328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#what-you-are-looking-at-12-min" id="toc-what-you-are-looking-at-12-min" class="nav-link active" data-scroll-target="#what-you-are-looking-at-12-min">0 · What you are looking at (12 min)</a></li>
+  <li><a href="#getting-set-up-and-what-you-are-looking-at-12-min" id="toc-getting-set-up-and-what-you-are-looking-at-12-min" class="nav-link active" data-scroll-target="#getting-set-up-and-what-you-are-looking-at-12-min">0 · Getting set up and what you are looking at (12 min)</a></li>
   <li><a href="#running-code-and-code-chunks-12-min" id="toc-running-code-and-code-chunks-12-min" class="nav-link" data-scroll-target="#running-code-and-code-chunks-12-min">1 · Running code and code chunks (12 min)</a></li>
   <li><a href="#objects-and-assignment-16-min" id="toc-objects-and-assignment-16-min" class="nav-link" data-scroll-target="#objects-and-assignment-16-min">2 · Objects and assignment (16 min)</a></li>
   <li><a href="#functions-packages-help-20-min" id="toc-functions-packages-help-20-min" class="nav-link" data-scroll-target="#functions-packages-help-20-min">3 · Functions, packages, help (20 min)</a></li>
@@ -372,16 +372,22 @@ Timing: panes+session 12' · running code/chunks 12' · objects 16'
         · functions/pkgs/help 20' · errors 12' · save & render 8' = 80'
 Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 -->
-<section id="what-you-are-looking-at-12-min" class="level2">
-<h2 class="anchored" data-anchor-id="what-you-are-looking-at-12-min">0 · What you are looking at (12 min)</h2>
+<p><strong>Name:</strong> Instructor key · <strong>Date:</strong> __________</p>
+<p><strong>Labels:</strong> <strong>LM = Learning Moment</strong> (instructor demonstrates, students follow). <strong>YT = Your Turn</strong> (students do it themselves). Say both names out loud the first time each appears — students otherwise guess.</p>
+<section id="getting-set-up-and-what-you-are-looking-at-12-min" class="level2">
+<h2 class="anchored" data-anchor-id="getting-set-up-and-what-you-are-looking-at-12-min">0 · Getting set up and what you are looking at (12 min)</h2>
+<section id="setup-checklist" class="level3">
+<h3 class="anchored" data-anchor-id="setup-checklist">Setup checklist</h3>
+<p><strong>Teaching note:</strong> the eight setup steps (install R → install Positron → download the <code>.qmd</code> → make <code>Desktop/R/{Notes,Labs}</code> and <code>Desktop/Data</code> → move the file into <code>R/Notes</code> → open Positron → <strong>File → Open Folder…</strong> on <code>Desktop/R</code> → open the file from the sidebar → fill in name and date) should be done <em>before</em> class. Budget 3 minutes at the start to rescue whoever isn’t there yet; the most common failures are (a) the file is still in <code>Downloads</code>, and (b) they opened the <em>file</em> rather than the <em>folder</em>, so the Explorer sidebar is empty. The fix for both is the same: File → Open Folder… → <code>Desktop/R</code>. Make them fill in name and date — it is the first thing they type into a <code>.qmd</code>, and it is how you tell whose render is whose.</p>
+</section>
 <section id="the-panes-6-min" class="level3">
 <h3 class="anchored" data-anchor-id="the-panes-6-min">The panes (6 min)</h3>
-<p><strong>Teaching note:</strong> have students physically point at each pane; the checklist is the activity. Positron names differ from RStudio — say <strong>Variables</strong> (not Environment) and <strong>Editor</strong> (not Source) consistently, since that is what students see on screen. Terminal/Viewer/Connections get one sentence each — resist the tour becoming the lesson.</p>
+<p><strong>Teaching note:</strong> put the annotated screenshot (<code>images/positron_panes.png</code>) on the projector and have students physically point at each numbered pane; the checklist is the activity. Use Positron’s own names consistently — <strong>Editor</strong>, <strong>Console</strong>, <strong>Variables</strong>, <strong>Plots</strong>, <strong>Explorer</strong> — because that is what students see on screen. Two traps: the <strong>CONSOLE</strong> tab and the <strong>TERMINAL</strong> tab sit side by side at the bottom and students click the wrong one (the Terminal shows a <code>%</code> prompt, not <code>&gt;</code>); and Variables/Plots live inside the <strong>SESSION</strong> panel on the right, so if a student has closed it, the right side looks blank. Terminal/Viewer/Connections get one sentence each — resist the tour becoming the lesson.</p>
 <p><strong>YT1:</strong> Variables. <strong>YT2:</strong> the Editor (this <code>.qmd</code>).</p>
 </section>
 <section id="the-session-6-min" class="level3">
 <h3 class="anchored" data-anchor-id="the-session-6-min">The Session (6 min)</h3>
-<p><strong>Teaching note — the Session tab.</strong> Point at the top-right interpreter label (<code>R 4.x.x</code>). Click it once so they see the menu: the running session, Restart, Shutdown, and any other interpreters. Say the three facts (memory / restartable / replaceable) and move on. The payoff comes in §4 LM11 when they restart for real. Show that Variables is empty <em>now</em> — that “before” picture makes the restart in §4 land.</p>
+<p><strong>Teaching note — getting to the Session tab.</strong> Point at the top-right interpreter label (<code>R 4.x.x</code>, arrow 6 on the screenshot). Click it once so they see the menu: the running session, Restart, Shutdown, and any other interpreters. Press Escape. Then point at the <strong>SESSION</strong> panel beneath it and say: “that label is the session; this panel is what the session remembers.” Say the three facts (memory / restartable / replaceable) and move on. The payoff comes in §4 LM11 when they restart for real. Show that Variables is empty <em>now</em> — that “before” picture makes the restart in §4 land.</p>
 <p><strong>Q1 model answer:</strong> the Console runs code once and forgets it; the Editor holds code you keep, so you can re-run everything tomorrow.</p>
 </section>
 </section>

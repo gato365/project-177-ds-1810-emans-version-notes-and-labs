@@ -17,32 +17,87 @@ CLO ALIGNMENT
   CLO 11 (11.1 ?function help)
   CLO 9 practiced, not graded (this document IS a Quarto doc)
 Time: 80 min. Dataset: mtcars (built in — no import needed yet).
-LM = learning moment. YT = your turn (practice). Fill every ____ and every
-empty chunk. Times in headers are the budget for that section.
+Fill every ____ and every empty chunk. Times in headers are the budget for
+that section.
 -->
 
-# 0 · What you are looking at (12 min)
+**Name:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ · **Date:** \_\_\_\_\_\_\_\_\_\_
+
+> Before anything else, type your name and today's date on the line above
+> (and put your name in the `author:` line at the very top of this file).
+
+**How to read this document.** Two labels show up over and over:
+
+- **LM = Learning Moment.** I demonstrate; you follow along and run the code.
+- **YT = Your Turn.** You do it yourself — fill the blank or the empty chunk.
+
+# 0 · Getting set up and what you are looking at (12 min)
 
 **R** is a programming language for working with data. **Positron** is the
 program we use to *talk to* R — an integrated development environment (IDE).
 R does the work; Positron is the workshop it happens in.
 
+## Setup checklist (do once, before class if you can)
+
+Check each box as you finish it:
+
+- [ ] **1. Install R, then Positron.** Download R from
+  <https://cloud.r-project.org> and install it. Then download Positron from
+  <https://positron.posit.co> and install it. (R first — Positron needs to
+  find it.)
+- [ ] **2. Download today's file.** From the course site, download the
+  `.qmd` file for today. The file name has today's date and `qmd 1` in
+  it — that is this document.
+- [ ] **3. Build your folders on the Desktop.** On your Desktop, create:
+  - a folder named `R`
+  - a folder named `Data`
+  - inside `R`, two folders: `Notes` and `Labs`
+
+  When you are done it looks like this:
+
+  ```
+  Desktop/
+  ├── R/
+  │   ├── Notes/
+  │   └── Labs/
+  └── Data/
+  ```
+- [ ] **4. Move the file.** Drag the downloaded `.qmd` file out of
+  `Downloads` and into `Desktop/R/Notes/`. (Notes go in `Notes`; labs will
+  go in `Labs`; data files will go in `Data`. Every week.)
+- [ ] **5. Open Positron.**
+- [ ] **6. Open your folder.** In Positron: **File → Open Folder…** and
+  choose `Desktop/R`. The folder's contents appear in the left sidebar.
+- [ ] **7. Open the file.** In the left sidebar, click `Notes`, then click
+  the `.qmd` file. It opens in the middle of the screen — you are now
+  reading it inside Positron.
+- [ ] **8. Fill in your name and date** at the top of this document.
+
 ## The panes (6 min)
 
-Positron is divided into **panes**. Find each one on your screen and check it
-off — physically point at it:
+Positron is divided into **panes**. The numbers in the picture match the
+list below — find each one on *your* screen and check it off. Physically
+point at it.
 
-- [ ] **Editor** (Source) — the big middle area where this `.qmd` file is open.
+![Positron's panes. Your screen will look like this, with your `.qmd` open in the Editor instead of the Welcome page.](images/positron_panes.png){width=100%}
+
+- [ ] **1 · Editor** — the big middle area where this `.qmd` file is open.
   Code you *keep* lives here.
-- [ ] **Console** — bottom. R answers here, one command at a time. Code you
-  type here is *not saved*.
-- [ ] **Variables** — right side (RStudio calls it *Environment*). Every object
-  you create this session shows up here.
-- [ ] **Plots** — right side. Pictures appear here.
-- [ ] **Help** — right side. Documentation appears here when you ask for it.
-- [ ] **Explorer** (Files) — left sidebar. The files in your project folder.
-- [ ] Terminal · Viewer · Connections — know they exist; we'll meet them when
-  we need them.
+- [ ] **2 · Console** — bottom of the screen, the tab labeled **CONSOLE**.
+  R answers here, one command at a time. Code you type here is *not saved*.
+- [ ] **3 · Variables** — right side, under the **SESSION** tab. Every object
+  you create this session shows up here. (Right now it says *No variables
+  have been created* — remember what that looks like.)
+- [ ] **4 · Plots** — right side, below Variables. Pictures appear here.
+- [ ] **5 · Explorer** — the top icon in the left sidebar (two overlapping
+  pages). Click it to see the files in the folder you opened.
+- [ ] **6 · Session** — the `R 4.x.x` label in the top-right corner. More on
+  this in a moment.
+- [ ] **7 · Terminal** — the tab next to Console at the bottom. It is *not*
+  R; it talks to your computer's operating system. Know it exists; we will
+  not use it today.
+- [ ] **Help** — opens on the right side when you ask R for documentation
+  (section 3 today).
 
 > *YT1 (1 min). A neighbor asks "where do I look to see what objects I've
 > made?" Which pane do you point at? ____*
@@ -53,16 +108,23 @@ off — physically point at it:
 ## The Session (6 min)
 
 R runs inside a **session** — a running copy of R that Positron is talking to.
-Look at the **top-right corner** of Positron: it shows which R is running
-(something like `R 4.x.x`). That is your session.
+
+**How to get to the Session tab.** Look at the **top-right corner** of
+Positron (arrow **6** in the picture). It shows which R is running, something
+like `R 4.5.1`. That label *is* your session. Click it once: a small menu
+opens showing the running R, a **Restart** button, a **Shutdown** button, and
+any other interpreters installed on your computer. Close the menu (press
+Escape). Now look just below it on the right side: the panel labeled
+**SESSION** holds the **Variables** and **Plots** panes — everything the
+session is holding in memory, made visible.
 
 Three things to know about the session, today:
 
 1. **It has memory.** Every object you create lives in the session, and shows
    up in Variables.
-2. **It can be restarted.** In the Console toolbar (or the top-right session
-   menu) there is a **Restart** button. Restarting wipes the session's memory
-   clean — Variables empties out. Your *files* are untouched.
+2. **It can be restarted.** The Restart button (top-right session menu, or the
+   Console toolbar) wipes the session's memory clean — Variables empties out.
+   Your *files* are untouched.
 3. **It can be replaced.** The same menu lets you pick a different R (or
    Python) if more than one is installed. Don't do that today; just know the
    button exists.
