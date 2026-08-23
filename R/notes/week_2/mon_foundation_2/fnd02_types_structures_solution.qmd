@@ -5,6 +5,9 @@ author: "Instructor key"
 format:
   html:
     toc: true
+    toc-depth: 3
+    toc-location: right-body
+    toc-title: "Contents"
 execute:
   warning: false
   message: false
@@ -24,25 +27,31 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 library(tidyverse)
 ```
 
-# 0 · The one distinction, and your own chunks (8 min)
+::: {.callout-warning title="Timing & emphasis"}
+- **Budget:** distinction + chunks 8′ · types 22′ · structures 30′ · activity 15′ · exit 5′ = **80′**
+- **Checkpoint:** §2 should start by the **30′ mark** — if behind, drop YT4 and activity items E/F
+- Practice goes to **vectors, data frames/tibbles, lists**; matrix & tribble get one chunk each, no drills
+:::
 
-Write the sentence on the board and leave it there all class:
-**type = one value's nature; structure = the container.**
+# 0 · The one distinction, and your own chunks [8 min]{.timing}
 
-**Teaching note — inserting chunks.** Demonstrate the shortcut
-(Cmd/Ctrl + Shift + I) *once*, slowly, on the projector: cursor on a blank
-line, press it, the fence appears, type `1 + 1`, run. Then YT0 — walk the
-room for 2 minutes and make sure every screen shows output under a
-student-made chunk before moving on. This is the one thing today that can't
-be caught up on later; every later YT depends on it. Students who type the
-fence by hand are fine — the skill is "I can make a chunk," not the shortcut.
+::: {.callout-important title="Teaching note — the sentence on the board"}
+- Write it and leave it there all class: **type = one value's nature; structure = the container**
+:::
+
+::: {.callout-important title="Teaching note — inserting chunks"}
+- Demonstrate the shortcut (**Cmd/Ctrl + Shift + I**) *once*, slowly, on the projector: cursor on a blank line → press it → fence appears → type `1 + 1` → run
+- Then [YT0]{.yt}: walk the room for 2 minutes — every screen must show output under a student-made chunk before moving on
+- This is the one thing today that can't be caught up on later; every later YT depends on it
+- Students who type the fence by hand are fine — the skill is "I can make a chunk," not the shortcut
+:::
 
 ```{r}
 # YT0
 1 + 1
 ```
 
-# 1 · Data types (22 min)
+# 1 · Data types [22 min]{.timing}
 
 ```{r}
 # LM1 — expected: "numeric", "integer", "character", "logical"
@@ -52,8 +61,11 @@ class("latte")
 class(TRUE)
 ```
 
-**Q1 note:** most students predict `"numeric"` for `4L` — good; the surprise
-is the point. The `L` suffix is worth 30 seconds, no more.
+::: {.callout-note title="Expected — LM1 & Q1"}
+- [LM1]{.lm} `"numeric"` · `"integer"` · `"character"` · `"logical"`
+- [Q1]{.q} most students predict `"numeric"` for `4L` — good; the surprise is the point
+- The `L` suffix is worth 30 seconds, no more
+:::
 
 ```{r}
 # LM2 — "double" vs "integer"
@@ -67,9 +79,10 @@ class(iris$Species)
 levels(iris$Species)
 ```
 
-**Q2:** 3 levels — setosa, versicolor, virginica. **Teaching note:** the menu
-metaphor ("a factor is text with a fixed menu") pays rent in week 6 when
-forcats arrives.
+::: {.callout-tip title="Q2 answer"}
+- [Q2]{.q} **3 levels** — setosa, versicolor, virginica
+- The menu metaphor ("a factor is text with a fixed menu") pays rent in week 6 when forcats arrives
+:::
 
 ```{r}
 # LM4
@@ -79,17 +92,21 @@ right_now <- Sys.time()
 class(right_now)
 ```
 
-Expected classes: `"Date"` and `"POSIXct" "POSIXt"` — say "date-time" and
-move on; lubridate handles the ugliness in week 4.
+::: {.callout-note title="Expected — LM4"}
+- [LM4]{.lm} `"Date"` and `"POSIXct" "POSIXt"`
+- Say "date-time" and move on — lubridate handles the ugliness in week 4
+:::
 
 ```{r}
 # LM5
 sum(is.na(airquality$Ozone))
 ```
 
-**Q3: 37 missing.** Real 1973 NYC air data — the missing values are genuinely
-missing, not planted. First appearance of the `is.na()` + `sum()` idiom;
-students will use it in every cycle.
+::: {.callout-tip title="Q3 answer"}
+- [Q3]{.q} **37 missing**
+- Real 1973 NYC air data — the missing values are genuinely missing, not planted
+- First appearance of the `is.na()` + `sum()` idiom; students use it in every cycle
+:::
 
 ```{r}
 # LM6 — any correct fills, e.g.
@@ -107,12 +124,14 @@ class(mtcars$cyl)
 class(Sys.Date() + 7)
 ```
 
-**YT1 teaching note:** the surprise is almost always `"TRUE"` — quotes make
-it text. Second surprise: `3 > 2` *produces* a logical; comparisons are how
-logicals get made in practice (filter() in two weeks). `mtcars$cyl` being
-numeric though it only takes 4/6/8 is a preview of activity item E.
+::: {.callout-note title="Expected — YT1"}
+- [YT1]{.yt} `"character"` · `"logical"` · `"numeric"` · `"Date"`
+- Surprise #1: `"TRUE"` — quotes make it text
+- Surprise #2: `3 > 2` *produces* a logical — comparisons are how logicals get made in practice (`filter()` in two weeks)
+- `mtcars$cyl` being numeric though it only takes 4/6/8 previews activity item E
+:::
 
-# 2 · Data structures (30 min)
+# 2 · Data structures [30 min]{.timing}
 
 ```{r}
 # LM7
@@ -133,10 +152,12 @@ c(1, "two", 3)
 class(c(1, "two", 3))
 ```
 
-**Q4: character.** A vector holds *one* type, so R converts everything to
-the type that can hold all of it — text. This is **coercion**, arriving by
-accident rather than lecture. Say the word once; students meet it again
-when a numeric column imports as `<chr>` because of one stray "N/A".
+::: {.callout-tip title="Q4 answer — coercion"}
+- [Q4]{.q} **character**
+- A vector holds *one* type, so R converts everything to the type that can hold all of it — text
+- This is **coercion**, arriving by accident rather than lecture — say the word once
+- They meet it again when a numeric column imports as `<chr>` because of one stray "N/A"
+:::
 
 ```{r}
 # LM8
@@ -146,10 +167,12 @@ menu_df
 menu_tbl
 ```
 
-**Q5 model answers (any one):** the tibble announces its dimensions
-(`# A tibble: 3 × 2`); the tibble shows column types (`<chr>`, `<dbl>`); the
-data frame shows row numbers without types. **Framing:** a tibble IS a data
-frame with better manners — we'll say "data frame" for both.
+::: {.callout-tip title="Q5 model answers (any one)"}
+- [Q5]{.q} the tibble announces its dimensions (`# A tibble: 3 × 2`)
+- the tibble shows column types (`<chr>`, `<dbl>`)
+- the data frame shows row numbers without types
+- **Framing:** a tibble IS a data frame with better manners — we'll say "data frame" for both
+:::
 
 ```{r}
 # YT3
@@ -167,11 +190,11 @@ tibble(drink = drinks, price = c(4.75, 2.75))
 #> • Size 2: Column `price`.
 ```
 
-**YT3 teaching note:** the error is a *good* error — it names the sizes and
-the column. Have someone read it aloud. "Every column the same length" is
-now something they've felt, not heard. (`class(menu)` returns three things —
-`tbl_df`, `tbl`, `data.frame` — say "it's a data frame, with extra labels"
-and move on.)
+::: {.callout-caution title="YT3 teaching note — a good error"}
+- [YT3]{.yt} The error names the sizes *and* the column — have someone read it aloud
+- "Every column the same length" is now something they've felt, not heard
+- `class(menu)` returns three things (`tbl_df`, `tbl`, `data.frame`) — say "it's a data frame, with extra labels" and move on
+:::
 
 ```{r}
 # LM9 — tribble, briefly
@@ -189,9 +212,11 @@ my_list
 length(my_list)
 ```
 
-**Junk-drawer framing:** a list holds anything, including a whole tibble.
-`length()` is 3 — three drawers, whatever's inside them. Plant the flag:
-*"when we pull data from an API in week 8, it arrives as a list."*
+::: {.callout-important title="LM10 — junk-drawer framing"}
+- [LM10]{.lm} A list holds anything, including a whole tibble
+- `length()` is 3 — three drawers, whatever's inside them
+- Plant the flag: *"when we pull data from an API in week 8, it arrives as a list"*
+:::
 
 ```{r}
 # YT4 — e.g.
@@ -204,14 +229,17 @@ me
 matrix(1:6, nrow = 2)
 ```
 
-**Q6:** a data frame — a matrix forces every cell to one type, so names +
-numbers would coerce the numbers to text (same coercion as Q4, now at the
-structure level).
+::: {.callout-tip title="Q6 answer"}
+- [Q6]{.q} **a data frame**
+- A matrix forces every cell to one type, so names + numbers would coerce the numbers to text — same coercion as Q4, now at the structure level
+:::
 
-# 3 · In-class activity (15 min)
+# 3 · In-class activity [15 min]{.timing}
 
-One chunk per item — check that students actually made six chunks; the
-habit of "one idea, one chunk" is what makes ETV documents readable.
+::: {.callout-important title="Teaching note — one chunk per item"}
+- Check that students actually made **six chunks**
+- The habit of "one idea, one chunk" is what makes ETV documents readable
+:::
 
 ```{r}
 # A — Structure
@@ -251,15 +279,20 @@ food_places <- list(
 food_places
 ```
 
-**Answers: A = S · B = T · C = T (7 missing) · D = S · E = T ("integer";
-a factor would make sense since 5–9 are labels, not amounts) · F = S.**
-E is the discussion item: *the type R stores is not always the type the
-data means* — that's the whole reason `mutate()` + `factor()` exists.
+::: {.callout-tip title="Activity answers"}
+- **A** = S (structure)
+- **B** = T (type)
+- **C** = T — 7 missing
+- **D** = S
+- **E** = T — `"integer"`; a factor would make sense since 5–9 are labels, not amounts
+- **F** = S
+- **E is the discussion item:** *the type R stores is not always the type the data means* — that's the whole reason `mutate()` + `factor()` exists
+:::
 
-# 4 · Exit question (5 min)
+# 4 · Exit question [5 min]{.timing}
 
-**Model answer:** "A data type is what one value is — `4.75` is numeric. A
-data structure is the container holding values — my `menu` tibble is a data
-frame whose `iced` column is logical." Any answer pairing one correct type
-example with one correct structure example passes; at least one example
-should be from a student-built object.
+::: {.callout-tip title="Model answer"}
+- *"A data type is what one value is — `4.75` is numeric. A data structure is the container holding values — my `menu` tibble is a data frame whose `iced` column is logical."*
+- Passes: any answer pairing one correct **type** example with one correct **structure** example
+- At least one example should be from a student-built object
+:::

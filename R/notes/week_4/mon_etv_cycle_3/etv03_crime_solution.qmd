@@ -5,6 +5,9 @@ author: "Instructor key"
 format:
   html:
     toc: true
+    toc-depth: 3
+    toc-location: right-body
+    toc-title: "Contents"
 execute:
   warning: false
   message: false
@@ -31,14 +34,29 @@ CLO ALIGNMENT
 Timing: Ethics 10' · E 12' · T 28' · V 20' · Answer 10' = 80'
 -->
 
-# 0 · Context & ethics (10 min) — instructor script
+::: {.callout-caution title="Template status"}
+- Fill every `[bracket]` once the dataset is chosen, then flip `execute.eval` to `true` and confirm the expected outputs below
+- Candidate datasets (pick one, then commit):
+  - SLO PD open-data incident log (city portal export → saved as `.RData`)
+  - a state open-data portal extract
+  - `crimedata` package sample (pre-cleaned; weakest ethics discussion)
+- Selection criteria: real · local if possible · no names/addresses at unit level · a timestamp variable (hour-of-day works every year) · ≥ ~5k rows
+:::
 
-Run all five beats; the two non-negotiables are **Measurement** (these records
-count *reports and enforcement*, not crime itself) and **Consequences** (a
-chart of this data can move policy, prices, and policing; the title must say
-"reported"). Model sentence for the student prompt: *"Because unreported
-offenses never enter the data, every count is a floor, not a level — and the
-floor is lower in communities that distrust reporting."*
+::: {.callout-warning title="Timing & CLOs"}
+- **Budget:** Ethics 10′ · E 12′ · T 28′ · V 20′ · Answer 10′ = **80′**
+- **CLOs:** 2.7 `.RData` extraction · 3.1 select/filter/mutate/group/summarize/arrange · 4.1 `geom_point` · 4.3 counts · 4.5 claim
+- **CLO 12 set:** Privacy (12.4) · Representation (12.1) · Measurement (12.2) · Transparency (12.6) · Consequences (12.7)
+:::
+
+# 0 · Context & ethics [10 min]{.timing} — instructor script
+
+::: {.callout-important title="Instructor script — five beats"}
+- Run all five beats; the two non-negotiables:
+  - **Measurement** — these records count *reports and enforcement*, not crime itself
+  - **Consequences** — a chart of this data can move policy, prices, and policing; the title must say "reported"
+- Model sentence for the student prompt: *"Because unreported offenses never enter the data, every count is a floor, not a level — and the floor is lower in communities that distrust reporting."*
+:::
 
 # 1 · The central question
 
@@ -46,7 +64,7 @@ floor is lower in communities that distrust reporting."*
 > category] incidents vary by hour of day?" It exercises the timestamp, gives
 > geom_point a natural x-axis, and regenerates every semester with new data.]**
 
-# 2 · E — Extraction (12 min)
+# 2 · E — Extraction [12 min]{.timing}
 
 ```{r}
 library(tidyverse)
@@ -57,18 +75,23 @@ load("Data/[FILENAME].RData")
 ls()
 ```
 
-**Expected:** `[OBJECT_NAME]` appears. Contrast with `read_csv()` on the
-board: *read functions return, load() injects.* This is the whole CLO 2.7
-lesson in one line.
+::: {.callout-note title="Expected — LM1"}
+- [LM1]{.lm} `[OBJECT_NAME]` appears in `ls()`
+- Contrast with `read_csv()` on the board: *read functions return, `load()` injects*
+- That one line is the whole CLO 2.7 lesson
+:::
 
 ```{r}
 # LM2: inspect
 glimpse([OBJECT_NAME])
 ```
 
-**Expected:** [rows], [date range], one row = one reported incident.
+::: {.callout-note title="Expected — LM2"}
+- [LM2]{.lm} [rows] · [date range]
+- One row = one reported incident
+:::
 
-# 3 · T — Transformation (28 min)
+# 3 · T — Transformation [28 min]{.timing}
 
 ```{r}
 # LM3: select
@@ -85,9 +108,11 @@ crime_clean_df <- crime_small_df |>
 nrow(crime_small_df) - nrow(crime_clean_df)
 ```
 
-**Expected:** [n removed]. Defense: [state it — and connect to underreporting:
-we can defend removing *unusable records*; we cannot recover *unreported
-incidents*, and the answer must say so].
+::: {.callout-note title="Expected — LM4"}
+- [LM4]{.lm} [n removed]
+- Defense: [state it]
+- Connect to underreporting: we can defend removing *unusable records*; we cannot recover *unreported incidents* — the answer must say so
+:::
 
 ```{r}
 # LM5: recode/create — recommended: hour of day
@@ -95,8 +120,9 @@ crime_clean_df <- crime_clean_df |>
   mutate(hour = lubridate::hour(date_time))
 ```
 
-*(If lubridate hasn't formally arrived yet, this is a one-function toolbox
-loan — name it, use it, move on.)*
+::: {.callout-important title="LM5 note"}
+- [LM5]{.lm} If lubridate hasn't formally arrived yet, this is a one-function toolbox loan — name it, use it, move on
+:::
 
 ```{r}
 # LM6: group + summarize + arrange
@@ -108,9 +134,11 @@ crime_summary_df <- crime_clean_df |>
 crime_summary_df
 ```
 
-**Expected:** [peak hours — typically late evening for most offense mixes].
+::: {.callout-note title="Expected — LM6"}
+- [LM6]{.lm} [peak hours — typically late evening for most offense mixes]
+:::
 
-# 4 · V — Visualization & summary (20 min)
+# 4 · V — Visualization & summary [20 min]{.timing}
 
 ```{r}
 # LM8: the point plot
@@ -124,10 +152,12 @@ ggplot(crime_summary_df, aes(x = hour, y = n)) +
   )
 ```
 
-**Expected pattern:** [describe once committed]. The subtitle is mandatory —
-it is the Transparency beat (12.6) enforced in the artifact itself.
+::: {.callout-note title="Expected pattern — LM8"}
+- [LM8]{.lm} [describe once committed]
+- The subtitle is **mandatory** — it is the Transparency beat (12.6) enforced in the artifact itself
+:::
 
-# 5 · Interpretation & final answer (10 min) — model answer shape
+# 5 · Interpretation & final answer [10 min]{.timing} — model answer shape
 
 > *"Reported [offense] incidents are concentrated in [period], with roughly
 > [X]× as many reports at the peak hour as at the quietest hour. This pattern
@@ -136,5 +166,9 @@ it is the Transparency beat (12.6) enforced in the artifact itself.
 > reporting behavior are baked into every count. [One consequence sentence:
 > what this chart should and should not be used to decide.]"*
 
-Trio check (CLO 4.5): pattern ✔ · magnitude ✔ · caveat ✔ — same rubric as
-Cycles 01 and 02, now carrying the heaviest ethical weight of the three.
+::: {.callout-tip title="Trio check (CLO 4.5)"}
+- **pattern** ✔
+- **magnitude** ✔
+- **caveat** ✔
+- Same rubric as Cycles 01 and 02 — now carrying the heaviest ethical weight of the three
+:::

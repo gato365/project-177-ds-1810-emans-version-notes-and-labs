@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-3419c12d2d41a837959b2e6a2ea9a81c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../../site_libs/bootstrap/bootstrap-87466eab0001b559013dbd94d7bed4f5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-74d80ebfd7611d45c5ab49d92c6a4cc8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -325,14 +325,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
-    <h2 id="toc-title">On this page</h2>
+    <h2 id="toc-title">Contents</h2>
    
-  <ul class="collapse">
-  <li><a href="#inspecting-data-22-min" id="toc-inspecting-data-22-min" class="nav-link active" data-scroll-target="#inspecting-data-22-min">1 · Inspecting data (22 min)</a></li>
-  <li><a href="#accessing-data-33-min" id="toc-accessing-data-33-min" class="nav-link" data-scroll-target="#accessing-data-33-min">2 · Accessing data (33 min)</a></li>
-  <li><a href="#how-big-is-data-10-min" id="toc-how-big-is-data-10-min" class="nav-link" data-scroll-target="#how-big-is-data-10-min">3 · How big is data? (10 min)</a></li>
-  <li><a href="#where-this-is-going-5-min" id="toc-where-this-is-going-5-min" class="nav-link" data-scroll-target="#where-this-is-going-5-min">4 · Where this is going (5 min)</a></li>
-  <li><a href="#exit-question-8-min" id="toc-exit-question-8-min" class="nav-link" data-scroll-target="#exit-question-8-min">5 · Exit question (8 min)</a></li>
+  <ul>
+  <li><a href="#inspecting-data-22-min" id="toc-inspecting-data-22-min" class="nav-link active" data-scroll-target="#inspecting-data-22-min">1 · Inspecting data <span class="timing">22 min</span></a></li>
+  <li><a href="#accessing-data-33-min" id="toc-accessing-data-33-min" class="nav-link" data-scroll-target="#accessing-data-33-min">2 · Accessing data <span class="timing">33 min</span></a></li>
+  <li><a href="#how-big-is-data-10-min" id="toc-how-big-is-data-10-min" class="nav-link" data-scroll-target="#how-big-is-data-10-min">3 · How big is data? <span class="timing">10 min</span></a></li>
+  <li><a href="#where-this-is-going-5-min" id="toc-where-this-is-going-5-min" class="nav-link" data-scroll-target="#where-this-is-going-5-min">4 · Where this is going <span class="timing">5 min</span></a></li>
+  <li><a href="#exit-question-8-min" id="toc-exit-question-8-min" class="nav-link" data-scroll-target="#exit-question-8-min">5 · Exit question <span class="timing">8 min</span></a></li>
   </ul>
 </nav>
     </div>
@@ -364,7 +364,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-
+<nav id="TOC-body" role="doc-toc">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#inspecting-data-22-min" id="toc-inspecting-data-22-min">1 · Inspecting data <span class="timing">22 min</span></a></li>
+  <li><a href="#accessing-data-33-min" id="toc-accessing-data-33-min">2 · Accessing data <span class="timing">33 min</span></a></li>
+  <li><a href="#how-big-is-data-10-min" id="toc-how-big-is-data-10-min">3 · How big is data? <span class="timing">10 min</span></a></li>
+  <li><a href="#where-this-is-going-5-min" id="toc-where-this-is-going-5-min">4 · Where this is going <span class="timing">5 min</span></a></li>
+  <li><a href="#exit-question-8-min" id="toc-exit-question-8-min">5 · Exit question <span class="timing">8 min</span></a></li>
+  </ul>
+</nav>
 <!--
 CLO: 1.6, 1.12, accessing ($ / [ ] / [[ ]]) · 7.6 · 9 practiced
 Timing: job 2' · inspecting 22' · accessing 33' · storage 10' · ETV preview 5'
@@ -376,8 +386,25 @@ narrating nothing but the three stage names. Monday they drive C1.
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Timing &amp; checkpoints">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Timing &amp; checkpoints
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Budget:</strong> job 2′ · inspecting 22′ · accessing 33′ · storage 10′ · ETV preview 5′ · exit 8′ = <strong>80′</strong></li>
+<li><strong>Checkpoint:</strong> §2 starts at <strong>24′</strong> — if behind, cut YT5 and shorten YT4 to (a)–(c)</li>
+<li>The ETV preview closes foundations: run a Cycle-0-style coffee import → plot live, narrating nothing but the three stage names — Monday they drive C1</li>
+</ul>
+</div>
+</div>
 <section id="inspecting-data-22-min" class="level2">
-<h2 class="anchored" data-anchor-id="inspecting-data-22-min">1 · Inspecting data (22 min)</h2>
+<h2 class="anchored" data-anchor-id="inspecting-data-22-min">1 · Inspecting data <span class="timing">22 min</span></h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality); <span class="fu">tail</span>(airquality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
@@ -405,7 +432,23 @@ narrating nothing but the three stage names. Monday they drive C1.
 <pre><code>[1] 6</code></pre>
 </div>
 </div>
-<p><strong>Q1: 153 rows × 6 columns; one row = one day</strong> of measurements (May–Sep 1973). The observation question matters more than the numbers — every dataset this term starts with “what is a row?”</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Q1 answer">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Q1 answer
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="q">Q1</span> <strong>153 rows × 6 columns</strong></li>
+<li>One row = <strong>one day</strong> of measurements (May–Sep 1973)</li>
+<li>The observation question matters more than the numbers — every dataset this term starts with “what is a row?”</li>
+</ul>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(airquality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -433,7 +476,23 @@ $ Month   &lt;int&gt; 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5
 $ Day     &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,…</code></pre>
 </div>
 </div>
-<p><strong>Q2 model:</strong> <code>glimpse()</code> is easier (one line per variable, fits any width); the tags are the <strong>types from Monday</strong> — <code>int</code> integers, <code>dbl</code> doubles. Point made: Monday’s vocabulary is now reading equipment.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Q2 model answer">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Q2 model answer
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="q">Q2</span> <code>glimpse()</code> is easier — one line per variable, fits any width</li>
+<li>The tags are the <strong>types from Monday</strong>: <code>int</code> integers, <code>dbl</code> doubles</li>
+<li>Point made: Monday’s vocabulary is now reading equipment</li>
+</ul>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(airquality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -455,7 +514,22 @@ $ Day     &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
                                </code></pre>
 </div>
 </div>
-<p><strong>Q3: Ozone (37 NA) and Solar.R (7 NA).</strong> <code>summary()</code> prints the NA counts in-column — students should find them without help.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Q3 answer">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Q3 answer
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="q">Q3</span> <strong>Ozone (37 NA)</strong> and <strong>Solar.R (7 NA)</strong></li>
+<li><code>summary()</code> prints the NA counts in-column — students should find them without help</li>
+</ul>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT1 — mtcars, unseen</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(mtcars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -511,17 +585,50 @@ $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1
  Max.   :1.0000   Max.   :5.000   Max.   :8.000  </code></pre>
 </div>
 </div>
-<p><strong>YT1: (a) 32 × 11 · (b) one row = one car model</strong> (the row <em>names</em> are the cars — first time they’ve seen row names carry meaning) · <strong>(c) all numeric</strong> (<code>dbl</code> everywhere — even <code>cyl</code>, <code>am</code>, <code>gear</code>, which are really categories; connect to Monday’s item E) · <strong>(d) none</strong> — <code>summary()</code> shows no NA row · <strong>(e) median mpg = 19.2</strong>. Teaching note: the point of YT1 is that they choose the functions themselves; don’t prescribe which.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Expected — YT1">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Expected — YT1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="yt">YT1</span> <strong>(a)</strong> 32 × 11</li>
+<li><strong>(b)</strong> one row = one car model — the row <em>names</em> are the cars (first time they’ve seen row names carry meaning)</li>
+<li><strong>(c)</strong> all numeric — <code>dbl</code> everywhere, even <code>cyl</code>, <code>am</code>, <code>gear</code>, which are really categories (connect to Monday’s item E)</li>
+<li><strong>(d)</strong> none — <code>summary()</code> shows no NA row</li>
+<li><strong>(e)</strong> median mpg = <strong>19.2</strong></li>
+<li>Teaching note: the point of YT1 is that they choose the functions themselves — don’t prescribe which</li>
+</ul>
+</div>
+</div>
 </section>
 <section id="accessing-data-33-min" class="level2">
-<h2 class="anchored" data-anchor-id="accessing-data-33-min">2 · Accessing data (33 min)</h2>
+<h2 class="anchored" data-anchor-id="accessing-data-33-min">2 · Accessing data <span class="timing">33 min</span></h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(airquality<span class="sc">$</span>Temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 77.88235</code></pre>
 </div>
 </div>
-<p><strong>Expected: 77.88°F.</strong></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Expected">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Expected
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>77.88°F</strong></li>
+</ul>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT2</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(airquality<span class="sc">$</span>Wind)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -545,7 +652,24 @@ $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1
 <pre><code>[1] 14</code></pre>
 </div>
 </div>
-<p><strong>YT2: (a) 9.96 mph · (b) 97 · (c) NA, then 42.13 with <code>na.rm = TRUE</code></strong> — this is the callback to Foundations 01 Q5; let someone remember it before you say it · <strong>(d) 14 days</strong>. Part (d) is the first <em>logical vector doing arithmetic</em> — TRUE = 1 — say it once, it returns with <code>filter()</code> Monday.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Expected — YT2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Expected — YT2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="yt">YT2</span> <strong>(a)</strong> 9.96 mph</li>
+<li><strong>(b)</strong> 97</li>
+<li><strong>(c)</strong> <code>NA</code>, then <strong>42.13</strong> with <code>na.rm = TRUE</code> — the callback to Foundations 01 Q5; let someone remember it before you say it</li>
+<li><strong>(d)</strong> <strong>14 days</strong> — the first <em>logical vector doing arithmetic</em> (TRUE = 1); say it once, it returns with <code>filter()</code> Monday</li>
+</ul>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>airquality[<span class="dv">1</span>, ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
@@ -574,7 +698,22 @@ $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1
 </div>
 </div>
 </div>
-<p><strong>LM5 predictions worth pausing on:</strong> <code>airquality[, 4]</code> returns a <em>vector</em> (single column drops the frame in base R) — don’t belabor it; Q4 lands it.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="LM5 — predictions worth pausing on">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>LM5 — predictions worth pausing on
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="lm">LM5</span> <code>airquality[, 4]</code> returns a <em>vector</em> — a single column drops the frame in base R</li>
+<li>Don’t belabor it; Q4 lands it</li>
+</ul>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT3</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>airquality[<span class="dv">10</span><span class="sc">:</span><span class="dv">15</span>, <span class="fu">c</span>(<span class="st">"Month"</span>, <span class="st">"Day"</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -610,7 +749,22 @@ $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1
 </div>
 </div>
 </div>
-<p><strong>YT3 (b)</strong> is the one to check: <code>nrow()</code> <em>inside</em> the bracket. Ask “what if tomorrow the file has 200 rows?” — that’s why we don’t type 153. <strong>(d)</strong> previews Q4: no comma → column selection → still a data frame.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="YT3 notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>YT3 notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="yt">YT3</span> <strong>(b)</strong> is the one to check: <code>nrow()</code> <em>inside</em> the bracket — ask “what if tomorrow the file has 200 rows?” — that’s why we don’t type 153</li>
+<li><strong>(d)</strong> previews Q4: no comma → column selection → still a data frame</li>
+</ul>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>airquality[[<span class="dv">1</span>, <span class="st">"Temp"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -644,14 +798,50 @@ $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1
 <pre><code>[1] 67 72 74 62 56 66</code></pre>
 </div>
 </div>
-<p><strong>Q4: the middle one — <code>airquality["Temp"]</code></strong> keeps the data frame wrapping (the printed header gives it away). Rule of thumb to leave them with: <strong><code>$</code> for a column you’ll compute on; <code>[rows, cols]</code> for a rectangle; <code>[[ ]]</code> to dig one thing out of a container.</strong> Deeper indexing rules are drill material (M4), not lecture material.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Q4 answer — rule of thumb">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Q4 answer — rule of thumb
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="q">Q4</span> <strong>the middle one — <code>airquality["Temp"]</code></strong> keeps the data frame wrapping (the printed header gives it away)</li>
+<li>Rule of thumb to leave them with:
+<ul>
+<li><code>$</code> → a column you’ll compute on</li>
+<li><code>[rows, cols]</code> → a rectangle</li>
+<li><code>[[ ]]</code> → dig one thing out of a container</li>
+</ul></li>
+<li>Deeper indexing rules are drill material (M4), not lecture material</li>
+</ul>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">is.na</span>(airquality<span class="sc">$</span>Ozone)) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  5 10 25 26 27 32</code></pre>
 </div>
 </div>
-<p><strong>Expected: rows 5, 10, 25, 26, 27, 32.</strong> First <code>|&gt;</code> sighting — name it (“read it as <em>then</em>”), promise it becomes the backbone Monday, move on.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Expected — first |> sighting">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Expected — first |&gt; sighting
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>rows 5, 10, 25, 26, 27, 32</strong></li>
+<li>Name the pipe (“read it as <em>then</em>”), promise it becomes the backbone Monday, move on</li>
+</ul>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT4 — access challenge on iris</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(iris<span class="sc">$</span>Species)                       <span class="co"># (a) 150</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -684,10 +874,27 @@ $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1
 <pre><code>[1] 150</code></pre>
 </div>
 </div>
-<p><strong>YT4 notes:</strong> (d) is the sneaky one — <code>$</code> then <code>[1:50]</code> on the <em>vector</em>. Some students will write <code>mean(iris[1:50, "Sepal.Length"])</code>; also correct — show both on the projector, same answer, and say the rule of thumb again. Stretch: <code>$</code> wins, by a lot; that’s the honest answer and it’s why the tidyverse is built around column names.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="YT4 notes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>YT4 notes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="yt">YT4</span> <strong>(a)</strong> 150 · <strong>(b)</strong> versicolor · <strong>(c)</strong> 1.3 · <strong>(d)</strong> 5.006 · <strong>(e)</strong> 150</li>
+<li><strong>(d)</strong> is the sneaky one — <code>$</code> then <code>[1:50]</code> on the <em>vector</em></li>
+<li>Some students write <code>mean(iris[1:50, "Sepal.Length"])</code> — also correct; show both on the projector, same answer, say the rule of thumb again</li>
+<li><strong>Stretch:</strong> <code>$</code> wins, by a lot — that’s the honest answer and it’s why the tidyverse is built around column names</li>
+</ul>
+</div>
+</div>
 </section>
 <section id="how-big-is-data-10-min" class="level2">
-<h2 class="anchored" data-anchor-id="how-big-is-data-10-min">3 · How big is data? (10 min)</h2>
+<h2 class="anchored" data-anchor-id="how-big-is-data-10-min">3 · How big is data? <span class="timing">10 min</span></h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(airquality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -702,8 +909,29 @@ $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1
 <pre><code>7208 bytes</code></pre>
 </div>
 </div>
-<p><strong>Q5 expected order:</strong> actually run it: airquality ≈ 5.6 KB, mtcars ≈ 7.2 KB, iris ≈ 7.8 KB, so <strong>airquality &lt; mtcars &lt; iris</strong>. (mtcars is small in rows but its row <em>names</em> cost bytes — a fun 20-second aside if asked; otherwise just confirm the order from the output.)</p>
-<p><strong>Q6: about 16 copies</strong> (8 GB ≈ 8,000 MB; 8,000 / 500 = 16). The honest version: overhead means fewer in practice — the point is the <em>order of magnitude</em> reasoning, which is sub-outcome 1.12’s whole job.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Q5 &amp; Q6 answers">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Q5 &amp; Q6 answers
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="q">Q5</span> actually run it: airquality ≈ 5.6 KB, mtcars ≈ 7.2 KB, iris ≈ 7.8 KB → <strong>airquality &lt; mtcars &lt; iris</strong>
+<ul>
+<li>mtcars is small in rows but its row <em>names</em> cost bytes — a fun 20-second aside if asked; otherwise just confirm the order</li>
+</ul></li>
+<li><span class="q">Q6</span> <strong>about 16 copies</strong> — 8 GB ≈ 8,000 MB; 8,000 / 500 = 16
+<ul>
+<li>honest version: overhead means fewer in practice</li>
+<li>the point is <em>order-of-magnitude</em> reasoning, which is sub-outcome 1.12’s whole job</li>
+</ul></li>
+</ul>
+</div>
+</div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT5</span></span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(iris)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -715,15 +943,56 @@ $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1
 <pre><code>1248 bytes</code></pre>
 </div>
 </div>
-<p><strong>YT5:</strong> one column ≈ 1.2 KB of ≈ 7.8 KB — about 15%, less than 1/5. Why: the data frame carries overhead (names, row labels, the factor’s level table) beyond its raw numbers. Any answer noticing “less than 1/5, because the container itself costs something” is full credit.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="YT5 answer">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>YT5 answer
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="yt">YT5</span> one column ≈ 1.2 KB of ≈ 7.8 KB — about <strong>15%</strong>, less than 1/5</li>
+<li>Why: the data frame carries overhead (names, row labels, the factor’s level table) beyond its raw numbers</li>
+<li>Full credit: any answer noticing “less than 1/5, because the container itself costs something”</li>
+</ul>
+</div>
+</div>
 </section>
 <section id="where-this-is-going-5-min" class="level2">
-<h2 class="anchored" data-anchor-id="where-this-is-going-5-min">4 · Where this is going (5 min)</h2>
-<p>Run the coffee import → <code>filter</code> → histogram in under three minutes, saying only: <em>“Extraction. Transformation. Visualization. Monday, this is yours.”</em> No function explanations — the mystique is the motivation.</p>
+<h2 class="anchored" data-anchor-id="where-this-is-going-5-min">4 · Where this is going <span class="timing">5 min</span></h2>
+<div class="callout callout-style-default callout-important callout-titled" title="Teaching note — the ETV preview">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Teaching note — the ETV preview
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Run the coffee import → <code>filter</code> → histogram in under three minutes</li>
+<li>Say only: <em>“Extraction. Transformation. Visualization. Monday, this is yours.”</em></li>
+<li>No function explanations — the mystique is the motivation</li>
+</ul>
+</div>
+</div>
 </section>
 <section id="exit-question-8-min" class="level2">
-<h2 class="anchored" data-anchor-id="exit-question-8-min">5 · Exit question (8 min)</h2>
-<p><strong>Model answer:</strong></p>
+<h2 class="anchored" data-anchor-id="exit-question-8-min">5 · Exit question <span class="timing">8 min</span></h2>
+<div class="callout callout-style-default callout-tip callout-titled" title="Model answer">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Model answer
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(mysterydata)      <span class="co"># structure: rows, columns, names, types</span></span>
 <span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mysterydata)      <span class="co"># ranges + WHERE the NAs are</span></span>
@@ -731,7 +1000,13 @@ $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1
 <span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>mysterydata<span class="sc">$</span>score         <span class="co"># one column, as a vector</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Any three of {glimpse/str, summary, head/tail, dim/nrow+ncol, names} with correct one-line justifications passes; the access line must be <code>$score</code> or <code>[["score"]]</code> (a vector) — <code>["score"]</code> is a data frame, half credit with the explanation. The habit being graded: <strong>inspect before you compute</strong> — which is the E stage’s second half, forever.</p>
+<ul>
+<li>Passes: any three of {<code>glimpse</code>/<code>str</code>, <code>summary</code>, <code>head</code>/<code>tail</code>, <code>dim</code>/<code>nrow</code>+<code>ncol</code>, <code>names</code>} with correct one-line justifications</li>
+<li>The access line must be <code>$score</code> or <code>[["score"]]</code> (a vector) — <code>["score"]</code> is a data frame: half credit with the explanation</li>
+<li>The habit being graded: <strong>inspect before you compute</strong> — the E stage’s second half, forever</li>
+</ul>
+</div>
+</div>
 
 
 </section>

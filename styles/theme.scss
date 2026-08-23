@@ -12,23 +12,121 @@ $sidebar-bg: #f8f9fb;
 $h1-font-size: 1.9rem;
 $h2-font-size: 1.45rem;
 
+// accent palette
+$c-blue:   #1f5f8b;
+$c-teal:   #0f8b8d;
+$c-green:  #2e8b57;
+$c-orange: #e8a33d;
+$c-red:    #c0392b;
+$c-purple: #6f42c1;
+$c-pink:   #d63384;
+
 /*-- scss:rules --*/
-.title { font-weight: 700; letter-spacing: -0.01em; }
+.title { font-weight: 700; letter-spacing: -0.01em; color: $c-blue; }
 .subtitle.lead { color: #5b6470; font-size: 1.05rem; }
-h1, .h1 { border-bottom: 2px solid #e5e8ec; padding-bottom: .25rem; margin-top: 2.2rem; }
+
+/* ---------- section headings (Quarto renders "#" as h2, "##" as h3) ---------- */
+h2.anchored, section.level2 > h2 {
+  color: $c-blue;
+  border-bottom: 3px solid $c-orange;
+  border-left: 0; padding-left: 0;
+  padding-bottom: .3rem;
+  margin-top: 2.4rem;
+  font-weight: 700;
+}
+h3.anchored, section.level3 > h3 {
+  color: $c-teal;
+  border-left: 5px solid $c-teal;
+  padding-left: .6rem;
+  margin-top: 1.8rem;
+}
+h4.anchored, section.level4 > h4 { color: $c-purple; }
+
+/* timing in headings, e.g. "(12 min)" */
+.timing {
+  font-size: .7em; font-weight: 600; color: #fff;
+  background: $c-orange; border-radius: 999px; padding: .1rem .6rem;
+  margin-left: .5rem; vertical-align: middle; white-space: nowrap;
+}
+nav#TOC .timing, nav#TOC-body .timing, .sidebar .timing { display: none; }
+
+/* ---------- body TOC (toc-location: right-body) ---------- */
+nav#TOC-body {
+  background: linear-gradient(135deg, #eef5fb 0%, #fff8ec 100%);
+  border: 1px solid #d6e3ef; border-left: 6px solid $c-blue;
+  border-radius: 8px; padding: .9rem 1.2rem 0.6rem; margin: 1rem 0 2rem;
+}
+nav#TOC-body h2#toc-title { color: $c-blue; border: 0; padding: 0; margin: 0 0 .5rem; font-size: 1.15rem; font-weight: 700; }
+nav#TOC-body ul { margin-bottom: .2rem; }
+nav#TOC-body > ul > li { margin-bottom: .2rem; }
+nav#TOC-body > ul > li > a { color: $c-blue; font-weight: 600; }
+nav#TOC-body ul ul li a { color: $c-teal; font-weight: 400; }
+nav#TOC-body a:hover { color: $c-red; }
+#quarto-margin-sidebar nav#TOC h2#toc-title { color: $c-blue; font-weight: 700; border: 0; padding: 0; }
+.sidebar nav[role="doc-toc"] ul > li > a.active { color: $c-red; border-left-color: $c-red; font-weight: 600; }
+
+/* ---------- blockquotes (central question / model sentences) ---------- */
 blockquote {
-  border-left: 4px solid $secondary;
+  border-left: 5px solid $c-orange;
   background: #fff8ec;
   padding: .6rem 1rem;
   border-radius: 0 6px 6px 0;
   color: #4a4a4a;
 }
 blockquote p { margin-bottom: .3rem; }
+
+/* ---------- code ---------- */
 div.sourceCode { border-radius: 6px; }
 pre.sourceCode { font-size: .9rem; }
-.cell-output pre { background: #ffffff; border: 1px solid #e5e8ec; border-radius: 6px; font-size: .88rem; }
+.cell-output pre { background: #ffffff; border: 1px solid #e5e8ec; border-left: 4px solid $c-green; border-radius: 6px; font-size: .88rem; }
 table { font-size: .93rem; }
+thead { background: #eef5fb; }
 .sidebar-item-text { font-size: .92rem; }
+
+/* ---------- inline tags: [LM2]{.lm}  [YT3]{.yt}  [Q4]{.q} ---------- */
+.lm, .yt, .q, .exp, .ans {
+  display: inline-block; font-size: .78rem; font-weight: 700; letter-spacing: .02em;
+  border-radius: 4px; padding: .08rem .45rem; color: #fff; vertical-align: middle; margin-right: .25rem;
+}
+.lm  { background: $c-blue; }
+.yt  { background: $c-orange; }
+.q   { background: $c-purple; }
+.exp { background: $c-teal; }
+.ans { background: $c-green; }
+
+/* ---------- callouts: recolor the four built-ins for note roles ---------- */
+/* note     = Expected output (teal)
+   tip      = Model answer / answers (green)
+   important= Teaching note (purple)
+   warning  = Timing / checkpoint / watch-out (orange)
+   caution  = Common errors (red) */
+.callout { border-radius: 8px; margin-top: 1rem; margin-bottom: 1rem; }
+.callout .callout-title-container { font-weight: 700; }
+.callout ul, .callout ol { margin-bottom: .2rem; }
+.callout li { margin-bottom: .15rem; }
+
+.callout.callout-style-default.callout-note { border-left-color: $c-teal; }
+.callout-note .callout-header { background: rgba(15,139,141,.12); color: darken($c-teal, 8%); }
+
+.callout.callout-style-default.callout-tip { border-left-color: $c-green; }
+.callout-tip .callout-header { background: rgba(46,139,87,.13); color: darken($c-green, 8%); }
+
+.callout.callout-style-default.callout-important { border-left-color: $c-purple; }
+.callout-important .callout-header { background: rgba(111,66,193,.12); color: darken($c-purple, 5%); }
+
+.callout.callout-style-default.callout-warning { border-left-color: $c-orange; }
+.callout-warning .callout-header { background: rgba(232,163,61,.18); color: #8a5a0c; }
+
+.callout.callout-style-default.callout-caution { border-left-color: $c-red; }
+.callout-caution .callout-header { background: rgba(192,57,43,.12); color: darken($c-red, 5%); }
+
+/* ---------- answer key line (one-line "A = S · B = T ...") ---------- */
+.keyline {
+  background: linear-gradient(90deg, #e8f5ee, #eef5fb);
+  border: 1px solid #cfe3d8; border-radius: 8px; padding: .6rem 1rem; font-weight: 600;
+}
+
+/* ---------- home page cards & badges ---------- */
 .card-lesson { border: 1px solid #e5e8ec; border-radius: 8px; padding: 1rem 1.2rem; height: 100%; }
 .card-lesson h3 { margin-top: 0; font-size: 1.1rem; }
 .badge-key { background: $primary; color: #fff; border-radius: 4px; padding: .1rem .45rem; font-size: .75rem; }

@@ -5,6 +5,9 @@ author: "Instructor key"
 format:
   html:
     toc: true
+    toc-depth: 3
+    toc-location: right-body
+    toc-title: "Contents"
 execute:
   warning: false
   message: false
@@ -18,19 +21,24 @@ CLO ALIGNMENT (assessed via lab receipt + drills)
 Timing: 0 Ethics 8' · E 12' · T 30' · V 20' · Answer 10' = 80'
 -->
 
-# 0 · Context & ethics (8 min)
+::: {.callout-warning title="Timing & CLOs"}
+- **Budget:** Ethics 8′ · E 12′ · T 30′ · V 20′ · Answer 10′ = **80′**
+- **CLOs:** 2.1 `read_csv` · 3.1 select/filter/mutate/summarize · 4.1 ggplot + `geom_point` · 4.4 center & spread · 4.5 claim · 12.4 privacy
+:::
 
-Our data are 821 entries from a personal transaction ledger.
+# 0 · Context & ethics [8 min]{.timing}
 
-**Talking points (CLO 12.4):** transaction logs can reveal routines, locations,
-and financial habits. Model sentence: *"Someone might not expect a personal
-ledger to be used to infer their routine or financial situation."*
+::: {.callout-important title="Talking points (CLO 12.4)"}
+- Our data: **821 entries** from a personal transaction ledger
+- Transaction logs can reveal routines, locations, and financial habits
+- Model sentence: *"Someone might not expect a personal ledger to be used to infer their routine or financial situation."*
+:::
 
 # 1 · The central question
 
 > **How much do customers spend on coffee, and how does the amount spent vary?**
 
-# 2 · E — Extraction (12 min)
+# 2 · E — Extraction [12 min]{.timing}
 
 ```{r}
 library(tidyverse)
@@ -44,11 +52,13 @@ coffee_df <- read_csv("Data/coffee_purchases.csv")
 glimpse(coffee_df)
 ```
 
-**Expected:** 821 rows, 7 variables. `amount` (`<dbl>`) stores debits as
-negative dollar values; `description`, `account`, `month`, and `year` provide
-the available context.
+::: {.callout-note title="Expected — LM2"}
+- [LM2]{.lm} **821 rows, 7 variables**
+- `amount` (`<dbl>`) stores debits as **negative** dollar values
+- `description`, `account`, `month`, `year` provide the available context
+:::
 
-# 3 · T — Transformation (30 min)
+# 3 · T — Transformation [30 min]{.timing}
 
 ```{r}
 # LM3: select the relevant variables
@@ -65,10 +75,11 @@ coffee_clean_df <- coffee_small_df |>
 nrow(coffee_small_df) - nrow(coffee_clean_df)
 ```
 
-**Expected:** 77 rows removed, leaving 744 coffee descriptions. The defense
-clause students should produce: *"The description is our operational rule for
-identifying coffee, but it may miss or include some purchases."* The negative
-sign is expected because the source is a transaction ledger.
+::: {.callout-note title="Expected — LM4"}
+- [LM4]{.lm} **77 rows removed**, leaving **744** coffee descriptions
+- Defense clause students should produce: *"The description is our operational rule for identifying coffee, but it may miss or include some purchases."*
+- The negative sign is expected — the source is a transaction ledger
+:::
 
 ```{r}
 # LM5: convert ledger debits to positive spending
@@ -88,10 +99,12 @@ spending_summary_df <- coffee_clean_df |>
 spending_summary_df
 ```
 
-**Expected:** mean ≈ **$5.95**, sd ≈ **$5.45**, n = 744. The large spread is
-partly driven by unusually large ledger entries; interpret, don't memorize.
+::: {.callout-note title="Expected — LM6"}
+- [LM6]{.lm} mean ≈ **$5.95** · sd ≈ **$5.45** · n = **744**
+- The large spread is partly driven by unusually large ledger entries — interpret, don't memorize
+:::
 
-# 4 · V — Visualization & summary (20 min)
+# 4 · V — Visualization & summary [20 min]{.timing}
 
 ```{r}
 # LM7: histogram of spending
@@ -117,17 +130,17 @@ ggplot(coffee_clean_df, aes(x = account, y = spending)) +
   labs(x = "Account", y = "Coffee spending ($)")
 ```
 
-**Teaching note for LM8:** points show the full transaction-level spread that
-the summary table compresses away. The account groups also make the limits of
-the dataset visible: this is a ledger, not a random sample of all customers.
+::: {.callout-important title="Teaching note — LM8"}
+- [LM8]{.lm} Points show the full transaction-level spread that the summary table compresses away
+- The account groups make the limits of the dataset visible: this is a **ledger, not a random sample** of all customers
+:::
 
-# 5 · Interpretation & final answer (10 min)
+# 5 · Interpretation & final answer [10 min]{.timing}
 
-**Model answer:** *"A typical recorded coffee purchase is about $5.95, with a
-standard deviation of roughly $5.45. The plot shows that the ledger contains
-many small purchases and a few much larger entries. We retained 744 of 821
-rows whose descriptions contained 'coffee'; that text rule is useful but not
-perfect."*
-
-Required elements: **center (mean), spread (sd in dollars), and caveat (the
-filter rule)** — that trio is the CLO 4.5 rubric for every cycle this term.
+::: {.callout-tip title="Model answer"}
+- *"A typical recorded coffee purchase is about $5.95, with a standard deviation of roughly $5.45. The plot shows that the ledger contains many small purchases and a few much larger entries. We retained 744 of 821 rows whose descriptions contained 'coffee'; that text rule is useful but not perfect."*
+- Required elements (the CLO 4.5 rubric for every cycle this term):
+  - **center** — the mean
+  - **spread** — the sd, in dollars
+  - **caveat** — the filter rule
+:::
