@@ -39,6 +39,8 @@ R does the work; Positron is the workshop it happens in.
 
 ## Setup checklist (do once, before class if you can)
 
+> Need bigger, step-by-step instructions? See [**Prep — Getting Set Up**](../../week_0/prep/setup_positron.qmd).
+
 Check each box as you finish it:
 
 - [ ] **1. Install R, then Positron.** Download R from

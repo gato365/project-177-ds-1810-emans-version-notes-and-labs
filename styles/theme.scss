@@ -131,3 +131,22 @@ thead { background: #eef5fb; }
 .card-lesson h3 { margin-top: 0; font-size: 1.1rem; }
 .badge-key { background: $primary; color: #fff; border-radius: 4px; padding: .1rem .45rem; font-size: .75rem; }
 .badge-stu { background: $secondary; color: #fff; border-radius: 4px; padding: .1rem .45rem; font-size: .75rem; }
+
+/* ---------- Prep page: big-font instructions ---------- */
+.prep-big { font-size: 1.35rem; line-height: 1.6; }
+.prep-big h2.anchored { font-size: 2.2rem; }
+.prep-big h3.anchored { font-size: 1.6rem; border-left-width: 7px; }
+.prep-big .callout { font-size: 1.2rem; }
+.prep-big .callout-title-container { font-size: 1.25rem; }
+.prep-big code { font-size: .95em; }
+.prep-big pre { font-size: 1.1rem; }
+.prep-big .step {
+  border: 2px solid #d6e3ef; border-radius: 10px; padding: .4rem 1.3rem 1rem;
+  margin: 1.2rem 0; background: #fbfdff;
+}
+.prep-big .step h3.anchored { margin-top: .6rem; }
+.prep-big .step:nth-of-type(odd) { border-color: #f3d9ae; background: #fffcf5; }
+.prep-big .task-list li input[type="checkbox"] { width: 1.3rem; height: 1.3rem; margin-right: .5rem; vertical-align: middle; }
+.prep-big .lm, .prep-big .yt { font-size: 1.05rem; padding: .15rem .6rem; }
+.prep-big .callout .callout-body-container, .prep-big .callout .callout-body, .prep-big .callout p, .prep-big .callout li { font-size: 1.2rem; }
+.prep-big .callout .callout-title-container { font-size: 1.25rem; }

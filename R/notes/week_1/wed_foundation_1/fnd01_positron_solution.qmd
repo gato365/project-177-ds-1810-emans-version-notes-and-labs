@@ -36,6 +36,10 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 
 ## Setup checklist
 
+::: {.callout-note title="Prep page"}
+- Big-font, step-by-step version for the projector: [**Prep — Getting Set Up**](../../week_0/prep/setup_positron.qmd) (also covers the Session tab and LM/YT)
+:::
+
 ::: {.callout-important title="Teaching note — setup"}
 - The eight setup steps should be done **before** class: install R → install Positron → download the `.qmd` → make `Desktop/R/{Notes,Labs}` and `Desktop/Data` → move the file into `R/Notes` → open Positron → **File → Open Folder…** on `Desktop/R` → open the file from the sidebar → fill in name and date
 - Budget **3 minutes** at the start to rescue whoever isn't there yet

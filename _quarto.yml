@@ -20,6 +20,8 @@ website:
     left:
       - text: "Home"
         href: index.qmd
+      - text: "Prep"
+        href: R/notes/week_0/prep/setup_positron.qmd
       - text: "Foundations"
         menu:
           - text: "01 · Positron & the R Environment"
@@ -41,6 +43,10 @@ website:
     collapse-level: 1
     contents:
       - index.qmd
+      - section: "Prep"
+        contents:
+          - text: "Getting Set Up"
+            href: R/notes/week_0/prep/setup_positron.qmd
       - section: "Week 1"
         contents:
           - text: "Fnd 01 · Solution"

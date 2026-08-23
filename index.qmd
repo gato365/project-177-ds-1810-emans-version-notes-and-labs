@@ -13,6 +13,10 @@ student `.qmd` to work along in Positron.
 <span class="badge-stu">STUDENT</span> rendered student version ·
 `.qmd` download the student file
 
+## Prep (before Week 1)
+
+- [**Getting Set Up**](R/notes/week_0/prep/setup_positron.qmd) — install R & Positron, build your folders, open your first `.qmd`, find the Session tab, and learn what **LM** / **YT** mean.
+
 ## Foundations
 
 | Week | Day | Lesson | Key | Student | File |

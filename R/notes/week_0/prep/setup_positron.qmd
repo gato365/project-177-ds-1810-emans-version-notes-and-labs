@@ -1,0 +1,131 @@
+---
+title: "Prep — Getting Set Up"
+subtitle: "STAT/DATA 1810 · Do this before Week 1 · Positron, folders, and your first .qmd"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    toc-location: right-body
+    toc-title: "Contents"
+    page-layout: article
+---
+
+::: {.prep-big}
+
+::: {.callout-warning title="Goal for today"}
+**Make sure everyone has Positron running** with today's `.qmd` file open, and their name and date typed in. Nothing else matters until that is true.
+:::
+
+# The 9 setup steps
+
+Work top to bottom. Tick each box as you finish it.
+
+::: {.step}
+## 1 · Download & install R, then Positron
+- [ ] Download **R** from <https://cloud.r-project.org> and install it
+- [ ] Download **Positron** from <https://positron.posit.co> and install it
+
+Note: **R first** — Positron needs to find it.
+:::
+
+::: {.step}
+## 2 · Download the first `.qmd` file
+- [ ] From the course site, download the first `.qmd` file
+
+Notes:
+
+- The file name has **today's date** and **`qmd 1`** in it
+- It lands in your `Downloads` folder — that's fine for now
+:::
+
+::: {.step}
+## 3 · Create folders on your Desktop
+- [ ] **a.** On the Desktop, create two folders: `R` and `Data`
+- [ ] **b.** Inside `R`, create two folders: `Notes` and `Labs`
+
+When you're done it looks like this:
+
+```
+Desktop/
+├── R/
+│   ├── Notes/
+│   └── Labs/
+└── Data/
+```
+:::
+
+::: {.step}
+## 4 · Move the downloaded file
+- [ ] Drag the `.qmd` file out of `Downloads` and into **`Desktop/R/Notes/`**
+
+Note: notes go in `Notes` · labs go in `Labs` · data files go in `Data` — **every week**.
+:::
+
+::: {.step}
+## 5 · Open Positron
+- [ ] Launch Positron (Applications folder / Start menu)
+:::
+
+::: {.step}
+## 6 · Open your Desktop folder
+- [ ] In Positron: **File → Open Folder…**
+- [ ] Choose **`Desktop/R`**
+
+Notes:
+
+- The folder's contents now appear in the **Explorer** sidebar on the left
+- If the left sidebar is empty, you opened the *file* instead of the *folder* — do this step again
+:::
+
+::: {.step}
+## 7 · Open the `.qmd` file in Positron
+- [ ] In the left sidebar, click **`Notes`**
+- [ ] Click the `.qmd` file — it opens in the middle of the screen (the **Editor**)
+:::
+
+::: {.step}
+## 8 · Find the name-and-date line
+At the top of the file there is a line that looks like this:
+
+> **Name:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ · **Date:** \_\_\_\_\_\_\_\_\_\_
+:::
+
+::: {.step}
+## 9 · Fill in your name and date
+- [ ] Type your **name** and **today's date** on that line
+- [ ] Also put your name in the `author:` line at the very top of the file
+
+Note: this is how we tell whose work is whose — do it every time you open a new `.qmd`.
+:::
+
+::: {.callout-tip title="Checkpoint"}
+- Positron open ✔ · `Desktop/R` open in the sidebar ✔ · `.qmd` open in the Editor ✔ · name and date typed ✔
+- Raise your hand if any box is missing — the fix is almost always **File → Open Folder… → `Desktop/R`**
+:::
+
+# How to get to the `Session` tab
+
+::: {.callout-note title="Find it"}
+- Look at the **top-right corner** of Positron
+- You'll see a label like **`R 4.5.1`** — that label *is* your R session
+- **Click it once** — a small menu opens: the running R, a **Restart** button, a **Shutdown** button, and any other interpreters on your computer
+- Press **Escape** to close the menu
+- Just below it on the right, the panel labeled **SESSION** holds **Variables** and **Plots** — everything the session is holding in memory
+- Right now Variables says *No variables have been created* — remember what empty looks like
+:::
+
+::: {.callout-important title="Three things to know about the session"}
+- **It has memory** — every object you create lives here and shows up in Variables
+- **It can be restarted** — Restart wipes that memory clean; your *files* are untouched
+- **It can be replaced** — the same menu lets you pick a different R (or Python); don't today, just know it exists
+:::
+
+# Two labels you will see all term
+
+::: {.callout-important title="Acronyms"}
+- [LM]{.lm} **= Learning Moment** — the instructor demonstrates; you follow along and run the code
+- [YT]{.yt} **= Your Turn** — you do it yourself: fill the blank or the empty chunk
+- Say them out loud the first time you see them — most people guess wrong otherwise
+:::
+
+:::
