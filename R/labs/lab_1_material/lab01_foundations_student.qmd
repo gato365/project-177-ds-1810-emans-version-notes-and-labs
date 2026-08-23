@@ -1,0 +1,250 @@
+---
+title: "Lab 01 — Foundations: Positron, Objects, and Data Structures"
+subtitle: "STAT/DATA 1810 · Take-home (AI permitted) · Student version"
+author: "Your name here"
+date: today
+format:
+  html:
+    toc: true
+    embed-resources: true
+  docx: default
+execute:
+  warning: false
+  message: false
+---
+
+<!--
+CLO ALIGNMENT (Foundations block; see course website → PLOs & CLOs)
+  CLO 1  1.2 Positron · 1.3 file management · 1.4 assignment ·
+         1.5 data types · 1.6 containers · 1.7 packages vs libraries ·
+         1.12 storage magnitudes
+  CLO 7  7.4 comparison operators (intro) · 7.6 is.na() (intro)
+  CLO 11 11.1 ?function help
+  CLO 9  practiced, not graded (this IS a rendered Quarto document)
+Dataset: mtcars (built in). Target time: 60–90 min. 15 questions.
+HOW TO SUCCEED: fill every blank (____), complete every empty chunk, and
+answer every "> Your answer:" prompt. The lab must RENDER cleanly to submit.
+-->
+
+# Welcome to your first lab
+
+This lab reviews everything from the first two weeks: Positron, objects,
+data types, data structures, and how to look inside data. You may use AI
+tools — one question below even requires it — but **you must be able to
+render this document yourself**, and the written answers must be yours.
+
+We use `mtcars`, a dataset built into R (32 cars from a 1974 magazine). You
+do not need to import anything — it is already there.
+
+```{r}
+#| label: setup
+library(tidyverse)
+```
+
+---
+
+# Part A · Positron & the environment (Q1–Q4)
+
+**Q1.** Fill in the blanks about the Positron interface.
+
+> - The pane where R answers one command at a time is the ________.
+> - The pane listing every object you have created this session is the
+>   ________ pane.
+> - Code you want to keep lives in the ________ (this `.qmd` file).
+
+**Q2.** Assignment. Create an object called `my_name` holding your name as
+text, then print it.
+
+```{r}
+# Q2: create my_name and print it
+
+```
+
+**Q3.** Predict, then run. First write your prediction, then complete the
+chunk and check.
+
+> Prediction for `wheels`: ________
+
+```{r}
+# Q3: run this and compare to your prediction
+cars_counted <- 4
+wheels <- cars_counted * 4
+wheels
+```
+
+**Q4.** Packages. Fill in the blanks:
+
+> - You run `install.packages("tidyverse")` ________ per computer.
+> - You run `library(tidyverse)` ________ you start a new session.
+
+---
+
+# Part B · Data types (Q5–Q8)
+
+**Q5.** Run `class()` on three columns of `mtcars` and report what each is.
+
+```{r}
+# Q5: check the class of mpg, cyl, and (using $) one more column you choose
+class(mtcars$mpg)
+class(mtcars$cyl)
+class(____)
+```
+
+> Your three answers: ________, ________, ________
+
+**Q6.** Use `help()` **or** `?` to look up a function. Open the help page for
+`mean`, then answer from what you read.
+
+```{r}
+#| eval: false
+# Q6: open the help page (this line does not render output — that's fine)
+?mean
+```
+
+> From the help page, what does the `na.rm` argument do (one sentence)?
+>
+> Your answer:
+
+**Q7.** Missing values. `mtcars` has none, so we make a small vector that
+does. Use `is.na()` and `sum()` to count the missing values.
+
+```{r}
+# Q7: count the NAs in this vector
+test_scores <- c(88, 92, NA, 75, NA, 100)
+sum(is.na(____))
+```
+
+> How many values are missing? ________
+
+**Q8.** Comparison operators return TRUE/FALSE. Complete each so it returns
+`TRUE`.
+
+```{r}
+# Q8: fill each blank so the result is TRUE
+10 > ____
+"cat" == ____
+5 <= ____
+```
+
+---
+
+# Part C · Data structures from scratch (Q9–Q12)
+
+**Q9.** Build a **vector** with `c()`: three of your favorite numbers.
+
+```{r}
+# Q9: create a numeric vector called fav_nums
+
+```
+
+**Q10.** Build a **data frame from scratch** using `tibble()`. Make three
+drinks and their prices.
+
+```{r}
+# Q10: create a tibble called menu with columns `drink` and `price`
+menu <- tibble(
+  drink = c("____", "____", "____"),
+  price = c(____, ____, ____)
+)
+menu
+```
+
+**Q11.** Build a **list** with `list()` holding a name, a number, and your
+`menu` tibble from Q10.
+
+```{r}
+# Q11: create a list called my_stuff
+
+```
+
+**Q12.** In one sentence, explain the difference between a **data type** and
+a **data structure**, using one example of each from this lab.
+
+> Your answer:
+
+---
+
+# Part D · Inspecting data & storage (Q13–Q14)
+
+**Q13.** Inspect `mtcars`. Run each function and answer.
+
+```{r}
+# Q13: inspect the dataset
+glimpse(mtcars)
+dim(mtcars)
+```
+
+> - How many rows (cars)? ________
+> - How many columns (variables)? ________
+> - What does ONE row represent? ________
+
+**Q14.** Storage. Every object takes up memory. Check how big `mtcars` is.
+
+```{r}
+# Q14: how many bytes does mtcars occupy?
+object.size(mtcars)
+```
+
+> About how many kilobytes (KB) is that? ________
+> Why does the size of a dataset matter before you import it? (one sentence)
+>
+> Your answer:
+
+---
+
+# Part E · Working with AI (Q15)
+
+**Q15.** This question requires an AI assistant (ChatGPT, Claude, Positron's
+assistant, etc.). You will ask it to write code you have **not** learned yet,
+run that code, and explain what it does. The goal is not to understand every
+detail — it is to get comfortable producing and reading code you will fully
+understand later in the course.
+
+**Step 1 — copy this exact prompt to your AI:**
+
+> *"In R, using the built-in mtcars dataset and the dplyr package, write code
+> that groups the cars by their number of cylinders (cyl) and reports the
+> average miles per gallon (mpg) for each group. Then add one ggplot2 bar
+> chart of the result. Explain nothing — just give me the code."*
+
+**Step 2 — paste the AI's code into the chunk below and run it.** If it errors,
+tell the AI the error and ask it to fix it, then paste the working version.
+
+```{r}
+# Q15: paste the AI-generated code here and run it
+
+```
+
+**Step 3 — explain what the code did.** For **each chunk of code the AI gave
+you**, write one short sentence in plain English describing what that line or
+block does. You are not expected to know these functions yet — do your best
+from the output and the AI's help.
+
+> Your explanations (one line per piece of code):
+>
+> 1.
+> 2.
+> 3.
+>
+> One thing this code did that you do not yet understand:
+
+---
+
+# Finish: render your lab (required)
+
+Your lab is not complete until it **renders cleanly**. Do this:
+
+1. Save the file.
+2. Click **Render**. Render it **twice**: once to **HTML** and once to **Word
+   (docx)** — the header at the top of this file is already set up for both.
+3. If rendering fails, R will point you to the chunk that broke. Fix it and
+   render again. A common cause: an empty required chunk or a leftover `____`.
+
+**Why rendering matters:** a document that renders is a document anyone can
+reproduce — your future self, a classmate, a grader. Code that only works on
+your screen is not yet science. Rendering cleanly is the habit this whole
+course is built on.
+
+**Then:** go to Canvas and take the **Lab 01 Quiz**. You will only be able to
+answer it if you completed this lab — the quiz asks for values and answers you
+produced above.

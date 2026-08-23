@@ -5,8 +5,11 @@ project:
   render:
     - index.qmd
     - "R/notes/**/*.qmd"
+    - R/check_in/checkins.qmd
+    - "!R/check_in/generated/**"
   resources:
     - "assets/*"
+    - "R/check_in/public/**/*.docx"
     - "R/notes/**/*_empty.qmd"
     - "Data/*"
 
@@ -30,6 +33,8 @@ website:
             href: R/notes/week_2/mon_foundation_2/fnd02_types_structures_solution.qmd
           - text: "03 · Inspecting & Accessing Data"
             href: R/notes/week_2/wed_foundation_3/fnd03_inspect_access_solution.qmd
+      - text: "Check-Ins"
+        href: R/check_in/checkins.qmd
       - text: "ETV Cycles"
         menu:
           - text: "01 · Coffee Spending"
@@ -79,6 +84,10 @@ website:
             href: R/notes/week_4/mon_etv_cycle_3/etv03_crime_solution.qmd
           - text: "ETV 03 · Student (template)"
             href: R/notes/week_4/mon_etv_cycle_3/etv03_crime_empty.qmd
+      - section: "Check-Ins"
+        contents:
+          - text: "Released check-ins"
+            href: R/check_in/checkins.qmd
   page-footer:
     left: "STAT/DATA 1810 · Data Science I"
     right: "Built with [Quarto](https://quarto.org)"

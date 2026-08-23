@@ -1,0 +1,67 @@
+{
+  "week": 1,
+  "check_in_type": "self",
+  "title": "Week 1 Self Check-In",
+  "version": "A",
+  "time_limit": "five minutes",
+  "instructions": "This is a closed-note evaluation designed to check your understanding of the course and its expectations. You will have {time_limit} to complete the evaluation. I will let you know when to begin once I start the timer. This assessment must be completed individually, without any collaboration or assistance. Answer each question clearly.",
+  "blank_published": false,
+  "solution_published": false,
+  "questions": [
+    {
+      "id": "self_w01_q01",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 3,
+      "answer_space_inches": 1.0,
+      "question": "How many total points are available this semester across all assignments?",
+      "answer": "1,000 points. (Final 32.5% · three midterms 25% · self check-ins 15% · collaborative check-ins 10% · labs 10% · drills 7.5%.)",
+      "rubric": "3 pts for 1,000 (accept '1000'). 0 pts otherwise — single number, no partial credit.",
+      "instructor_notes": "Syllabus §6 Grade Breakdown: '1,000 pts'."
+    },
+    {
+      "id": "self_w01_q02",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 4,
+      "answer_space_inches": 1.2,
+      "question": "Labs: When is a lab due, and what must you submit (or completed) for it to be counted as complete or done?",
+      "answer": "Due: Wednesday of the following week at 11:59 PM (labs are weekly — 15 take-home labs, 10 points each, generative AI permitted). Submission: answer the lab questions on Canvas (the Canvas lab quiz) for the lab to count as complete.",
+      "rubric": "2 pts for the correct due day/time — Wednesday of the next week at 11:59 PM (1 pt for 'weekly' with no day/time). 2 pts for stating that the lab is submitted/completed on Canvas (Canvas questions); 1 pt for anything else; 0 pts for blank.",
+      "instructor_notes": "Due day/time and Canvas submission are not yet written into the syllabus §7 'L Labs' (Due:/Submission: are blank) — add them there so students can find this."
+    },
+    {
+      "id": "self_w01_q03",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 4,
+      "answer_space_inches": 1.2,
+      "question": "Drills: How often are drills assigned per week, and how are they graded (select one of these options: correctness, for completion, or both)?",
+      "answer": "About 4 drills per week, all term (~40 questions/week, 10 per drill; 5–20 minutes each). They are graded for COMPLETION (engagement), not correctness: Complete ≥90% of questions and practice time = full 7.5%; Substantial 75–89% = 5.625%; Partial 50–74% = 3.75%; Insufficient <50% = 0%.",
+      "rubric": "2 pts for '~4 per week' (accept 3–5); 2 pts for 'completion' (accept 'engagement' / 'completion and practice time'). 0 of the 2 pts for 'correctness' or 'both'.",
+      "instructor_notes": "Syllabus §7 'D Drills' engagement table and §8 '~4 per week, all term'."
+    },
+    {
+      "id": "self_w01_q04",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 4,
+      "answer_space_inches": 0.8,
+      "question": "How many midterm exams are there this semester?",
+      "answer": "Three midterm exams — Wednesday of weeks 5, 9, and 13 (plus a cumulative common final on Saturday, December 12).",
+      "rubric": "4 pts for 'three' / '3'. 0 pts otherwise. Do not deduct if the student also mentions the final.",
+      "instructor_notes": "Syllabus §6–§7: ME1 week 5, ME2 week 9, ME3 week 13."
+    },
+    {
+      "id": "self_w01_q05",
+      "type": "short_answer",
+      "extra_credit": true,
+      "points": 1,
+      "answer_space_inches": 0.8,
+      "question": "Which city was Dr. Williams most excited about visiting this summer?",
+      "answer": "Kyoto or Tokyo (either is accepted).",
+      "rubric": "1 pt extra credit for Kyoto or Tokyo. No partial credit.",
+      "instructor_notes": "From the day-one introduction; not on the syllabus."
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "week": 1,
+  "check_in_type": "collab",
+  "title": "Week 1 Collaborative Check-In",
+  "version": "A",
+  "time_limit": "ten minutes",
+  "instructions": "This is an open-note, collaborative evaluation designed to check your understanding of Foundations 01 (Positron and the R Environment). Work with your group, but each person must turn in their own sheet. You will have {time_limit} to complete the evaluation. I will let you know when to begin once I start the timer. Answer each question clearly and in complete sentences.",
+  "blank_published": false,
+  "solution_published": false,
+  "questions": [
+    {
+      "id": "collab_w01_q01",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": null,
+      "answer_space_inches": 2.0,
+      "question": "A classmate runs the following three lines, one at a time, in the Console:\n\n    price <- 4.50\n    total <- 3 * price\n    price <- 5.00\n\nThey then type total and are surprised that it prints 13.5, not 15. (a) Explain why total did not change. (b) Name the pane in Positron where they could look to confirm the current values of price and total. (c) Write the one additional line they would need to run so that total reflects the new price.",
+      "answer": "(a) total was computed at the moment its assignment line ran, using price = 4.50. R objects store values, not formulas, so changing price afterwards does not re-run earlier lines. (b) The Variables pane (inside the SESSION panel on the right). (c) total <- 3 * price  (re-run the assignment).",
+      "rubric": "Part (a): full credit for stating that objects store the value computed at assignment time and that later reassignment does not re-run earlier code; half credit for only saying 'R does not update automatically' with no reason. Part (b): full credit for 'Variables' (accept 'Session panel / Variables'). Part (c): full credit for re-running total <- 3 * price (any equivalent assignment that recomputes total).",
+      "instructor_notes": "This is the Q4 / YT4 idea from the lesson in a new scenario. Watch for students who answer (c) with just 'total' — printing does not recompute."
+    },
+    {
+      "id": "collab_w01_q02",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": null,
+      "answer_space_inches": 2.0,
+      "question": "On Monday a student runs install.packages(\"tidyverse\") on their laptop and it works. On Wednesday they open Positron, start a new R session, and run:\n\n    ggplot(mtcars, aes(x = hp, y = mpg))\n\nR replies: Error: could not find function \"ggplot\". (a) Explain why this happened even though the package was installed. (b) Write the one line that fixes it. (c) In one sentence each, state how often install.packages() should be run and how often library() should be run, and why the difference exists.",
+      "answer": "(a) Installing a package copies it onto the computer, but it does not load it into the current R session. Every new session starts with only base R loaded, so ggplot() — which lives in the ggplot2 package inside tidyverse — is not visible until the package is loaded. (b) library(tidyverse)  (accept library(ggplot2)). (c) install.packages() runs once per computer — it downloads and saves the package to disk, which persists. library() runs once per session — it loads the installed package into memory, and memory is wiped every time R restarts. Analogy from class: install = buying the drill; library = taking it out of the garage.",
+      "rubric": "Part (a): full credit for explaining that installing puts the package on disk while a new session has nothing loaded, so the function is not found; half credit for 'they forgot to load it' with no explanation of installed-vs-loaded. Part (b): full credit for library(tidyverse) or library(ggplot2); no credit for install.packages() again. Part (c): half credit for 'install once per computer / library once per session'; half credit for the reason (disk persists, session memory does not). Split the question's points roughly 40% / 20% / 40% across (a) / (b) / (c).",
+      "instructor_notes": "Targets Q6 of the lesson (install vs library) and the 'could not find function' error family from §4. The 'new R session' phrase is the hint. Common wrong answer: 're-run install.packages()'."
+    },
+    {
+      "id": "collab_w01_q03",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": null,
+      "answer_space_inches": 2.2,
+      "question": "A student runs mean(airquality$Ozone) and gets NA. They open the help page with ?mean and see this Usage line:\n\n    mean(x, ...)\n    ## Default S3 method:\n    mean(x, trim = 0, na.rm = FALSE, ...)\n\n(a) Using the help page, name the argument that fixes the problem, state its default value, and explain in one sentence why the default produced NA. (b) Rewrite the call so it returns a number. (c) The student then writes round(mean(airquality$Ozone, na.rm = TRUE), 1). Explain the order in which R evaluates this nested call and what each of the two functions contributes to the final answer.",
+      "answer": "(a) na.rm — default FALSE. With na.rm = FALSE, mean() keeps the missing values, and any arithmetic involving NA gives NA, so the whole mean is NA (Ozone has 37 missing days). (b) mean(airquality$Ozone, na.rm = TRUE)  → about 42.13. (c) R works inside-out: the inner call mean(airquality$Ozone, na.rm = TRUE) runs first and produces 42.129..., then that value becomes the first argument of round(), which rounds it to 1 decimal place → 42.1. mean() computes the average of the non-missing values; round() only changes how many decimals are shown.",
+      "rubric": "Part (a): one-third of credit each for naming na.rm, stating the default FALSE, and explaining that NA propagates through arithmetic unless removed. Part (b): full credit for mean(airquality$Ozone, na.rm = TRUE) (accept any equivalent with na.rm = TRUE); no credit for removing the argument or using na.rm = FALSE. Part (c): half credit for 'inside-out — mean() runs first, its result goes into round()'; half credit for correctly describing what each function contributes (average of non-missing values; 1 decimal place). Split the question's points roughly 40% / 20% / 40% across (a) / (b) / (c).",
+      "instructor_notes": "Targets Q5 (na.rm), YT6 (reading a Usage line for a default), and the YT5(d) 'nested call, inside out' idea from §3. Students may not know the numeric value 42.13 without a computer — do not require it."
+    }
+  ]
+}

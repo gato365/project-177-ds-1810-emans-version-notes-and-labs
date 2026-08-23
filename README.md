@@ -15,6 +15,7 @@ styles/theme.scss    site theme
 assets/             favicon.svg (source, edit this) + favicon.png (used by the site)
 R/notes/week_N/...   *_empty.qmd (student) and *_solution.qmd (instructor key)
 Data/                datasets read by the ETV cycles (paths are project-relative)
+R/check_in/          weekly check-in quizzes: JSON → Word docs → explicit publish (see R/check_in/README.md)
 docs/                rendered site (GitHub Pages: Settings → Pages → main /docs)
 _freeze/             cached chunk output (commit it; only changed docs re-run)
 ```
@@ -28,3 +29,12 @@ quarto preview         # live-reload while editing
 
 Requires R with `tidyverse` and `readxl`.
  
+## Check-in quizzes
+
+Questions live in `R/check_in/check_in_{self,collab}/week_NN.json`. 
+Build the Word docs with `python R/check_in/scripts/build_checkins.py --week NN`
+(output is git-ignored). 
+
+**Nothing reaches the website until you run**
+`python R/check_in/scripts/publish_checkin.py --week NN --type self --version blank`
+(and, separately, `--version solution`). Full workflow: [R/check_in/README.md](R/check_in/README.md).

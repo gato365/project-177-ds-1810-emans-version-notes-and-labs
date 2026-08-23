@@ -1,0 +1,17 @@
+{
+  "_comment": "Formatting spec derived from cci_quiz_12_version_ab_empty.pdf. Edit here, never in the Python.",
+  "font_name": "Garamond",
+  "font_size_pt": 11,
+  "title_size_pt": 11,
+  "margins_inches": { "top": 1.0, "bottom": 1.0, "left": 1.0, "right": 1.0 },
+  "header_line": "Name:_________________\tCal Poly username: _______________\tDate: ____________",
+  "title_pattern": "{title} — Version {version}",
+  "points_label": "PTS",
+  "points_placeholder": "__",
+  "extra_credit_prefix": "[EC] ",
+  "total_sentence": "This quiz is worth {total} points total.",
+  "extra_credit_sentence": "The extra credit question is worth {ec_total} points.",
+  "default_answer_space_inches": 1.5,
+  "solution_banner": "SOLUTION — INSTRUCTOR COPY — DO NOT DISTRIBUTE",
+  "rubric_banner": "GRADING RUBRIC — INSTRUCTOR COPY — DO NOT DISTRIBUTE"
+}

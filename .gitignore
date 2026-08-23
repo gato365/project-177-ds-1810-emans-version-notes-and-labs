@@ -9,3 +9,10 @@
 /.luarc.json
 
 **/*.quarto_ipynb
+
+# ---- check-in quizzes ----
+# Built Word docs (blank/solution/rubric) are instructor-only and never deployed.
+# Re-create with: python R/check_in/scripts/build_checkins.py --week N
+R/check_in/generated/
+# Rubrics must never be published, even by hand
+R/check_in/public/**/*_rubric.docx

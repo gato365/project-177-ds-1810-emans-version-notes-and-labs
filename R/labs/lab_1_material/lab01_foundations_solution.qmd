@@ -1,0 +1,152 @@
+---
+title: "Lab 01 — Foundations: Positron, Objects, and Data Structures"
+subtitle: "STAT/DATA 1810 · Take-home (AI permitted) · SOLUTION"
+author: "Instructor key"
+date: today
+format:
+  html:
+    toc: true
+    embed-resources: true
+  docx: default
+execute:
+  warning: false
+  message: false
+---
+
+<!--
+CLO: 1.2–1.7, 1.12 · 7.4, 7.6 (intro) · 11.1 · 9 (practiced)
+Grading: this .qmd is completion/receipt (rendered cleanly = credit). The
+POINTS come from the Canvas quiz, whose answers can only be produced by
+completing this file. Values below feed the quiz answer key.
+-->
+
+```{r}
+#| label: setup
+library(tidyverse)
+```
+
+# Part A · Positron & the environment
+
+**Q1.** Console · Environment · Source editor.
+
+**Q2.**
+```{r}
+my_name <- "Immanuel"
+my_name
+```
+
+**Q3.** Prediction: 16. `wheels` = 16.
+```{r}
+cars_counted <- 4
+wheels <- cars_counted * 4
+wheels
+```
+
+**Q4.** install.packages() = **once** per computer; library() = **every** time
+you start a new session.
+
+# Part B · Data types
+
+**Q5.**
+```{r}
+class(mtcars$mpg)   # "numeric"
+class(mtcars$cyl)   # "numeric"
+class(mtcars$hp)    # "numeric" (any column accepted; all mtcars cols are numeric)
+```
+Accept any third column. Teaching note: every `mtcars` column is numeric —
+a fine moment to note that "looks like a category" (cyl = 4/6/8) is still
+stored as numeric until we say otherwise.
+
+**Q6.** `na.rm = TRUE` removes `NA` values before computing the mean; the
+default `FALSE` returns `NA` if any value is missing.
+
+**Q7.**
+```{r}
+test_scores <- c(88, 92, NA, 75, NA, 100)
+sum(is.na(test_scores))
+```
+**2 missing.**
+
+**Q8.** Any values satisfying each; e.g.
+```{r}
+10 > 3
+"cat" == "cat"
+5 <= 5
+```
+
+# Part C · Data structures from scratch
+
+**Q9.**
+```{r}
+fav_nums <- c(7, 11, 24)
+fav_nums
+```
+
+**Q10.**
+```{r}
+menu <- tibble(
+  drink = c("latte", "drip", "mocha"),
+  price = c(4.75, 2.75, 5.25)
+)
+menu
+```
+
+**Q11.**
+```{r}
+my_stuff <- list(name = "Immanuel", number = 42, table = menu)
+my_stuff
+```
+
+**Q12.** Model: "A data type is what one value is (`mtcars$mpg` is numeric); a
+data structure is the container holding values (`menu` is a tibble)." Any
+answer pairing a correct type example with a correct structure example.
+
+# Part D · Inspecting data & storage
+
+**Q13.**
+```{r}
+glimpse(mtcars)
+dim(mtcars)
+```
+Rows: **32** · Columns: **11** · One row = **one car model**.
+
+**Q14.**
+```{r}
+object.size(mtcars)
+```
+About **7 KB** (~7,208 bytes). Model sentence: file size matters because R
+loads data into memory, so a file too large for your computer's memory
+cannot be imported (or needs different tools).
+
+# Part E · Working with AI
+
+**Q15.** Representative working answer the AI should produce:
+
+```{r}
+mtcars |>
+  group_by(cyl) |>
+  summarise(avg_mpg = mean(mpg)) |>
+  ggplot(aes(x = factor(cyl), y = avg_mpg)) +
+  geom_col(fill = "#12263A") +
+  labs(x = "Cylinders", y = "Average MPG",
+       title = "Fewer cylinders, better gas mileage")
+```
+
+Expected result: 4-cyl ≈ 26.7 mpg, 6-cyl ≈ 19.7, 8-cyl ≈ 15.1 — a clear
+downward staircase.
+
+**What to look for in their explanations (not exact wording):**
+- `group_by(cyl)` — splits the cars into groups by cylinder count
+- `summarise(avg_mpg = mean(mpg))` — computes one average mpg per group
+- `ggplot(...) + geom_col()` — draws the averages as bars
+
+**Grading Q15:** credit is for *engaging honestly* — running the AI code,
+getting it to work, and attempting a plain-English read of each piece. A
+correct "one thing I don't understand yet" (e.g., the pipe `|>`, or `factor()`)
+is a sign the question worked as intended. This is CLO 11 (adapt via
+resources) in its earliest, gentlest form — do not grade for CS mastery.
+
+# Rendering & Canvas
+
+Confirm the student rendered to **both** HTML and docx (the YAML supports
+both). The Canvas quiz is the graded artifact; this file is the gate.
