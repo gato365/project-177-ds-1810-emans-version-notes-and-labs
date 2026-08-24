@@ -1,0 +1,314 @@
+---
+title: "ETV Cycle: California Crime, 2025"
+subtitle: "Extraction — Transformation — Visualization"
+author: "Your name here"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+```
+
+## The question
+
+Every ETV cycle starts with a question, not with data. Ours:
+
+> **Across California's largest police departments, which crimes get solved
+> quickly, and which do not?**
+
+By the end you will have an answer, a chart, and — more useful than either — a
+clear sense of why the obvious version of the answer is wrong.
+
+## E — Extraction
+
+The data come from the FBI's National Incident-Based Reporting System (NIBRS),
+2025. Every crime reported to a participating police department in the United
+States, one row per offense.
+
+The national file has about 70 million records and does not fit in R's memory.
+Someone else already did the hard extraction: filtered to California, attached
+readable labels to the numeric codes, and saved the result as an `.rda` file.
+That is a real extraction step even though it happens in one line here — the
+work was pulling a specific slice out of something far too large to open.
+
+```{r}
+#| label: extract
+
+load("data/ca_crime_2025.rda")
+```
+
+`load()` is different from every import function you have used so far. It does
+not return anything you assign. It drops objects into your environment by the
+names they had when they were saved. Check what arrived:
+
+```{r}
+#| label: whats-here
+
+ls()
+```
+
+Four data frames:
+
+| Object | One row is... |
+|---|---|
+| `ca_offense` | one **offense** reported to police |
+| `ca_victim` | one victim connected to an incident |
+| `ca_arrestee` | one person arrested |
+| `ca_agency` | one police department |
+
+```{r}
+#| label: glimpse-offense
+
+glimpse(ca_offense)
+```
+
+::: {.callout-warning}
+## One row is one offense, not one incident
+
+A single incident can involve several offenses. Someone who breaks into a car
+and steals a laptop generates two offense rows sharing one `incident_number`.
+So `nrow(ca_offense)` counts **offenses**, not crimes-as-events. Get this
+backwards and every number downstream is wrong.
+:::
+
+```{r}
+#| label: offense-vs-incident
+
+ca_offense |>
+  summarise(
+    offense_records = n(),
+    incidents       = n_distinct(paste(ori, incident_number)),
+    offenses_per_incident = round(offense_records / incidents, 2)
+  )
+```
+
+### Your turn — E
+
+1. How many police departments are in `ca_agency`? Which has the largest
+   `population`?
+2. What is the date range of `ca_offense$incident_date`?
+3. Use `count()` to find the five most common values of `crime`.
+
+## T — Transformation
+
+The extraction handed you clean types already — dates are `Date`, categories
+are `factor`. Transformation here means **reshaping toward the question**, not
+repairing damage.
+
+### Filter to what the question is about
+
+Attempted crimes clear differently from completed ones, and offenses with a
+missing crime label cannot be grouped. Both get dropped, and both drops get
+counted, because a filter you cannot report is a filter you should not trust.
+
+```{r}
+#| label: transform-filter
+
+nrow_before <- nrow(ca_offense)
+
+offenses <- ca_offense |>
+  filter(completed == "Completed", !is.na(crime))
+
+tibble(before = nrow_before,
+       after  = nrow(offenses),
+       dropped_pct = round(100 * (1 - nrow(offenses) / nrow_before), 1))
+```
+
+### Group and summarise
+
+```{r}
+#| label: transform-summarise
+
+clearance <- offenses |>
+  group_by(crime) |>
+  summarise(
+    n_offenses  = n(),
+    pct_arrest  = round(100 * mean(arrest_made), 1),
+    pct_60day   = round(100 * mean(cleared_60), 1),
+    median_days = median(days_to_arrest, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  filter(n_offenses >= 500) |>
+  arrange(desc(pct_60day))
+
+clearance
+```
+
+Two clearance columns, and they disagree. That disagreement is the most
+interesting thing in this document.
+
+- `pct_arrest` — did an arrest **ever** get recorded for this incident?
+- `pct_60day` — did an arrest get recorded **within 60 days** of the offense?
+
+### Why the two columns differ
+
+The FBI accepted 2025 submissions through March 2026. A January offense had
+fourteen months for an arrest to appear in the data. A December offense had
+three. Nothing about December policing is worse — the *observation window* is
+shorter.
+
+```{r}
+#| label: censoring
+
+censoring <- offenses |>
+  group_by(month) |>
+  summarise(
+    `Ever arrested`      = 100 * mean(arrest_made),
+    `Arrested within 60 days` = 100 * mean(cleared_60),
+    .groups = "drop"
+  ) |>
+  pivot_longer(-month, names_to = "measure", values_to = "pct")
+
+censoring
+```
+
+`pivot_longer()` stacks the two measures into one column so a single
+`ggplot()` call can draw both. Reshaping data to fit the *plot* you want, not
+the other way around, is most of what transformation is for.
+
+### Your turn — T
+
+1. Rebuild `clearance` grouped by `crime_cat` instead of `crime`. Does the
+   ranking hold?
+2. Add a `firearm` column to the summary: what fraction of each crime type
+   involved a firearm?
+3. Filter to a single agency and rerun. Does that department look like the
+   state?
+
+## V — Visualization
+
+### Censoring, made visible
+
+```{r}
+#| label: plot-censoring
+#| fig-width: 8
+#| fig-height: 4.5
+
+ggplot(censoring, aes(x = month, y = pct, colour = measure, group = measure)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  scale_colour_manual(values = c("Ever arrested" = "#b45f3f",
+                                 "Arrested within 60 days" = "#1d3557")) +
+  labs(
+    title = "The obvious measure slopes down. The fair one doesn't.",
+    subtitle = "California offenses reported to NIBRS, 2025",
+    x = NULL, y = "Percent of offenses",
+    colour = NULL,
+    caption = "Late-year offenses had less time to produce a recorded arrest before the March 2026 cutoff."
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "top",
+        plot.title = element_text(face = "bold"))
+```
+
+The red line falls through the autumn. The navy line does not. The red line is
+not measuring police performance; it is measuring how long the FBI waited
+before closing the file.
+
+### Which crimes get solved
+
+```{r}
+#| label: plot-clearance
+#| fig-width: 8
+#| fig-height: 7
+
+clearance |>
+  slice_max(n_offenses, n = 20) |>
+  ggplot(aes(x = pct_60day, y = fct_reorder(crime, pct_60day))) +
+  geom_col(fill = "#1d3557") +
+  geom_text(aes(label = paste0(pct_60day, "%")),
+            hjust = -0.15, size = 3.2) +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(
+    title = "60-day clearance rate by offense type",
+    subtitle = "20 most common completed offenses, California, 2025",
+    x = "Percent arrested within 60 days", y = NULL
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.major.y = element_blank(),
+        plot.title = element_text(face = "bold"))
+```
+
+### Volume against clearance
+
+```{r}
+#| label: plot-scatter
+#| fig-width: 8
+#| fig-height: 5.5
+
+ggplot(clearance, aes(x = n_offenses, y = pct_60day)) +
+  geom_point(alpha = 0.7, size = 2.5, colour = "#1d3557") +
+  ggrepel::geom_text_repel(aes(label = crime), size = 2.8,
+                           max.overlaps = 12, colour = "grey30") +
+  scale_x_log10(labels = scales::comma) +
+  labs(
+    title = "Common crimes are rarely the ones that get solved",
+    x = "Number of offense records (log scale)",
+    y = "Percent arrested within 60 days"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(plot.title = element_text(face = "bold"))
+```
+
+### Your turn — V
+
+1. Facet the clearance chart by `crime_cat`.
+2. Build a heatmap of offense counts by `weekday` and `crime_cat` using
+   `geom_tile()`.
+3. Join `ca_offense` to `ca_agency` and plot offenses per 1,000 residents by
+   department. Which agency's rate surprises you, and what would you need to
+   check before believing it?
+
+## What this data cannot tell you
+
+Four limits. Not boilerplate — each one changes what conclusions are
+available.
+
+**Not all of California is here.** Roughly a fifth of the state's population
+lives in a jurisdiction that did not report to NIBRS in 2025. Every number in
+this document describes the reporting jurisdictions, and nothing else. Check
+it yourself:
+
+```{r}
+#| label: coverage
+
+ca_agency |>
+  summarise(
+    covered     = sum(population[reports_nibrs], na.rm = TRUE),
+    not_covered = sum(population[!reports_nibrs], na.rm = TRUE)
+  ) |>
+  mutate(pct_covered = round(100 * covered / (covered + not_covered), 1))
+```
+
+**Only reported crime.** NIBRS records crimes reported to police. Reporting
+rates differ sharply by offense — vehicle theft gets reported because
+insurance requires it; sexual assault often does not. Comparing raw counts
+across crime types partly compares willingness to report.
+
+**Arrest is not guilt.** `arrest_made` records that someone was arrested. It
+says nothing about charging, conviction, or whether the right person was
+arrested.
+
+**Agencies count differently.** Two departments facing identical events can
+produce different records depending on local recording practice. Cross-agency
+comparisons need more care than cross-time comparisons within one agency.
+
+## Wrap-up
+
+Write two or three sentences answering the original question — which crimes
+get solved quickly in California, and which do not — and name the one
+limitation above that most constrains your answer.
+
+Then state which measure you would report to a city council, `pct_arrest` or
+`pct_60day`, and why.

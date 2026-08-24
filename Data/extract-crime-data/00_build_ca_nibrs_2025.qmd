@@ -1,0 +1,888 @@
+---
+title: "Building the California NIBRS 2025 Teaching Dataset"
+subtitle: "Instructor build script — run once per year, not in class"
+author: "STAT/DATA 1810"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    embed-resources: true
+execute:
+  eval: false
+  warning: false
+  message: false
+---
+
+## What this file does and does not do
+
+This is a **build script**, not a lesson. It runs once, on your machine, and
+produces two `.rda` files that students load in a single line. Students never
+see the 500 MB ZIP, never touch SQL, and never wait ten minutes for a database
+to build.
+
+| Stage | Who runs it | Runtime | Output |
+|---|---|---|---|
+| 0. Download master file | you | ~15 min | `NIBRS/nibrs-2025.zip` (~500 MB) |
+| 1. Build SQLite database | you | ~20–40 min | `NIBRS/nibrs2025.db` (~5 GB) |
+| 2. Extract California | you | ~2–5 min | data frames in memory |
+| 3. Transform + save | you | ~1 min | `data/ca_crime_2025.rda` (teaching) |
+| 4. Document | you | seconds | `ca_crime_2025_dictionary.csv` |
+
+The pipeline follows Greg Ridgeway's *R4crim* Chapter 5
+(<https://gregridgeway.github.io/R4crim/05_Working_with_NIBRS_data.html>),
+which is CC-BY-SA licensed. Stages 1 and 2 are adapted from it; stages 3 and 4
+are new.
+
+::: {.callout-important}
+## Three things to know before you commit to this dataset
+
+1. **Recency ceiling.** The FBI accepts NIBRS submissions through March of the
+   following year. The 2025 master file is the most recent complete year
+   available, and it was finalized in March 2026. If a cycle needs *this
+   month's* crime, NIBRS is the wrong source — use a city open-data portal
+   (LA, SF, San Diego all publish weekly).
+
+2. **California coverage is incomplete.** Ridgeway's Chapter 5 reports roughly
+   80% of California's population covered by NIBRS-reporting agencies, one of
+   the lowest coverage rates in the country. This is a limitation *and* the
+   single best CLO 12 teaching hook in your entire dataset spine — see
+   §7 below.
+
+3. **Arrest data is right-censored.** A January offense had 14 months to
+   produce a recorded arrest; a December offense had 3. Any raw "clearance
+   rate by month" chart will slope downward for reasons that have nothing to
+   do with policing. The fixed 60-day window in §5 handles this.
+:::
+
+## 0. Setup
+
+```{r}
+#| label: setup
+
+library(readr)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(stringr)
+library(RSQLite)
+
+# ---- configuration knobs -------------------------------------------------
+
+nibrs_dir  <- "NIBRS"                        # where the zip + lookups live
+db_path    <- file.path(nibrs_dir, "nibrs2025.db")
+out_dir    <- "data"
+
+rebuild_db <- FALSE   # TRUE only the first time, or after a new data year
+data_year  <- 2025
+ca_code    <- 4       # numeric state code for California in NIBRS
+
+dir.create(out_dir, showWarnings = FALSE)
+```
+
+### 0a. Fetch the lookup tables (automatic)
+
+The eight lookup CSVs live in the `NIBRS/` folder of
+<https://github.com/gregridgeway/R4crim>. Filenames and column headers below
+were verified against the repo. This chunk downloads them; it skips anything
+already present, so it is safe to re-run.
+
+```{r}
+#| label: fetch-lookups
+#| eval: true
+
+dir.create(nibrs_dir, showWarnings = FALSE)
+
+r4crim_raw <- "https://raw.githubusercontent.com/gregridgeway/R4crim/master/NIBRS"
+
+lookup_files <- c(
+  "nibrs_format.csv",              # column widths/types for all 8 segments
+  "nibrs_offense_lookup.csv",      # ucr_code, crime_cat, crime
+  "nibrs_state_lookup.csv",        # state_code, state_abbr, state_name
+  "nibrs_location_lookup.csv",     # location_code, location_type
+  "nibrs_weapon_lookup.csv",       # weapon_code, weapon_type
+  "nibrs_property_lookup.csv",     # property_code, property_type
+  "nibrs_drug_lookup.csv",         # drug_code, drug_type
+  "nibrs_circumstance_lookup.csv"  # circumstance_code, circumstance
+)
+
+for (f in lookup_files) {
+  dest <- file.path(nibrs_dir, f)
+  if (!file.exists(dest)) {
+    message("Downloading ", f)
+    download.file(file.path(r4crim_raw, f), destfile = dest, quiet = TRUE)
+  }
+}
+
+# confirm they parsed
+map_dfr(lookup_files, function(f) {
+  d <- read.csv(file.path(nibrs_dir, f))
+  tibble(file = f, rows = nrow(d), cols = paste(names(d), collapse = ", "))
+})
+```
+
+Expected output — if any row disagrees, Ridgeway has revised the notes and the
+`load_lookup()` calls in §1 need their column names updated to match:
+
+| file | rows | cols |
+|---|---|---|
+| `nibrs_format.csv` | 235 | col_name, col_type, col_width, segment |
+| `nibrs_offense_lookup.csv` | 63 | ucr_code, crime_cat, crime |
+| `nibrs_state_lookup.csv` | 56 | state_code, state_abbr, state_name |
+| `nibrs_location_lookup.csv` | 45 | location_code, location_type |
+| `nibrs_weapon_lookup.csv` | 17 | weapon_code, weapon_type |
+| `nibrs_property_lookup.csv` | 68 | property_code, property_type |
+| `nibrs_drug_lookup.csv` | 18 | drug_code, drug_type |
+| `nibrs_circumstance_lookup.csv` | 17 | circumstance_code, circumstance |
+
+### 0b. Download the master file (manual, ~500 MB)
+
+This one cannot be scripted — the FBI serves it behind a JavaScript download
+page with no stable direct link.
+
+1. Go to the Crime Data Explorer downloads page:
+   <https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/downloads>
+2. Scroll to **Master File Downloads**.
+3. Choose **National Incident-Based Reporting System (NIBRS)** from the
+   dropdown, select **2025**, download.
+4. Put `nibrs-2025.zip` in your `NIBRS/` folder. **Leave it zipped** — the
+   loader reads the compressed file directly via `unz()`.
+
+```{r}
+#| label: check-master
+#| eval: true
+
+zip_path <- file.path(nibrs_dir, "nibrs-2025.zip")
+
+if (!file.exists(zip_path)) {
+  stop("Still need the master file.\n",
+       "  Download nibrs-2025.zip from https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/downloads\n",
+       "  (Master File Downloads -> NIBRS -> 2025)\n",
+       "  and save it to: ", normalizePath(nibrs_dir, mustWork = FALSE))
+}
+
+# confirm the inner filename matches what the loader expects
+unzip(zip_path, list = TRUE)
+```
+
+::: {.callout-warning}
+## Check the inner filename
+
+The loader in §1 hardcodes `2025_NIBRS_NATIONAL_MASTER_FILE.txt`. The FBI has
+changed this naming between years. If `unzip(..., list = TRUE)` shows
+something different, update `master_txt` below to match.
+:::
+
+```{r}
+#| label: master-txt
+
+master_txt <- "2025_NIBRS_NATIONAL_MASTER_FILE.txt"
+```
+
+## 1. Build the SQLite database
+
+Adapted from R4crim §5–6. Reads the 5.8 GB fixed-width master file one million
+lines at a time, splits each batch by segment code, and appends to eight
+tables. The whole load happens inside one transaction — without
+`dbBegin()`/`dbCommit()` this takes an order of magnitude longer.
+
+```{r}
+#| label: build-db
+#| eval: false
+
+nibrs_format <- read.csv(file.path(nibrs_dir, "nibrs_format.csv"))
+
+con <- dbConnect(SQLite(), dbname = db_path)
+
+seg_tables <- list("01" = "admin",    "02" = "offense",  "03" = "property",
+                   "04" = "victim",   "05" = "offender", "06" = "arrestee",
+                   "07" = "groupb_arrest", "BH" = "batch_header")
+
+if (rebuild_db) {
+
+  for (tbl in unlist(seg_tables)) {
+    if (dbExistsTable(con, tbl)) dbRemoveTable(con, tbl)
+  }
+
+  infile <- unz(zip_path, master_txt, open = "r")
+
+  dbBegin(con)
+  lines_read <- 0
+
+  while (length(a <- readLines(infile, n = 1e6)) > 0) {
+
+    lines_read <- lines_read + length(a)
+    message("Lines read: ", format(lines_read, big.mark = ","))
+
+    d_split <- split(a, substring(a, 1, 2))
+
+    # window segments are partial reports; fold them into their parent segment
+    d_split[["01"]] <- c(d_split[["01"]], d_split[["W1"]])
+    d_split[["03"]] <- c(d_split[["03"]], d_split[["W3"]])
+    d_split[["06"]] <- c(d_split[["06"]], d_split[["W6"]])
+    d_split[c("W1", "W3", "W6")] <- NULL
+
+    for (seg in names(d_split)) {
+      fmt <- nibrs_format |> filter(segment == seg)
+
+      df <- read_fwf(I(d_split[[seg]]),
+                     col_positions = fwf_widths(fmt$col_width),
+                     col_type      = paste(fmt$col_type, collapse = ""),
+                     show_col_types = FALSE) |>
+        rename_with(~ fmt$col_name) |>
+        rename(ori     = originating_agency_identifier_ori,
+               segment = segment_level,
+               state   = numeric_state_code)
+
+      if (seg == "03") {
+        df <- df |> mutate(value_of_property = as.numeric(value_of_property))
+      }
+      if (seg == "BH") {
+        df <- df |> mutate(total_pop = rowSums(across(starts_with("current_pop")),
+                                               na.rm = TRUE))
+      }
+
+      dbWriteTable(con, seg_tables[[seg]], df, append = TRUE)
+    }
+  }
+
+  dbCommit(con)
+  close(infile)
+}
+
+dbListTables(con)
+```
+
+### Load the lookup tables
+
+```{r}
+#| label: lookups
+#| eval: false
+
+load_lookup <- function(con, table, file, key, cols) {
+  dbExecute(con, paste0("DROP TABLE IF EXISTS ", table))
+  a <- read.csv(file.path(nibrs_dir, file), colClasses = "character")
+  dbExecute(con, sprintf(
+    "CREATE TABLE %s (%s TEXT NOT NULL PRIMARY KEY, %s)",
+    table, key, paste(paste(cols, "TEXT"), collapse = ", ")))
+  dbAppendTable(con, table, a)
+  nrow(a)
+}
+
+if (rebuild_db) {
+  load_lookup(con, "offense_lookup", "nibrs_offense_lookup.csv",
+              "ucr_code", c("crime_cat", "crime"))
+  load_lookup(con, "location_lookup", "nibrs_location_lookup.csv",
+              "location_code", "location_type")
+  load_lookup(con, "weapon_lookup", "nibrs_weapon_lookup.csv",
+              "weapon_code", "weapon_type")
+  load_lookup(con, "property_lookup", "nibrs_property_lookup.csv",
+              "property_code", "property_type")
+  load_lookup(con, "circumstance_lookup", "nibrs_circumstance_lookup.csv",
+              "circumstance_code", "circumstance")
+
+  # state lookup keyed on an integer
+  dbExecute(con, "DROP TABLE IF EXISTS state_lookup")
+  a <- read.csv(file.path(nibrs_dir, "nibrs_state_lookup.csv"),
+                colClasses = "character")
+  dbExecute(con, "CREATE TABLE state_lookup (
+                    state_code INTEGER NOT NULL PRIMARY KEY,
+                    state_abbr TEXT, state_name TEXT)")
+  dbAppendTable(con, "state_lookup", a)
+}
+```
+
+### Indexes
+
+Without these the California extract scans millions of rows per join. Build
+once; they persist with the database file.
+
+```{r}
+#| label: indexes
+#| eval: false
+
+dbExecute(con, "CREATE INDEX IF NOT EXISTS idx_offense_state ON offense(state)")
+dbExecute(con, "CREATE INDEX IF NOT EXISTS idx_victim_state  ON victim(state)")
+dbExecute(con, "CREATE INDEX IF NOT EXISTS idx_arrestee_state ON arrestee(state)")
+dbExecute(con, "CREATE INDEX IF NOT EXISTS idx_offense  ON offense(ori, incident_number)")
+dbExecute(con, "CREATE INDEX IF NOT EXISTS idx_victim   ON victim(ori, incident_number)")
+dbExecute(con, "CREATE INDEX IF NOT EXISTS idx_arrestee ON arrestee(ori, incident_number)")
+dbExecute(con, "CREATE INDEX IF NOT EXISTS idx_bh_ori   ON batch_header(ori)")
+```
+
+Confirm California is code 4 before relying on it:
+
+::: {.callout-warning}
+## `dbConnect()` creates an empty database if the file is missing
+
+This is SQLite behavior, not a bug — but it means a stray `dbConnect()` call
+leaves behind a 0-byte `nibrs2025.db` that looks like a built database and
+isn't. Every query against it then fails with `no such table: offense`, which
+reads like a code error rather than a missing download. This chunk checks
+before trusting it.
+:::
+
+```{r}
+#| label: confirm-ca
+
+con <- dbConnect(SQLite(), dbname = db_path)
+
+tabs <- dbListTables(con)
+
+if (length(tabs) == 0) {
+  dbDisconnect(con)
+  stop("'", db_path, "' exists but is empty -- it was created by a stray ",
+       "dbConnect() call, not by the loader.\n",
+       "  Delete it:  file.remove('", db_path, "')\n",
+       "  Then get the master file and run §1 with rebuild_db <- TRUE.")
+}
+
+if (!all(c("offense", "victim", "arrestee", "batch_header") %in% tabs)) {
+  stop("Database is missing segment tables. Found: ",
+       paste(tabs, collapse = ", "), "\n  Re-run §1 with rebuild_db <- TRUE.")
+}
+
+if (!"offense_lookup" %in% tabs) {
+  stop("Segment tables loaded but lookup tables are missing. ",
+       "Re-run the 'lookups' chunk in §1.")
+}
+
+dbGetQuery(con, "SELECT * FROM state_lookup WHERE state_abbr = 'CA'")
+```
+
+## 2. Extract — the E in ETV
+
+Everything below is one `SELECT`. This is the point worth making to students
+when you eventually show them where the data came from: **the extraction step
+filtered 70 million records down to California before R ever allocated
+memory.** That is a different mental model from `read_csv()`.
+
+### 2a. Agencies
+
+One row per California law enforcement agency. Small, and the key to any
+per-capita comparison.
+
+```{r}
+#| label: extract-agency
+
+bh_fields <- dbListFields(con, "batch_header")
+
+ca_agency_raw <- dbGetQuery(con, "
+  SELECT ori,
+         city_name,
+         state_abbreviation,
+         total_pop,
+         agency_nibrs_flag,
+         number_of_months_reported,
+         covered_by_ori
+  FROM batch_header
+  WHERE state_abbreviation = 'CA'")
+
+nrow(ca_agency_raw)
+```
+
+### 2b. Offenses
+
+One row per **offense record** — not per incident. An incident with three
+offenses contributes three rows. Say this out loud in class; it is the single
+most common misreading of NIBRS.
+
+`arr` is a subquery collapsing the arrestee table to the earliest arrest per
+incident, so an incident with ten arrests does not multiply the offense rows.
+
+```{r}
+#| label: extract-offense
+
+ca_offense_raw <- dbGetQuery(con, "
+  SELECT o.ori,
+         o.incident_number,
+         o.incident_date,
+         o.ucr_offense_code,
+         ol.crime_cat,
+         ol.crime,
+         o.offense_attempted_completed,
+         o.location_type          AS location_code,
+         ll.location_type         AS location,
+         o.weapon_force_1,
+         o.weapon_force_2,
+         o.weapon_force_3,
+         o.bias_motivation,
+         o.suspected_of_using_1,
+         bh.city_name,
+         arr.first_arrest
+  FROM offense AS o
+  LEFT JOIN offense_lookup  AS ol ON o.ucr_offense_code = ol.ucr_code
+  LEFT JOIN location_lookup AS ll ON o.location_type    = ll.location_code
+  LEFT JOIN batch_header    AS bh ON o.ori              = bh.ori
+  LEFT JOIN (SELECT ori, incident_number, MIN(arrest_date) AS first_arrest
+             FROM arrestee
+             GROUP BY ori, incident_number) AS arr
+         ON o.ori = arr.ori AND o.incident_number = arr.incident_number
+  WHERE o.state = 4")
+
+nrow(ca_offense_raw)
+```
+
+::: {.callout-note}
+## Why `LEFT JOIN` everywhere
+
+An `INNER JOIN` silently drops offenses whose code is missing from a lookup
+table, or whose agency is missing from `batch_header`. You would never see the
+loss. `LEFT JOIN` keeps the row and gives you an `NA` you can count. Students
+meet this again in the ETV cycle when they tabulate `is.na(crime)`.
+:::
+
+### 2c. Individual victims
+
+```{r}
+#| label: extract-victim
+
+ca_victim_raw <- dbGetQuery(con, "
+  SELECT v.ori,
+         v.incident_number,
+         v.victim_sequence_number,
+         v.type_of_victim,
+         v.age_of_victim,
+         v.sex_of_victim,
+         v.race_of_victim,
+         v.ethnicity_of_victim,
+         v.ucr_offense_code_1,
+         v.relationship_of_victim_to_offender
+  FROM victim AS v
+  WHERE v.state = 4")
+
+nrow(ca_victim_raw)
+```
+
+### 2d. Arrestees
+
+```{r}
+#| label: extract-arrestee
+
+ca_arrestee_raw <- dbGetQuery(con, "
+  SELECT a.ori,
+         a.incident_number,
+         a.arrest_date,
+         a.type_of_arrest,
+         a.ucr_arrest_offense_code,
+         ol.crime           AS arrest_crime,
+         a.age_of_arrestee,
+         a.sex_of_arrestee,
+         a.race_of_arrestee,
+         a.ethnicity_of_arrestee
+  FROM arrestee AS a
+  LEFT JOIN offense_lookup AS ol ON a.ucr_arrest_offense_code = ol.ucr_code
+  WHERE a.state = 4")
+
+nrow(ca_arrestee_raw)
+```
+
+```{r}
+#| label: weapon-lookup-to-r
+
+weapon_lookup <- dbGetQuery(con, "SELECT * FROM weapon_lookup")
+dbDisconnect(con)
+```
+
+## 3. Transform — the T in ETV
+
+Six distinct transformation moves. Each one maps to something already in your
+CLO sequence, so this dataset can carry a whole cycle without new machinery.
+
+| Move | What it fixes | CLO |
+|---|---|---|
+| Parse `YYYYMMDD` → `Date` | dates arrive as text | 3 |
+| Recode single-letter codes → labels | `M`/`F`/`U` are unreadable | 3 |
+| Collapse three weapon columns → one flag | wide-to-long reasoning | 3 |
+| Sentinel missing → `NA` | `99`, `999`, `1` mean "unknown" | 3, 12 |
+| Derive `days_to_arrest`, `cleared_60` | censoring-aware measure | 3, 10 |
+| Character → factor | storage, ordering, plotting | 1, 3 |
+
+```{r}
+#| label: helpers
+
+# NIBRS dates arrive as YYYYMMDD, but Ridgeway's chapter rewrites some of them
+# in place to YYYY-MM-DD. Strip hyphens first so this works either way.
+parse_nibrs_date <- function(x) {
+  as.Date(gsub("-", "", x, fixed = TRUE), format = "%Y%m%d")
+}
+
+# Age fields are character and use non-numeric codes for infants/unknowns.
+parse_nibrs_age <- function(x) {
+  suppressWarnings(as.numeric(ifelse(grepl("^[0-9]{1,3}$", trimws(x)),
+                                     trimws(x), NA)))
+}
+
+# Firearm weapon codes: 11 (type not stated), 12 (handgun), 13 (rifle),
+# 14 (shotgun), 15 (other firearm).
+#
+# CAREFUL: weapon_force_1 is 2 characters wide, but weapon_force_2 and
+# weapon_force_3 are 3 — the trailing character carries the automatic-weapon
+# indicator. An exact match on "12" therefore MISSES an automatic handgun
+# recorded as "12A" in the second or third slot. Match on the leading two
+# digits instead.
+firearm_codes <- c("11", "12", "13", "14", "15")
+
+is_firearm <- function(x) {
+  !is.na(x) & str_sub(str_trim(x), 1, 2) %in% firearm_codes
+}
+
+label_sex <- function(x) {
+  factor(dplyr::recode(x, "M" = "Male", "F" = "Female", .default = NA_character_),
+         levels = c("Female", "Male"))
+}
+
+label_race <- function(x) {
+  factor(dplyr::recode(x,
+    "W" = "White", "B" = "Black", "I" = "American Indian/Alaska Native",
+    "A" = "Asian", "P" = "Native Hawaiian/Pacific Islander",
+    "U" = "Unknown", .default = NA_character_))
+}
+
+label_ethnicity <- function(x) {
+  factor(dplyr::recode(x,
+    "H" = "Hispanic or Latino", "N" = "Not Hispanic or Latino",
+    "U" = "Unknown", .default = NA_character_))
+}
+```
+
+### 3a. Agencies
+
+```{r}
+#| label: transform-agency
+
+ca_agency <- ca_agency_raw |>
+  filter(is.na(covered_by_ori)) |>          # drop agencies reporting through another
+  transmute(
+    ori,
+    agency        = str_to_title(str_trim(city_name)),
+    population    = na_if(as.numeric(total_pop), 0),
+    reports_nibrs = !is.na(agency_nibrs_flag) & agency_nibrs_flag == "A",
+    months_reported = suppressWarnings(as.integer(number_of_months_reported)),
+    months_reported = if_else(months_reported %in% 0:12, months_reported,
+                              NA_integer_),
+    full_year     = !is.na(months_reported) & months_reported == 12
+  ) |>
+  arrange(desc(population))
+
+glimpse(ca_agency)
+```
+
+### 3b. Offenses
+
+```{r}
+#| label: transform-offense
+
+ca_offense <- ca_offense_raw |>
+  mutate(
+    incident_date = parse_nibrs_date(incident_date),
+    first_arrest  = parse_nibrs_date(first_arrest),
+
+    agency   = str_to_title(str_trim(city_name)),
+    crime    = factor(crime),
+    crime_cat = factor(crime_cat),
+    location = factor(location),
+
+    completed = factor(
+      dplyr::recode(offense_attempted_completed,
+                    "C" = "Completed", "A" = "Attempted",
+                    .default = NA_character_),
+      levels = c("Attempted", "Completed")),
+
+    # three weapon columns collapse to one flag; a shooting is an offense
+    # with a firearm code in ANY of the three (see is_firearm() above --
+    # prefix match, because slots 2 and 3 are 3 chars wide)
+    firearm = is_firearm(weapon_force_1) |
+              is_firearm(weapon_force_2) |
+              is_firearm(weapon_force_3),
+
+    # bias_motivation 88 = "none"; treat as no bias rather than a category
+    bias = !is.na(bias_motivation) &
+           !bias_motivation %in% c("88", "99", "  "),
+
+    arrest_made    = !is.na(first_arrest),
+    days_to_arrest = as.numeric(first_arrest - incident_date),
+    days_to_arrest = if_else(days_to_arrest < 0, NA_real_, days_to_arrest),
+
+    # censoring-safe clearance indicator: same 60-day window for every offense
+    cleared_60 = !is.na(days_to_arrest) & days_to_arrest <= 60,
+
+    month = factor(format(incident_date, "%b"), levels = month.abb),
+    weekday = factor(weekdays(incident_date),
+                     levels = c("Monday","Tuesday","Wednesday","Thursday",
+                                "Friday","Saturday","Sunday"))
+  ) |>
+  # a handful of records carry dates outside the data year
+  filter(!is.na(incident_date),
+         format(incident_date, "%Y") == as.character(data_year)) |>
+  select(ori, agency, incident_number, incident_date, month, weekday,
+         crime_cat, crime, ucr_offense_code, completed, location,
+         firearm, bias, arrest_made, days_to_arrest, cleared_60)
+
+glimpse(ca_offense)
+```
+
+### 3c. Victims
+
+```{r}
+#| label: transform-victim
+
+ca_victim <- ca_victim_raw |>
+  mutate(
+    victim_type = factor(dplyr::recode(type_of_victim,
+      "I" = "Individual", "B" = "Business", "F" = "Financial institution",
+      "G" = "Government", "R" = "Religious organization", "S" = "Society/Public",
+      "L" = "Law enforcement officer", "O" = "Other", "U" = "Unknown",
+      .default = NA_character_)),
+    age       = parse_nibrs_age(age_of_victim),
+    sex       = label_sex(sex_of_victim),
+    race      = label_race(race_of_victim),
+    ethnicity = label_ethnicity(ethnicity_of_victim),
+    victim_seq = suppressWarnings(as.integer(victim_sequence_number))
+  ) |>
+  select(ori, incident_number, victim_seq, victim_type,
+         age, sex, race, ethnicity,
+         ucr_offense_code = ucr_offense_code_1,
+         relationship = relationship_of_victim_to_offender)
+
+glimpse(ca_victim)
+```
+
+### 3d. Arrestees
+
+```{r}
+#| label: transform-arrestee
+
+ca_arrestee <- ca_arrestee_raw |>
+  mutate(
+    arrest_date = parse_nibrs_date(arrest_date),
+    arrest_type = factor(dplyr::recode(type_of_arrest,
+      "O" = "On-view", "S" = "Summoned/cited", "T" = "Taken into custody",
+      .default = NA_character_)),
+    arrest_crime = factor(arrest_crime),
+    age       = parse_nibrs_age(age_of_arrestee),
+    sex       = label_sex(sex_of_arrestee),
+    race      = label_race(race_of_arrestee),
+    ethnicity = label_ethnicity(ethnicity_of_arrestee)
+  ) |>
+  select(ori, incident_number, arrest_date, arrest_type,
+         ucr_arrest_offense_code, arrest_crime,
+         age, sex, race, ethnicity)
+
+glimpse(ca_arrestee)
+```
+
+## 4. Size control
+
+The full California offense table is on the order of 1.4 million rows. That is
+fine on your machine and painful on 105 student laptops over campus wifi. Two
+products:
+
+- `ca_crime_2025_full.rda` — everything, for your own use, **not distributed**
+- `ca_crime_2025.rda` — teaching subset, target under ~10 MB
+
+The subset keeps every offense from a named list of agencies. Adjust
+`teaching_agencies` to taste — the SLO-area regex is there so the dataset
+connects to the SLO crime log cycle students already know.
+
+```{r}
+#| label: subset
+
+# top agencies by offense volume, plus anything on the Central Coast
+top_agencies <- ca_offense |>
+  count(ori, agency, sort = TRUE) |>
+  slice_head(n = 12)
+
+central_coast <- ca_agency |>
+  filter(str_detect(agency, regex("San Luis Obispo|Paso Robles|Atascadero|Pismo|Arroyo Grande|Morro Bay|Santa Maria|Santa Barbara", ignore_case = TRUE))) |>
+  select(ori, agency)
+
+teaching_agencies <- bind_rows(select(top_agencies, ori, agency),
+                               central_coast) |>
+  distinct(ori, .keep_all = TRUE)
+
+teaching_agencies
+```
+
+```{r}
+#| label: build-subset
+
+keep_ori <- teaching_agencies$ori
+
+ca_offense_sub  <- ca_offense  |> filter(ori %in% keep_ori) |> droplevels()
+ca_victim_sub   <- ca_victim   |> semi_join(ca_offense_sub,
+                                            by = c("ori", "incident_number")) |>
+                                  droplevels()
+ca_arrestee_sub <- ca_arrestee |> semi_join(ca_offense_sub,
+                                            by = c("ori", "incident_number")) |>
+                                  droplevels()
+ca_agency_sub   <- ca_agency   |> filter(ori %in% keep_ori)
+
+tibble(
+  object = c("offense", "victim", "arrestee", "agency"),
+  rows   = c(nrow(ca_offense_sub), nrow(ca_victim_sub),
+             nrow(ca_arrestee_sub), nrow(ca_agency_sub))
+)
+```
+
+```{r}
+#| label: save
+
+# full archive — keep locally, do not push to Canvas or GitHub
+save(ca_offense, ca_victim, ca_arrestee, ca_agency,
+     file = file.path(out_dir, "ca_crime_2025_full.rda"),
+     compress = "xz")
+
+# teaching subset — this is the file students download
+ca_offense  <- ca_offense_sub
+ca_victim   <- ca_victim_sub
+ca_arrestee <- ca_arrestee_sub
+ca_agency   <- ca_agency_sub
+
+save(ca_offense, ca_victim, ca_arrestee, ca_agency,
+     file = file.path(out_dir, "ca_crime_2025.rda"),
+     compress = "xz")
+
+file.size(file.path(out_dir, "ca_crime_2025.rda")) / 1024^2  # MB
+```
+
+::: {.callout-tip}
+## If the teaching file is still too big
+
+In rough order of what to try:
+
+1. Cut `teaching_agencies` from 12 down to 5 or 6.
+2. Drop `ca_victim` — it is the largest table and most cycles do not need it.
+3. Drop `incident_number` from `ca_offense` (kills the joins, halves the size).
+4. Subsample: `slice_sample(ca_offense, n = 250000)` with a fixed seed.
+
+Do **not** switch to `compress = "gzip"` to save build time. The `xz` pass
+costs you a minute once and costs 105 students nothing.
+:::
+
+## 5. Verify before you ship
+
+Never distribute a file you have not interrogated. These are the checks worth
+running every year.
+
+```{r}
+#| label: verify
+
+# 1. Did the lookup joins actually match?
+ca_offense |> summarise(missing_crime = mean(is.na(crime)),
+                        missing_location = mean(is.na(location)))
+
+# 2. Are dates inside the data year?
+range(ca_offense$incident_date)
+
+# 3. Does the seasonal pattern look plausible?
+ca_offense |> count(month)
+
+# 4. Censoring check — raw arrest rate should decay late in the year,
+#    the 60-day version should not.
+ca_offense |>
+  group_by(month) |>
+  summarise(raw_arrest = mean(arrest_made),
+            cleared_60 = mean(cleared_60))
+
+# 4b. Firearm flag — did the prefix match catch anything exact match missed?
+#     If these two disagree, the 3-char weapon slots carry automatic
+#     indicators and the prefix match is doing real work.
+ca_offense_raw |>
+  summarise(
+    exact_match = sum(weapon_force_2 %in% firearm_codes |
+                      weapon_force_3 %in% firearm_codes, na.rm = TRUE),
+    prefix_match = sum(is_firearm(weapon_force_2) |
+                       is_firearm(weapon_force_3), na.rm = TRUE)
+  )
+
+# 5. Coverage — what share of CA population is even in here?
+ca_agency |>
+  summarise(covered = sum(population[reports_nibrs], na.rm = TRUE),
+            not_covered = sum(population[!reports_nibrs], na.rm = TRUE)) |>
+  mutate(pct = 100 * covered / (covered + not_covered))
+```
+
+If check 4 shows the raw rate sloping down and `cleared_60` roughly flat, the
+censoring correction is doing its job — and you now have a ready-made class
+demo of why the naive statistic misleads.
+
+## 6. Generate the data dictionary
+
+Auto-generated from the object itself, so it can never drift from the data.
+Uses `purrr::map_*`, which lands squarely in your Weeks 10–12 block — this
+chunk doubles as an instructor-side example of why `map()` beats a loop.
+
+```{r}
+#| label: dictionary
+
+describe_df <- function(df, object_name) {
+  tibble(
+    object     = object_name,
+    variable   = names(df),
+    type       = map_chr(df, ~ class(.x)[1]),
+    n_missing  = map_int(df, ~ sum(is.na(.x))),
+    pct_missing = map_dbl(df, ~ round(100 * mean(is.na(.x)), 1)),
+    n_distinct = map_int(df, ~ dplyr::n_distinct(.x, na.rm = TRUE)),
+    example    = map_chr(df, ~ {
+      v <- .x[!is.na(.x)]
+      if (length(v) == 0) NA_character_ else as.character(v[1])
+    })
+  )
+}
+
+data_dictionary <- bind_rows(
+  describe_df(ca_offense,  "ca_offense"),
+  describe_df(ca_victim,   "ca_victim"),
+  describe_df(ca_arrestee, "ca_arrestee"),
+  describe_df(ca_agency,   "ca_agency")
+)
+
+write_csv(data_dictionary, file.path(out_dir, "ca_crime_2025_dictionary.csv"))
+
+print(data_dictionary, n = Inf)
+```
+
+## 7. The CLO 12 material this dataset hands you
+
+Four documented, defensible limitations. Each is a real property of the data,
+not a hypothetical — which is what makes them teachable rather than
+moralizing.
+
+**Coverage.** Roughly 80% of California's population lives in a
+NIBRS-reporting jurisdiction, per Ridgeway's Chapter 5, among the lowest rates
+nationally. A statement like "California had *N* robberies in 2025" is
+straightforwardly false; the honest version names the covered population as
+the denominator. Students can compute the covered share themselves from
+`ca_agency` — the ethics point arrives as a `summarise()` result, not a
+lecture.
+
+**Right-censoring.** The March 2026 submission deadline means late-year
+offenses had less time to produce a recorded arrest. Ask students to plot both
+`arrest_made` and `cleared_60` by month and explain the divergence. This is
+one of the cleanest "the artifact is in the collection process, not the world"
+examples available at this level.
+
+**Reported crime only.** NIBRS captures crimes reported to police. Reporting
+rates vary sharply by offense type and victim characteristics, so comparing
+raw counts across crime types compares reporting propensity as much as
+incidence.
+
+**Sentinel values.** The property segment uses `1` for unknown value, and
+several agencies use strings of 9s as informal missing codes. Ridgeway's
+chapter documents a stolen automobile recorded at \$729 million. Any mean that
+includes these is meaningless; medians and explicit `NA` recoding are the fix.
+If you extend this build to include property records, keep that example — an
+absurd number is more memorable than a rule.
+
+## 8. Rebuilding next year
+
+1. Download `nibrs-2026.zip` when the FBI posts it (expect ~September 2027).
+2. Change `data_year <- 2026`, update the zip filename and inner `.txt` name.
+3. Set `rebuild_db <- TRUE`.
+4. Re-pull the R4crim lookup CSVs — offense codes get added between years.
+5. Run §5 verification and diff the dictionary against last year's.
+
+Step 5 matters most. A silent schema change in the master file shows up as a
+spike in `missing_crime` and nowhere else.
