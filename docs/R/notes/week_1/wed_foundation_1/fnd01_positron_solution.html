@@ -372,7 +372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#getting-set-up-and-what-you-are-looking-at-12-min" id="toc-getting-set-up-and-what-you-are-looking-at-12-min" class="nav-link active" data-scroll-target="#getting-set-up-and-what-you-are-looking-at-12-min">0 · Getting set up and what you are looking at <span class="timing">12 min</span></a>
   <ul class="collapse">
-  <li><a href="#setup-checklist" id="toc-setup-checklist" class="nav-link" data-scroll-target="#setup-checklist">Setup checklist</a></li>
+  <li><a href="#setup-checklist-do-once-before-class-if-you-can" id="toc-setup-checklist-do-once-before-class-if-you-can" class="nav-link" data-scroll-target="#setup-checklist-do-once-before-class-if-you-can">Setup checklist (do once, before class if you can)</a></li>
   <li><a href="#the-panes-6-min" id="toc-the-panes-6-min" class="nav-link" data-scroll-target="#the-panes-6-min">The panes <span class="timing">6 min</span></a></li>
   <li><a href="#the-session-6-min" id="toc-the-session-6-min" class="nav-link" data-scroll-target="#the-session-6-min">The Session <span class="timing">6 min</span></a></li>
   </ul></li>
@@ -418,7 +418,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#getting-set-up-and-what-you-are-looking-at-12-min" id="toc-getting-set-up-and-what-you-are-looking-at-12-min">0 · Getting set up and what you are looking at <span class="timing">12 min</span></a>
   <ul>
-  <li><a href="#setup-checklist" id="toc-setup-checklist">Setup checklist</a></li>
+  <li><a href="#setup-checklist-do-once-before-class-if-you-can" id="toc-setup-checklist-do-once-before-class-if-you-can">Setup checklist (do once, before class if you can)</a></li>
   <li><a href="#the-panes-6-min" id="toc-the-panes-6-min">The panes <span class="timing">6 min</span></a></li>
   <li><a href="#the-session-6-min" id="toc-the-session-6-min">The Session <span class="timing">6 min</span></a></li>
   </ul></li>
@@ -430,12 +430,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul>
 </nav>
 <!--
-CLO: 1.1, 1.2, 1.3, 1.4, 1.7 · 11.1 · (9 practiced)
-Timing: panes+session 12' · running code/chunks 12' · objects 16'
-        · functions/pkgs/help 20' · errors 12' · save & render 8' = 80'
+CLO ALIGNMENT
+  CLO 1 (1.1 what R is · 1.2 Positron · 1.3 projects/directories ·
+         1.4 assignment · 1.7 packages vs libraries)
+  CLO 11 (11.1 ?function help)
+  CLO 9 practiced, not graded (this document IS a Quarto doc)
+Time: 80 min. Dataset: mtcars (built in — no import needed yet).
+Fill every ____ and every empty chunk. Times in headers are the budget for
+that section.
 Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 -->
 <p><strong>Name:</strong> Instructor key · <strong>Date:</strong> __________</p>
+<blockquote class="blockquote">
+<p>Before anything else, type your name and today’s date on the line above (and put your name in the <code>author:</code> line at the very top of this file).</p>
+</blockquote>
+<p><strong>How to read this document.</strong> Two labels show up over and over:</p>
+<ul>
+<li><strong>LM = Learning Moment.</strong> I demonstrate; you follow along and run the code.</li>
+<li><strong>YT = Your Turn.</strong> You do it yourself — fill the blank or the empty chunk.</li>
+</ul>
 <div class="callout callout-style-default callout-warning callout-titled" title="Timing &amp; labels">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -457,8 +470,12 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </div>
 <section id="getting-set-up-and-what-you-are-looking-at-12-min" class="level2">
 <h2 class="anchored" data-anchor-id="getting-set-up-and-what-you-are-looking-at-12-min">0 · Getting set up and what you are looking at <span class="timing">12 min</span></h2>
-<section id="setup-checklist" class="level3">
-<h3 class="anchored" data-anchor-id="setup-checklist">Setup checklist</h3>
+<p><strong>R</strong> is a programming language for working with data. <strong>Positron</strong> is the program we use to <em>talk to</em> R — an integrated development environment (IDE). R does the work; Positron is the workshop it happens in.</p>
+<section id="setup-checklist-do-once-before-class-if-you-can" class="level3">
+<h3 class="anchored" data-anchor-id="setup-checklist-do-once-before-class-if-you-can">Setup checklist (do once, before class if you can)</h3>
+<blockquote class="blockquote">
+<p>Need bigger, step-by-step instructions? See <a href="../../../../R/notes/week_0/prep/setup_positron.html"><strong>Prep — Getting Set Up</strong></a>.</p>
+</blockquote>
 <div class="callout callout-style-default callout-note callout-titled" title="Prep page">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -474,6 +491,28 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </ul>
 </div>
 </div>
+<p>Check each box as you finish it:</p>
+<ul class="task-list">
+<li><p><label><input type="checkbox"><strong>1. Install R, then Positron.</strong> Download R from <a href="https://cloud.r-project.org" class="uri">https://cloud.r-project.org</a> and install it. Then download Positron from <a href="https://positron.posit.co" class="uri">https://positron.posit.co</a> and install it. (R first — Positron needs to find it.)</label></p></li>
+<li><p><label><input type="checkbox"><strong>2. Download today’s file.</strong> From the course site, download the <code>.qmd</code> file for today. The file name has today’s date and <code>qmd 1</code> in it — that is this document.</label></p></li>
+<li><p><label><input type="checkbox"><strong>3. Build your folders on the Desktop.</strong> On your Desktop, create:</label></p>
+<ul>
+<li>a folder named <code>R</code></li>
+<li>a folder named <code>Data</code></li>
+<li>inside <code>R</code>, two folders: <code>Notes</code> and <code>Labs</code></li>
+</ul>
+<p>When you are done it looks like this:</p>
+<pre><code>Desktop/
+├── R/
+│   ├── Notes/
+│   └── Labs/
+└── Data/</code></pre></li>
+<li><p><label><input type="checkbox"><strong>4. Move the file.</strong> Drag the downloaded <code>.qmd</code> file out of <code>Downloads</code> and into <code>Desktop/R/Notes/</code>. (Notes go in <code>Notes</code>; labs will go in <code>Labs</code>; data files will go in <code>Data</code>. Every week.)</label></p></li>
+<li><p><label><input type="checkbox"><strong>5. Open Positron.</strong></label></p></li>
+<li><p><label><input type="checkbox"><strong>6. Open your folder.</strong> In Positron: <strong>File → Open Folder…</strong> and choose <code>Desktop/R</code>. The folder’s contents appear in the left sidebar.</label></p></li>
+<li><p><label><input type="checkbox"><strong>7. Open the file.</strong> In the left sidebar, click <code>Notes</code>, then click the <code>.qmd</code> file. It opens in the middle of the screen — you are now reading it inside Positron.</label></p></li>
+<li><p><label><input type="checkbox"><strong>8. Fill in your name and date</strong> at the top of this document.</label></p></li>
+</ul>
 <div class="callout callout-style-default callout-important callout-titled" title="Teaching note — setup">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -500,6 +539,23 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </section>
 <section id="the-panes-6-min" class="level3">
 <h3 class="anchored" data-anchor-id="the-panes-6-min">The panes <span class="timing">6 min</span></h3>
+<p>Positron is divided into <strong>panes</strong>. The numbers in the picture match the list below — find each one on <em>your</em> screen and check it off. Physically point at it.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/positron_panes.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Positron’s panes. Your screen will look like this, with your <code>.qmd</code> open in the Editor instead of the Welcome page.</figcaption>
+</figure>
+</div>
+<ul class="task-list">
+<li><label><input type="checkbox"><strong>1 · Editor</strong> — the big middle area where this <code>.qmd</code> file is open. Code you <em>keep</em> lives here.</label></li>
+<li><label><input type="checkbox"><strong>2 · Console</strong> — bottom of the screen, the tab labeled <strong>CONSOLE</strong>. R answers here, one command at a time. Code you type here is <em>not saved</em>.</label></li>
+<li><label><input type="checkbox"><strong>3 · Variables</strong> — right side, under the <strong>SESSION</strong> tab. Every object you create this session shows up here. (Right now it says <em>No variables have been created</em> — remember what that looks like.)</label></li>
+<li><label><input type="checkbox"><strong>4 · Plots</strong> — right side, below Variables. Pictures appear here.</label></li>
+<li><label><input type="checkbox"><strong>5 · Explorer</strong> — the top icon in the left sidebar (two overlapping pages). Click it to see the files in the folder you opened.</label></li>
+<li><label><input type="checkbox"><strong>6 · Session</strong> — the <code>R 4.x.x</code> label in the top-right corner. More on this in a moment.</label></li>
+<li><label><input type="checkbox"><strong>7 · Terminal</strong> — the tab next to Console at the bottom. It is <em>not</em> R; it talks to your computer’s operating system. Know it exists; we will not use it today.</label></li>
+<li><label><input type="checkbox"><strong>Help</strong> — opens on the right side when you ask R for documentation (section 3 today).</label></li>
+</ul>
 <div class="callout callout-style-default callout-important callout-titled" title="Teaching note — panes">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -523,6 +579,10 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </ul>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>YT1 (1 min). A neighbor asks “where do I look to see what objects I’ve made?” Which pane do you point at? <strong>Variables</strong></em></p>
+<p><em>YT2 (1 min). You type code and want it to be there tomorrow. Which pane does it go in? <strong>The Editor (this <code>.qmd</code>)</strong></em></p>
+</blockquote>
 <div class="callout callout-style-default callout-tip callout-titled" title="Answers">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -542,6 +602,15 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </section>
 <section id="the-session-6-min" class="level3">
 <h3 class="anchored" data-anchor-id="the-session-6-min">The Session <span class="timing">6 min</span></h3>
+<p>R runs inside a <strong>session</strong> — a running copy of R that Positron is talking to.</p>
+<p><strong>How to get to the Session tab.</strong> Look at the <strong>top-right corner</strong> of Positron (arrow <strong>6</strong> in the picture). It shows which R is running, something like <code>R 4.5.1</code>. That label <em>is</em> your session. Click it once: a small menu opens showing the running R, a <strong>Restart</strong> button, a <strong>Shutdown</strong> button, and any other interpreters installed on your computer. Close the menu (press Escape). Now look just below it on the right side: the panel labeled <strong>SESSION</strong> holds the <strong>Variables</strong> and <strong>Plots</strong> panes — everything the session is holding in memory, made visible.</p>
+<p>Three things to know about the session, today:</p>
+<ol type="1">
+<li><strong>It has memory.</strong> Every object you create lives in the session, and shows up in Variables.</li>
+<li><strong>It can be restarted.</strong> The Restart button (top-right session menu, or the Console toolbar) wipes the session’s memory clean — Variables empties out. Your <em>files</em> are untouched.</li>
+<li><strong>It can be replaced.</strong> The same menu lets you pick a different R (or Python) if more than one is installed. Don’t do that today; just know the button exists.</li>
+</ol>
+<p>Do this now: create nothing yet, look at Variables (empty), and remember what empty looks like — we’ll come back after we’ve made some objects.</p>
 <div class="callout callout-style-default callout-important callout-titled" title="Teaching note — getting to the Session tab">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -562,6 +631,10 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </ul>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>Q1. In one sentence: what is the difference between the Console and the Editor?</em></p>
+<p><em>Your answer: The Console runs code once and forgets it; the Editor holds code you keep, so you can re-run everything tomorrow.</em></p>
+</blockquote>
 <div class="callout callout-style-default callout-tip callout-titled" title="Q1 model answer">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -582,6 +655,35 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </section>
 <section id="running-code-and-code-chunks-12-min" class="level2">
 <h2 class="anchored" data-anchor-id="running-code-and-code-chunks-12-min">1 · Running code and code chunks <span class="timing">12 min</span></h2>
+<p><strong>LM1 — the Console (2 min).</strong> Click into the Console, type <code>2 + 2</code>, press Enter. R answers. Now press the up-arrow — the Console remembers your last line. Edit it to <code>2 + 3</code> and press Enter.</p>
+<p><strong>LM2 — a code chunk (5 min).</strong> This document is a <strong>Quarto</strong> file: text and code mixed together. The gray boxes are <strong>code chunks</strong>. A chunk is:</p>
+<ul>
+<li>opened by a line that reads <code>```{r}</code> (three backticks, then <code>{r}</code>)</li>
+<li>closed by a line of three backticks <code>```</code></li>
+<li>everything between the two is R code</li>
+</ul>
+<p>Look at the chunk below in the Editor. Notice the small <strong>play button</strong> at its top-right corner. Click it (or put your cursor on a line and press <strong>Cmd/Ctrl + Enter</strong> to run just that line):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM2: this line is a COMMENT — R ignores anything after #</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> <span class="dv">7</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 21</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">/</span> <span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.5</code></pre>
+</div>
+</div>
+<p>Two things happened: the results appeared <strong>under the chunk</strong> <em>and</em> the same code ran in the <strong>Console</strong>. A chunk is just a saved bundle of Console lines.</p>
+<p><strong>LM3 — chunk options (2 min).</strong> Lines that start with <code>#|</code> at the top of a chunk are <strong>options</strong> — instructions to Quarto, not R. You will see <code>#| eval: false</code> in this document; it means “show this code, but don’t run it when rendering.” Useful for code that is broken on purpose.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM3: this chunk is displayed but never runs</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>this_would_be_an_error</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <div class="callout callout-style-default callout-important callout-titled" title="Teaching notes — LM1–LM3">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -605,36 +707,27 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </ul>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>YT3 (3 min). Edit the chunk below so it computes THREE things: 5 minus something to give 1; 100 divided by 8; and 2 to the 10th power (hint: <code>^</code>).</em></p>
+</blockquote>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM2</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> <span class="dv">7</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 21</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">/</span> <span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.5</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT3</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">-</span> <span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT3: edit and run — start with:  5 - ____</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">-</span> <span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span> <span class="sc">/</span> <span class="dv">8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">100</span> <span class="sc">/</span> <span class="dv">8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12.5</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">^</span><span class="dv">10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">^</span><span class="dv">10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1024</code></pre>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>Q2. Where did the output show up — under the chunk, in the Console, or both? <strong>Both</strong></em></p>
+</blockquote>
 <div class="callout callout-style-default callout-note callout-titled" title="Expected — YT3">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -654,31 +747,42 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </section>
 <section id="objects-and-assignment-16-min" class="level2">
 <h2 class="anchored" data-anchor-id="objects-and-assignment-16-min">2 · Objects and assignment <span class="timing">16 min</span></h2>
+<p><strong>LM4 — the arrow (3 min).</strong> <code>&lt;-</code> stores a value under a name. Without it, R computes and forgets. (Type it fast: <code>Alt + -</code> inserts <code>&lt;-</code> in Positron.)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM4</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cups <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>cups</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM4: create an object, then call its name</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>cups <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>cups</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>
 </div>
+<p>Look at the <strong>Variables pane</strong> — <code>cups</code> is there now, with its value.</p>
+<p><strong>LM5 — objects combine (4 min).</strong> Predict before you run: what will <code>total</code> be?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM5 — prediction: 13.5</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>price <span class="ot">&lt;-</span> <span class="fl">4.50</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>total <span class="ot">&lt;-</span> cups <span class="sc">*</span> price</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>total</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM5: predict, then run</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>price <span class="ot">&lt;-</span> <span class="fl">4.50</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>total <span class="ot">&lt;-</span> cups <span class="sc">*</span> price</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>total</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 13.5</code></pre>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>Q3. Prediction: <strong>13.5</strong> · What R said: <strong>13.5</strong></em></p>
+</blockquote>
+<p><strong>LM6 — overwriting (4 min).</strong> Run this, then check the Variables pane again.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM6</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>cups <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>total</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM6: same name, new value</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>cups <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>total</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 13.5</code></pre>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>Q4. <code>total</code> did NOT change to 45. Why not? (Hint: WHEN was <code>total</code> computed?)</em></p>
+<p><em>Your answer: <code>total</code> was computed at the moment the <code>&lt;-</code> line ran, using <code>cups = 3</code>. Changing <code>cups</code> later doesn’t re-run old lines — R objects store values, not formulas.</em></p>
+</blockquote>
 <div class="callout callout-style-default callout-tip callout-titled" title="Q4 model answer — the most important idea of the day">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -697,20 +801,26 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </ul>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>YT4 (5 min). In the chunk below:</em> <em>(a) create <code>hours</code> holding how many hours you slept last night;</em> <em>(b) create <code>minutes</code> as <code>hours</code> times 60;</em> <em>(c) print <code>minutes</code>;</em> <em>(d) predict — if you now change <code>hours</code> to 8, does <code>minutes</code> change? Test it.</em></p>
+</blockquote>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT4 — any sleep value; e.g.</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>hours   <span class="ot">&lt;-</span> <span class="dv">7</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>minutes <span class="ot">&lt;-</span> hours <span class="sc">*</span> <span class="dv">60</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>minutes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT4: any sleep value; e.g.</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>hours   <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>minutes <span class="ot">&lt;-</span> hours <span class="sc">*</span> <span class="dv">60</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>minutes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 420</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>hours   <span class="ot">&lt;-</span> <span class="dv">8</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>minutes            <span class="co"># still 420 — same lesson as Q4, now self-discovered</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>hours   <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>minutes            <span class="co"># still 420 — same lesson as Q4, now self-discovered</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 420</code></pre>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>Your prediction for (d): <strong>No — <code>minutes</code> stays 420</strong> · What happened: <strong>It stayed 420</strong></em></p>
+</blockquote>
 <div class="callout callout-style-default callout-tip callout-titled" title="YT4 (d) answer">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -728,16 +838,18 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </ul>
 </div>
 </div>
+<p>Now look at Variables: how many objects are there? Names are on the left, values on the right — this pane is your session’s memory, made visible.</p>
 </section>
 <section id="functions-packages-help-20-min" class="level2">
 <h2 class="anchored" data-anchor-id="functions-packages-help-20-min">3 · Functions, packages, help <span class="timing">20 min</span></h2>
+<p><strong>LM7 — a function (4 min).</strong> A function is a named action: <code>name(arguments)</code>. <code>mtcars</code> is a dataset built into R — 32 cars from 1974. No import needed. The <code>$</code> pulls one column out of it (much more on <code>$</code> next week).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM7</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM7: call functions on built-in data</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 20.09062</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(mtcars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(mtcars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 32</code></pre>
 </div>
@@ -757,21 +869,24 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </ul>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>YT5 (4 min). One line each:</em> <em>(a) <code>max()</code> of horsepower, <code>mtcars$hp</code>;</em> <em>(b) <code>min()</code> of miles-per-gallon;</em> <em>(c) <code>ncol()</code> of <code>mtcars</code> — how many columns?</em> <em>(d) <code>round()</code> the mean mpg to 1 decimal place. (Hint: <code>round(x, 1)</code>.)</em></p>
+</blockquote>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT5</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(mtcars<span class="sc">$</span>hp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT5:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(mtcars<span class="sc">$</span>hp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 335</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10.4</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(mtcars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(mtcars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg), <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg), <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 20.1</code></pre>
 </div>
@@ -792,6 +907,30 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </ul>
 </div>
 </div>
+<p><strong>LM8 — help (5 min).</strong> Every function has documentation. Run this, and the Help pane opens:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>?mean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Read the <strong>Usage</strong> and <strong>Arguments</strong> sections. That’s where the answers to “what does this function want from me?” always live.</p>
+<blockquote class="blockquote">
+<p><em>Q5. From the help page: what does the <code>na.rm</code> argument do?</em></p>
+<p><em>Your answer: <code>na.rm = TRUE</code> tells <code>mean()</code> to remove <code>NA</code> values before computing; the default <code>FALSE</code> returns <code>NA</code> if any value is missing.</em></p>
+</blockquote>
+<blockquote class="blockquote">
+<p><em>YT6 (2 min). Look up <code>?round</code>. What is the name of its second argument, and what is its default value? <strong><code>digits</code></strong> · <strong><code>0</code></strong></em></p>
+</blockquote>
+<p><strong>LM9 — packages (5 min).</strong> A <strong>package</strong> is a collection of functions someone wrote. You <strong>install</strong> once (download to your computer), you <strong>load</strong> every session (open the toolbox):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)   <span class="co"># ONCE per computer — done in setup</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)              <span class="co"># EVERY session you use it</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM9: load it now (already installed)</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<blockquote class="blockquote">
+<p><em>Q6. Fill the blanks: install.packages() runs <strong>once</strong> per computer; library() runs <strong>once</strong> per session.</em></p>
+</blockquote>
 <div class="callout callout-style-default callout-tip callout-titled" title="Q5 · YT6 · Q6 answers">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -815,23 +954,26 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </ul>
 </div>
 </div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 </section>
 <section id="when-things-break-12-min" class="level2">
 <h2 class="anchored" data-anchor-id="when-things-break-12-min">4 · When things break <span class="timing">12 min</span></h2>
+<p><strong>LM10 — read the error (4 min).</strong> Run this broken line. Read the message <em>slowly</em> before fixing it.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">meen</span>(mtcars<span class="sc">$</span>mpg)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in meen(mtcars$mpg) : could not find function "meen"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM10: broken on purpose — fix it in the chunk below</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">meen</span>(mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in meen(mtcars$mpg) : could not find function "meen"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM10 fixed</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM10 fixed:</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 20.09062</code></pre>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>Q7. What did the error message say, and what did it mean?</em></p>
+<p><em>Your answer: <code>could not find function "meen"</code> — the name doesn’t exist: a typo, or a package not loaded.</em></p>
+</blockquote>
 <div class="callout callout-style-default callout-tip callout-titled" title="Q7 model answer">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -851,6 +993,42 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </ul></li>
 <li>Students who can <em>classify</em> an error stop fearing errors</li>
 </ul>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><em>YT7 (4 min). Each chunk below has ONE bug. Read the error, then fix it in place. Write the error family in the comment (typo in a function name? object that doesn’t exist? something else?).</em></p>
+</blockquote>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT7a — error family: ____</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mgp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT7a — error family: column-name typo (`$` on a missing column gives NULL, not an error)</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20.09062</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT7b — error family: ____</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(Mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT7b — error family: object not found (R is case-sensitive)</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20.09062</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT7c — error family: ____</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT7c — error family: unbalanced parentheses (missing `)`)</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20.09062</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-caution callout-titled" title="YT7 answers — three error families">
@@ -882,20 +1060,10 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </ul>
 </div>
 </div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 20.09062</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 20.09062</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 20.09062</code></pre>
-</div>
-</div>
+<p><strong>LM11 — the reset button (4 min).</strong> If R gets confused, restart the session: Console toolbar → <strong>Restart R</strong> (or the top-right session menu). Do it now, for real. Then look at Variables.</p>
+<blockquote class="blockquote">
+<p><em>Q8. After the restart: is <code>cups</code> still in Variables? <strong>No</strong> · Is the code that CREATED <code>cups</code> still in this file? <strong>Yes</strong> · Re-run section 2’s chunks — how long did it take to get <code>cups</code> back? <strong>About 10 seconds</strong></em></p>
+</blockquote>
 <div class="callout callout-style-default callout-important callout-titled" title="LM11 — restart for real">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -916,6 +1084,11 @@ Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 </section>
 <section id="save-render-8-min" class="level2">
 <h2 class="anchored" data-anchor-id="save-render-8-min">5 · Save &amp; render <span class="timing">8 min</span></h2>
+<p>Save this file into your project’s <code>R/</code> folder as <code>fnd01_yourlastname.qmd</code>, then press <strong>Render</strong> (the button above the Editor, or Cmd/Ctrl + Shift + K). A webpage appears — your first reproducible document. Every chunk in it re-ran from a <em>fresh</em> session to build that page.</p>
+<blockquote class="blockquote">
+<p><em>Exit question: name one thing that lives in the Variables pane and one thing that lives in the Editor, and say which one survives a restart.</em></p>
+<p><em>Your answer: <code>cups</code> lives in Variables and is gone after a restart; this <code>.qmd</code> (and the code that recreates <code>cups</code>) lives in the Editor and survives.</em></p>
+</blockquote>
 <div class="callout callout-style-default callout-tip callout-titled" title="Exit model answer">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

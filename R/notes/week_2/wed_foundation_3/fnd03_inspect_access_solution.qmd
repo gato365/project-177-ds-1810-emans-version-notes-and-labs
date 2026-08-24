@@ -14,13 +14,22 @@ execute:
 ---
 
 <!--
-CLO: 1.6, 1.12, accessing ($ / [ ] / [[ ]]) · 7.6 · 9 practiced
+CLO ALIGNMENT
+  CLO 1 (1.6 containers in use · 1.12 storage magnitudes, object.size/file.size)
+  CLO 1 accessing: $, [ ], [[ ]]
+  CLO 7 (7.6 is.na in practice)
+  CLO 9 practiced: you insert your own chunks (➕)
+Time: 80 min. Datasets: airquality, iris, mtcars (built in).
 Timing: job 2' · inspecting 22' · accessing 33' · storage 10' · ETV preview 5'
         · exit 8' = 80'
 Checkpoint: §2 starts at 24'. If behind, cut YT5 and shorten YT4 to (a)–(c).
+Ends with a 5-minute live preview of a full ETV cycle — where all of this is going.
 The ETV preview closes foundations: run Cycle-0-style coffee import→plot live,
 narrating nothing but the three stage names. Monday they drive C1.
+LM = learning moment. YT = your turn. Times in headers are the section budget.
 -->
+
+**Name:** Instructor key
 
 ```{r}
 #| label: setup
@@ -33,12 +42,33 @@ library(tidyverse)
 - The ETV preview closes foundations: run a Cycle-0-style coffee import → plot live, narrating nothing but the three stage names — Monday they drive C1
 :::
 
+# 0 · Today's job [2 min]{.timing}
+
+You get handed a dataset. Before any analysis, you must answer three
+questions: **What is this? How big is it? What's inside?** Today is those
+three questions, as functions — and then, once you know what's inside,
+how to *reach in and take a piece*.
+
 # 1 · Inspecting data [22 min]{.timing}
 
+We'll interrogate `airquality` — 1973 New York air measurements, built in.
+
+**LM1 — the first look (5 min).** Run each; note what question each answers:
+
 ```{r}
-head(airquality); tail(airquality)
-dim(airquality); nrow(airquality); ncol(airquality)
+# LM1: five inspection functions
+head(airquality)
+tail(airquality)
+dim(airquality)
+nrow(airquality)
+ncol(airquality)
 ```
+
+> *Q1. Rows: 153 · Columns: 6 · What is one OBSERVATION here (what does
+> one row represent)?*
+>
+> *Your answer:* One row is **one day** of air measurements in New York
+> (May–September 1973): that day's Ozone, Solar.R, Wind, Temp, Month, Day.
 
 ::: {.callout-tip title="Q1 answer"}
 - [Q1]{.q} **153 rows × 6 columns**
@@ -46,11 +76,21 @@ dim(airquality); nrow(airquality); ncol(airquality)
 - The observation question matters more than the numbers — every dataset this term starts with "what is a row?"
 :::
 
+**LM2 — names and structure (5 min).**
+
 ```{r}
+# LM2
 names(airquality)
 str(airquality)
 glimpse(airquality)
 ```
+
+> *Q2. `str()` and `glimpse()` answer the same question. Which is easier to
+> read, and what do the `<int>` / `int` tags tell you?*
+>
+> *Your answer:* `glimpse()` — one line per variable, and it fits any window
+> width. The `int` / `<int>` tags are the **data types from Monday**: every
+> column here is stored as integers (a `dbl` would mean doubles/decimals).
 
 ::: {.callout-tip title="Q2 model answer"}
 - [Q2]{.q} `glimpse()` is easier — one line per variable, fits any width
@@ -58,14 +98,37 @@ glimpse(airquality)
 - Point made: Monday's vocabulary is now reading equipment
 :::
 
+**LM3 — the numeric overview (4 min).**
+
 ```{r}
+# LM3
 summary(airquality)
 ```
+
+> *Q3. Which TWO variables contain missing values, and how many each?
+> (summary() tells you directly.)*
+>
+> *Your answer:* **Ozone (37 NA)** and **Solar.R (7 NA)** — `summary()`
+> prints an `NA's` line under each column that has them.
 
 ::: {.callout-tip title="Q3 answer"}
 - [Q3]{.q} **Ozone (37 NA)** and **Solar.R (7 NA)**
 - `summary()` prints the NA counts in-column — students should find them without help
 :::
+
+*(`View(airquality)` opens a spreadsheet view — try it in the Console; it
+doesn't belong in a rendered document.)*
+
+> *YT1 (8 min). ➕ Insert a chunk and inspect a dataset you have NOT seen:
+> `mtcars`. Use whichever of the functions above you need to answer:*
+> *(a) how many rows and columns?*
+> *(b) what is one observation (one row)? Hint: run `head()` and look at the
+> row labels on the left.*
+> *(c) which columns are NOT numeric — or are they all numeric?*
+> *(d) any missing values? How do you know?*
+> *(e) what is the median `mpg`?*
+
+<!-- ➕ insert a chunk here -->
 
 ```{r}
 # YT1 — mtcars, unseen
@@ -74,6 +137,10 @@ head(mtcars)
 glimpse(mtcars)
 summary(mtcars)
 ```
+
+> *(a) 32 rows × 11 columns · (b) one row = one car model (the row names are
+> the cars) · (c) all numeric — every column is `dbl` · (d) none —
+> `summary()` shows no `NA's` line for any column · (e) median mpg = 19.2*
 
 ::: {.callout-note title="Expected — YT1"}
 - [YT1]{.yt} **(a)** 32 × 11
@@ -86,13 +153,35 @@ summary(mtcars)
 
 # 2 · Accessing data [33 min]{.timing}
 
+Three tools, three jobs:
+
+| Tool | Job | Returns |
+|---|---|---|
+| `$` | one column, **by name** | a vector |
+| `[rows, cols]` | a rectangle, by position/name | usually a data frame |
+| `[[ ]]` | one element, dug out | the thing itself |
+
+**LM4 — `$`, the workhorse (5 min).**
+
 ```{r}
+# LM4: a column is a vector
+airquality$Temp
 mean(airquality$Temp)
 ```
 
 ::: {.callout-note title="Expected"}
 - **77.88°F**
 :::
+
+> *YT2 (4 min). ➕ Insert a chunk. Using `$`, find:*
+> *(a) the mean of Wind;*
+> *(b) the max Temp;*
+> *(c) the mean of Ozone — it comes back `NA`. Fix it with the argument you
+> looked up in the help page last week;*
+> *(d) how many days had Temp above 90? (Hint: `sum(airquality$Temp > 90)` —
+> TRUE counts as 1.)*
+
+<!-- ➕ insert a chunk here -->
 
 ```{r}
 # YT2
@@ -103,6 +192,9 @@ mean(airquality$Ozone, na.rm = TRUE)
 sum(airquality$Temp > 90)
 ```
 
+> *(a) 9.96 mph · (b) 97 · (c) `NA`, then 42.13 with `na.rm = TRUE` ·
+> (d) 14 days*
+
 ::: {.callout-note title="Expected — YT2"}
 - [YT2]{.yt} **(a)** 9.96 mph
 - **(b)** 97
@@ -110,9 +202,12 @@ sum(airquality$Temp > 90)
 - **(d)** **14 days** — the first *logical vector doing arithmetic* (TRUE = 1); say it once, it returns with `filter()` Monday
 :::
 
+**LM5 — `[rows, columns]` (6 min).** Predict each before running:
+
 ```{r}
-airquality[1, ]
-airquality[, 4]
+# LM5: predict, then run
+airquality[1, ]        # first row, all columns
+airquality[, 4]        # all rows, 4th column
 airquality[1:5, c("Ozone", "Temp")]
 ```
 
@@ -121,12 +216,22 @@ airquality[1:5, c("Ozone", "Temp")]
 - Don't belabor it; Q4 lands it
 :::
 
+> *YT3 (5 min). ➕ Insert a chunk. Write ONE line for each:*
+> *(a) rows 10 through 15 of ONLY the Month and Day columns;*
+> *(b) the last row of airquality (use `nrow()` inside the brackets — no
+> hard-coded 153);*
+> *(c) rows 1–3, columns 1–3, by position;*
+> *(d) all rows of the Temp column, but as a data frame not a vector (hint:
+> leave out the comma).*
+
+<!-- ➕ insert a chunk here -->
+
 ```{r}
 # YT3
-airquality[10:15, c("Month", "Day")]
-airquality[nrow(airquality), ]
-airquality[1:3, 1:3]
-head(airquality["Temp"])
+airquality[10:15, c("Month", "Day")]       # (a)
+airquality[nrow(airquality), ]             # (b)
+airquality[1:3, 1:3]                       # (c)
+head(airquality["Temp"])                   # (d) — head() only to keep the output short
 ```
 
 ::: {.callout-tip title="YT3 notes"}
@@ -134,18 +239,30 @@ head(airquality["Temp"])
 - **(d)** previews Q4: no comma → column selection → still a data frame
 :::
 
+**LM6 — `[[ ]]`, digging one thing out (4 min).**
+
 ```{r}
+# LM6: single element — row 1's Temp
 airquality[[1, "Temp"]]
+
+# and on a list:
 my_list <- list(nums = c(1, 2, 3), word = "hello")
 my_list[["nums"]]
 my_list$word
 ```
 
+**LM7 — the comparison (4 min).** Run all three; look closely at what each
+returns:
+
 ```{r}
-head(airquality$Temp)
-head(airquality["Temp"])
-head(airquality[["Temp"]])
+# LM7: three ways at the same column
+head(airquality$Temp)          # vector
+head(airquality["Temp"])       # still a data frame (note the header!)
+head(airquality[["Temp"]])     # vector again
 ```
+
+> *Q4. Which of the three kept the data frame wrapping? The middle one —
+> `airquality["Temp"]` (the printed column header gives it away).*
 
 ::: {.callout-tip title="Q4 answer — rule of thumb"}
 - [Q4]{.q} **the middle one — `airquality["Temp"]`** keeps the data frame wrapping (the printed header gives it away)
@@ -156,7 +273,10 @@ head(airquality[["Temp"]])
 - Deeper indexing rules are drill material (M4), not lecture material
 :::
 
+**LM8 — missing values, located (2 min).**
+
 ```{r}
+# LM8: WHICH rows are missing Ozone?
 which(is.na(airquality$Ozone)) |> head()
 ```
 
@@ -164,6 +284,17 @@ which(is.na(airquality$Ozone)) |> head()
 - **rows 5, 10, 25, 26, 27, 32**
 - Name the pipe ("read it as *then*"), promise it becomes the backbone Monday, move on
 :::
+
+> *YT4 — access challenge (7 min). ➕ Insert a chunk. Switch to `iris`.*
+> *(a) the Species column, as a vector — how long is it?*
+> *(b) rows 51–53, all columns — what species are they?*
+> *(c) the single value in row 100, column Petal.Width;*
+> *(d) the mean Sepal.Length of ONLY the first 50 rows (setosa);*
+> *(e) build `my_list2 <- list(flowers = iris, n = nrow(iris))` and pull `n`
+> back out with `[[ ]]`, then with `$`. Same answer?*
+> *Stretch: which of the three tools did you use most? Why?*
+
+<!-- ➕ insert a chunk here -->
 
 ```{r}
 # YT4 — access challenge on iris
@@ -176,6 +307,10 @@ my_list2[["n"]]                            # (e) 150
 my_list2$n                                 # (e) 150 — same
 ```
 
+> *(a) 150 · (b) versicolor · (c) 1.3 · (d) 5.006 · (e) 150 both ways — same
+> answer. Stretch: `$`, by a lot — most questions are "give me this column by
+> name", which is exactly what `$` does.*
+
 ::: {.callout-tip title="YT4 notes"}
 - [YT4]{.yt} **(a)** 150 · **(b)** versicolor · **(c)** 1.3 · **(d)** 5.006 · **(e)** 150
 - **(d)** is the sneaky one — `$` then `[1:50]` on the *vector*
@@ -185,11 +320,29 @@ my_list2$n                                 # (e) 150 — same
 
 # 3 · How big is data? [10 min]{.timing}
 
+**LM9 — storage units (4 min).** Data size is measured in bytes:
+**byte → KB (thousand) → MB (million) → GB (billion) → TB (trillion)**.
+Rough anchors: this class's survey ≈ a few KB · a semester of sensor logs ≈
+MBs · a music library ≈ GBs · a national census extract ≈ TBs.
+
 ```{r}
+# LM9: how big are OUR objects?
 object.size(airquality)
 object.size(iris)
 object.size(mtcars)
 ```
+
+> *Q5. Order the three from smallest to largest: airquality (≈ 5.6 KB) <
+> mtcars (≈ 7.2 KB) < iris (≈ 7.8 KB)*
+
+**Why it matters:** R holds data **in memory**. A 2 GB file on a 8 GB laptop
+imports; a 200 GB file does not — you'd need different tools. File size is
+the first thing to check *before* importing, which is exactly where next
+week begins.
+
+> *Q6. Your laptop has 8 GB of memory. Roughly how many copies of a 500 MB
+> dataset could fit at once (ignore overhead)? About 16 — 8 GB ≈ 8,000 MB,
+> and 8,000 / 500 = 16.*
 
 ::: {.callout-tip title="Q5 & Q6 answers"}
 - [Q5]{.q} actually run it: airquality ≈ 5.6 KB, mtcars ≈ 7.2 KB, iris ≈ 7.8 KB → **airquality < mtcars < iris**
@@ -199,11 +352,23 @@ object.size(mtcars)
   - the point is *order-of-magnitude* reasoning, which is sub-outcome 1.12's whole job
 :::
 
+> *YT5 (3 min). ➕ Insert a chunk. Run `object.size(iris)` and then
+> `object.size(iris$Sepal.Length)`. Roughly what fraction of the whole is
+> one column? Does that match "1 of 5 columns"? One sentence on why or why
+> not.*
+
+<!-- ➕ insert a chunk here -->
+
 ```{r}
 # YT5
 object.size(iris)
 object.size(iris$Sepal.Length)
 ```
+
+> *One column is ≈ 1.2 KB of ≈ 7.8 KB — about 15%, which is less than 1/5.
+> It doesn't match because the data frame itself costs something: column
+> names, row labels, and the Species factor's level table are stored on top
+> of the raw numbers.*
 
 ::: {.callout-tip title="YT5 answer"}
 - [YT5]{.yt} one column ≈ 1.2 KB of ≈ 7.8 KB — about **15%**, less than 1/5
@@ -211,7 +376,11 @@ object.size(iris$Sepal.Length)
 - Full credit: any answer noticing "less than 1/5, because the container itself costs something"
 :::
 
-# 4 · Where this is going [5 min]{.timing}
+# 4 · Where this is going [5 min — watch]{.timing}
+
+Instructor runs one **complete ETV cycle live**, start to finish, no pauses:
+import a CSV → transform → plot. Every function you just learned appears in
+the first thirty seconds. Monday, you drive.
 
 ::: {.callout-important title="Teaching note — the ETV preview"}
 - Run the coffee import → `filter` → histogram in under three minutes
@@ -220,6 +389,30 @@ object.size(iris$Sepal.Length)
 :::
 
 # 5 · Exit question [8 min]{.timing}
+
+> *You're handed `mysterydata`, a data frame you've never seen. Write the
+> three lines you'd run FIRST, in order, and say what each tells you. Then
+> write ONE more line that pulls out a single column named `score` as a
+> vector.*
+
+```{r}
+#| eval: false
+# your three inspection lines:
+glimpse(mysterydata)      # structure: rows, columns, names, types
+summary(mysterydata)      # ranges + WHERE the NAs are
+head(mysterydata)         # what the values actually look like
+
+# your one access line:
+mysterydata$score         # one column, as a vector
+```
+
+> *Your explanation:* `glimpse()` first tells me the shape (rows, columns),
+> the names, and the type of every column. `summary()` then gives the range
+> of each numeric column and, crucially, where the `NA`s are. `head()` shows
+> what the values actually look like so I can sanity-check the types. Then
+> `mysterydata$score` pulls the one column out as a vector (so would
+> `mysterydata[["score"]]`; `mysterydata["score"]` would still be a data
+> frame).
 
 ::: {.callout-tip title="Model answer"}
 ```{r}
@@ -235,3 +428,5 @@ mysterydata$score         # one column, as a vector
 - The access line must be `$score` or `[["score"]]` (a vector) — `["score"]` is a data frame: half credit with the explanation
 - The habit being graded: **inspect before you compute** — the E stage's second half, forever
 :::
+
+Save as `fnd03_yourlastname.qmd` in your `R/` folder and **Render**.

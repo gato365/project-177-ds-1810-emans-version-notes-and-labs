@@ -373,7 +373,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#the-one-distinction-and-your-own-chunks-8-min" id="toc-the-one-distinction-and-your-own-chunks-8-min" class="nav-link active" data-scroll-target="#the-one-distinction-and-your-own-chunks-8-min">0 · The one distinction, and your own chunks <span class="timing">8 min</span></a></li>
   <li><a href="#data-types-22-min" id="toc-data-types-22-min" class="nav-link" data-scroll-target="#data-types-22-min">1 · Data types <span class="timing">22 min</span></a></li>
   <li><a href="#data-structures-30-min" id="toc-data-structures-30-min" class="nav-link" data-scroll-target="#data-structures-30-min">2 · Data structures <span class="timing">30 min</span></a></li>
-  <li><a href="#in-class-activity-15-min" id="toc-in-class-activity-15-min" class="nav-link" data-scroll-target="#in-class-activity-15-min">3 · In-class activity <span class="timing">15 min</span></a></li>
+  <li><a href="#in-class-activity-type-it-or-contain-it-15-min" id="toc-in-class-activity-type-it-or-contain-it-15-min" class="nav-link" data-scroll-target="#in-class-activity-type-it-or-contain-it-15-min">3 · In-class activity: type it or contain it <span class="timing">15 min</span></a></li>
   <li><a href="#exit-question-5-min" id="toc-exit-question-5-min" class="nav-link" data-scroll-target="#exit-question-5-min">4 · Exit question <span class="timing">5 min</span></a></li>
   </ul>
 </nav>
@@ -413,17 +413,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#the-one-distinction-and-your-own-chunks-8-min" id="toc-the-one-distinction-and-your-own-chunks-8-min">0 · The one distinction, and your own chunks <span class="timing">8 min</span></a></li>
   <li><a href="#data-types-22-min" id="toc-data-types-22-min">1 · Data types <span class="timing">22 min</span></a></li>
   <li><a href="#data-structures-30-min" id="toc-data-structures-30-min">2 · Data structures <span class="timing">30 min</span></a></li>
-  <li><a href="#in-class-activity-15-min" id="toc-in-class-activity-15-min">3 · In-class activity <span class="timing">15 min</span></a></li>
+  <li><a href="#in-class-activity-type-it-or-contain-it-15-min" id="toc-in-class-activity-type-it-or-contain-it-15-min">3 · In-class activity: type it or contain it <span class="timing">15 min</span></a></li>
   <li><a href="#exit-question-5-min" id="toc-exit-question-5-min">4 · Exit question <span class="timing">5 min</span></a></li>
   </ul>
 </nav>
 <!--
-CLO: 1.5, 1.6, 1.4 · 7.6 preview · 9 practiced (students insert chunks)
+CLO ALIGNMENT
+  CLO 1 (1.5 data types: numeric/character/factor/date · 1.6 containers:
+         vector, data frame/tibble, list, matrix · 1.4 assignment reinforced)
+  CLO 7 preview (7.6 is.na())
+  CLO 9 practiced: students INSERT THEIR OWN CHUNKS today
+Time: 80 min. Datasets: iris, airquality (built in) + tiny constructed examples.
 Timing: distinction+chunks 8' · types 22' · structures 30' · activity 15'
         · exit 5' = 80'
 Emphasis per spec: vectors, data frames/tibbles, lists get practice;
 matrix & tribble get one chunk each, no drills.
 Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
+Rule of the day: a TYPE is what one value is; a STRUCTURE is how values are held.
+LM = learning moment. YT = your turn. Times in headers are the section budget.
 -->
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -447,6 +454,10 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 </div>
 <section id="the-one-distinction-and-your-own-chunks-8-min" class="level2">
 <h2 class="anchored" data-anchor-id="the-one-distinction-and-your-own-chunks-8-min">0 · The one distinction, and your own chunks <span class="timing">8 min</span></h2>
+<blockquote class="blockquote">
+<p><strong>Type</strong> = what a single value <em>is</em> (number? text? TRUE/FALSE?). <strong>Structure</strong> = the container holding many values (vector? data frame? list?).</p>
+</blockquote>
+<p>Everything today hangs off that sentence.</p>
 <div class="callout callout-style-default callout-important callout-titled" title="Teaching note — the sentence on the board">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -462,6 +473,12 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 </ul>
 </div>
 </div>
+<p><strong>New skill today: you make the chunks.</strong> Last week every chunk was provided. From now on, when you see <strong>“➕ insert a chunk”</strong>, you create one yourself. Three ways — pick one and practice it until it’s automatic:</p>
+<ol type="1">
+<li>Keyboard: <strong>Cmd + Shift + I</strong> (Mac) / <strong>Ctrl + Shift + I</strong> (Windows).</li>
+<li>Command Palette (Cmd/Ctrl + Shift + P) → type <em>Quarto: Insert Code Cell</em>.</li>
+<li>Type it by hand: a line with <code>```{r}</code>, your code, then a line with <code>```</code>.</li>
+</ol>
 <div class="callout callout-style-default callout-important callout-titled" title="Teaching note — inserting chunks">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -480,6 +497,10 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 </ul>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>YT0 (3 min). Directly below this line, insert a chunk. Inside it, write a comment <code># YT0</code> and the line <code>1 + 1</code>. Run it. If output appears under your chunk, you’re ready.</em></p>
+</blockquote>
+<!-- ➕ insert a chunk here -->
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT0</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -490,8 +511,9 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 </section>
 <section id="data-types-22-min" class="level2">
 <h2 class="anchored" data-anchor-id="data-types-22-min">1 · Data types <span class="timing">22 min</span></h2>
+<p><strong>LM1 — the four you’ll live with (4 min).</strong> Predict each <code>class()</code> before running:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM1 — expected: "numeric", "integer", "character", "logical"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM1: predict, then run</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fl">4.75</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
@@ -509,6 +531,9 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 <pre><code>[1] "logical"</code></pre>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>Q1. Predictions: numeric · integer · character · logical</em></p>
+</blockquote>
 <div class="callout callout-style-default callout-note callout-titled" title="Expected — LM1 &amp; Q1">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -526,8 +551,9 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 </ul>
 </div>
 </div>
+<p><strong>LM2 — doubles vs integers (2 min).</strong> Both are numeric; <code>typeof()</code> tells them apart.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM2 — "double" vs "integer"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM2</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fl">4.75</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "double"</code></pre>
@@ -537,8 +563,9 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 <pre><code>[1] "integer"</code></pre>
 </div>
 </div>
+<p><strong>LM3 — factors (4 min).</strong> A factor is text with a fixed menu of allowed values (levels). <code>iris$Species</code> is built in:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM3 — factor with 3 levels</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM3: character vs factor</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(iris<span class="sc">$</span>Species)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "factor"</code></pre>
@@ -548,6 +575,10 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 <pre><code>[1] "setosa"     "versicolor" "virginica" </code></pre>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>Q2. How many levels does Species have, and what are they?</em></p>
+<p><em>Your answer:</em> 3 levels — setosa, versicolor, virginica.</p>
+</blockquote>
 <div class="callout callout-style-default callout-tip callout-titled" title="Q2 answer">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -564,6 +595,7 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 </ul>
 </div>
 </div>
+<p><strong>LM4 — dates and date-times (2 min).</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM4</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>today <span class="ot">&lt;-</span> <span class="fu">Sys.Date</span>()</span>
@@ -593,13 +625,17 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 </ul>
 </div>
 </div>
+<p><strong>LM5 — NA, the missing value (3 min).</strong> <code>airquality</code> (built in) has real missing ozone readings:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM5</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM5: count the missing values in Ozone</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(airquality<span class="sc">$</span>Ozone))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 37</code></pre>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>Q3. How many Ozone values are missing? 37</em></p>
+</blockquote>
 <div class="callout callout-style-default callout-tip callout-titled" title="Q3 answer">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -617,8 +653,9 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 </ul>
 </div>
 </div>
+<p><strong>LM6 — the is.* family (3 min).</strong> Test types with functions that return TRUE/FALSE:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM6 — any correct fills, e.g.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM6: any correct fills work, e.g.</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(<span class="fl">4.75</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
@@ -636,8 +673,12 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>YT1 (4 min). ➕ Insert a chunk below. In it, find the <code>class()</code> of each of the following, predicting first: <code>"TRUE"</code> (with quotes) · <code>3 &gt; 2</code> · <code>mtcars$cyl</code> · <code>Sys.Date() + 7</code>. Then in the comment, write which one surprised you.</em></p>
+</blockquote>
+<!-- ➕ insert a chunk here -->
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT1 — expected: "character", "logical", "numeric", "Date"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT1 — surprise: "TRUE" in quotes is character, and 3 &gt; 2 makes a logical</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="st">"TRUE"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "character"</code></pre>
@@ -655,6 +696,9 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 <pre><code>[1] "Date"</code></pre>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>Predictions: character · logical · numeric · Date</em></p>
+</blockquote>
 <div class="callout callout-style-default callout-note callout-titled" title="Expected — YT1">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -676,8 +720,9 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 </section>
 <section id="data-structures-30-min" class="level2">
 <h2 class="anchored" data-anchor-id="data-structures-30-min">2 · Data structures <span class="timing">30 min</span></h2>
+<p><strong>LM7 — vector: one type, many values (4 min).</strong> Built with <code>c()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM7</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM7: a vector</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>drinks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"latte"</span>, <span class="st">"drip"</span>, <span class="st">"mocha"</span>)</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>drinks</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -692,6 +737,10 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 <pre><code>[1] "character"</code></pre>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>YT2 (4 min). ➕ Insert a chunk. Build THREE vectors and print each:</em> <em>(a) <code>prices</code> — three numbers, one price per drink above;</em> <em>(b) <code>sizes</code> — three sizes as text (“small”, “medium”, “large”);</em> <em>(c) <code>iced</code> — three TRUE/FALSE values, whether each drink is iced.</em> <em>Then run <code>class()</code> on each. What happens if you run <code>c(1, "two", 3)</code>? Try it and look at the class.</em></p>
+</blockquote>
+<!-- ➕ insert a chunk here -->
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT2</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>prices <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">4.75</span>, <span class="fl">2.75</span>, <span class="fl">5.25</span>)</span>
@@ -726,6 +775,10 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 <pre><code>[1] "character"</code></pre>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>Q4. <code>c(1, "two", 3)</code> has class character. In one phrase, why?</em></p>
+<p><em>Your answer:</em> A vector holds one type, so R coerces everything to text.</p>
+</blockquote>
 <div class="callout callout-style-default callout-tip callout-titled" title="Q4 answer — coercion">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -744,11 +797,13 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 </ul>
 </div>
 </div>
+<p><strong>LM8 — data frame &amp; tibble: vectors standing side by side (6 min).</strong> Each column is a vector; every column has the same length.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM8</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM8: same data, two containers</span></span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>menu_df  <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">drink =</span> drinks, <span class="at">price =</span> <span class="fu">c</span>(<span class="fl">4.75</span>, <span class="fl">2.75</span>, <span class="fl">5.25</span>))</span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>menu_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">drink =</span> drinks, <span class="at">price =</span> <span class="fu">c</span>(<span class="fl">4.75</span>, <span class="fl">2.75</span>, <span class="fl">5.25</span>))</span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>menu_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>menu_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -765,6 +820,10 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 </div>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>Q5. Name one visible difference between how the data frame and the tibble printed:</em></p>
+<p><em>Your answer:</em> The tibble announces its dimensions (<code># A tibble: 3 × 2</code>) and shows column types (<code>&lt;chr&gt;</code>, <code>&lt;dbl&gt;</code>); the data frame shows neither.</p>
+</blockquote>
 <div class="callout callout-style-default callout-tip callout-titled" title="Q5 model answers (any one)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -783,6 +842,10 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 </ul>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>YT3 (5 min). ➕ Insert a chunk. Build a tibble called <code>menu</code> from YOUR vectors from YT2 — columns <code>drink</code>, <code>price</code>, <code>size</code>, <code>iced</code>. Print it. Then run <code>nrow(menu)</code>, <code>ncol(menu)</code>, and <code>class(menu)</code>. What happens if one vector has only two values? Try it (make a broken one on purpose), read the error, then fix it.</em></p>
+</blockquote>
+<!-- ➕ insert a chunk here -->
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT3</span></span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>menu <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">drink =</span> drinks, <span class="at">price =</span> prices, <span class="at">size =</span> sizes, <span class="at">iced =</span> iced)</span>
@@ -812,6 +875,17 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 <span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; • Size 3: Existing data.</span></span>
 <span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; • Size 2: Column `price`.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT3 — the fix: give price all three values</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">drink =</span> drinks, <span class="at">price =</span> <span class="fu">c</span>(<span class="fl">4.75</span>, <span class="fl">2.75</span>, <span class="fl">5.25</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["drink"],"name":[1],"type":["chr"],"align":["left"]},{"label":["price"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"latte","2":"4.75"},{"1":"drip","2":"2.75"},{"1":"mocha","2":"5.25"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-caution callout-titled" title="YT3 teaching note — a good error">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -829,13 +903,14 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 </ul>
 </div>
 </div>
+<p><strong>LM9 — tribble: a tibble typed row by row (2 min)</strong> (brief — you’ll rarely need it):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM9 — tribble, briefly</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tribble</span>(</span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>drink,  <span class="sc">~</span>price,</span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"chai"</span>,   <span class="fl">4.50</span>,</span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"espresso"</span>, <span class="fl">3.00</span></span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM9</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tribble</span>(</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>drink,  <span class="sc">~</span>price,</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"chai"</span>,   <span class="fl">4.50</span>,</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"espresso"</span>, <span class="fl">3.00</span></span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -844,10 +919,11 @@ Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
 </div>
 </div>
 </div>
+<p><strong>LM10 — list: the junk drawer (4 min).</strong> A list holds <em>anything</em>, even other structures:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM10 — list</span></span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">name =</span> <span class="st">"week 2"</span>, <span class="at">nums =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">data =</span> menu_tbl)</span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>my_list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM10</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">name =</span> <span class="st">"week 2"</span>, <span class="at">nums =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">data =</span> menu_tbl)</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>my_list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$name
 [1] "week 2"
@@ -863,7 +939,7 @@ $data
 2 drip   2.75
 3 mocha  5.25</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(my_list)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(my_list)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>
@@ -885,10 +961,14 @@ $data
 </ul>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>YT4 (3 min). ➕ Insert a chunk. Build a list called <code>me</code> with three named parts: your first name (text), the number of classes you’re taking, and your <code>menu</code> tibble. Print it. Notice how each part keeps its own type.</em></p>
+</blockquote>
+<!-- ➕ insert a chunk here -->
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT4 — e.g.</span></span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>me <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">first =</span> <span class="st">"Eman"</span>, <span class="at">n_classes =</span> <span class="dv">4</span>, <span class="at">menu =</span> menu)</span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>me</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT4 — e.g.</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>me <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">first =</span> <span class="st">"Eman"</span>, <span class="at">n_classes =</span> <span class="dv">4</span>, <span class="at">menu =</span> menu)</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>me</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$first
 [1] "Eman"
@@ -905,15 +985,20 @@ $menu
 3 mocha  5.25 large  TRUE </code></pre>
 </div>
 </div>
+<p><strong>LM11 — matrix: all one type, rows × columns (2 min)</strong> (brief):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM11 — matrix, briefly</span></span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM11</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    3    5
 [2,]    2    4    6</code></pre>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>Q6. Which structure could hold a column of names AND a column of numbers: a matrix or a data frame? Why?</em></p>
+<p><em>Your answer:</em> A data frame — a matrix forces every cell to one type, so the numbers would be coerced to text.</p>
+</blockquote>
 <div class="callout callout-style-default callout-tip callout-titled" title="Q6 answer">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -931,8 +1016,17 @@ $menu
 </div>
 </div>
 </section>
-<section id="in-class-activity-15-min" class="level2">
-<h2 class="anchored" data-anchor-id="in-class-activity-15-min">3 · In-class activity <span class="timing">15 min</span></h2>
+<section id="in-class-activity-type-it-or-contain-it-15-min" class="level2">
+<h2 class="anchored" data-anchor-id="in-class-activity-type-it-or-contain-it-15-min">3 · In-class activity: type it or contain it <span class="timing">15 min</span></h2>
+<p>For each item, write <strong>T</strong> if the question is about a type and <strong>S</strong> if it’s about a structure, then answer it with code. ➕ Insert <strong>one chunk per item</strong> (A through F) so each answer is its own runnable piece.</p>
+<ul>
+<li><strong>A.</strong> What is <code>iris</code> — its structure?</li>
+<li><strong>B.</strong> What is <code>iris$Sepal.Length</code> — its type?</li>
+<li><strong>C.</strong> Is there any NA anywhere in <code>airquality$Solar.R</code>? How many?</li>
+<li><strong>D.</strong> Build a tibble with 2 columns: your three favorite foods and a rating (1–10) for each.</li>
+<li><strong>E.</strong> What is <code>airquality$Month</code> — its type? Should it be? (Months are numbers here — would a factor make more sense? One sentence.)</li>
+<li><strong>F.</strong> Build a list holding your food tibble from D <em>and</em> a character vector of the three places you eat those foods.</li>
+</ul>
 <div class="callout callout-style-default callout-important callout-titled" title="Teaching note — one chunk per item">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -949,34 +1043,35 @@ $menu
 </ul>
 </div>
 </div>
+<!-- ➕ insert chunks A–F here -->
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A — Structure</span></span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(iris)          <span class="co"># "data.frame"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A — Structure</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(iris)          <span class="co"># "data.frame"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "data.frame"</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># B — Type</span></span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(iris<span class="sc">$</span>Sepal.Length)   <span class="co"># "numeric"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># B — Type</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(iris<span class="sc">$</span>Sepal.Length)   <span class="co"># "numeric"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># C — Type question (is.na tests values)</span></span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(airquality<span class="sc">$</span>Solar.R))   <span class="co"># 7</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># C — Type question (is.na tests values)</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(airquality<span class="sc">$</span>Solar.R))   <span class="co"># 7</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># D — Structure built by the student, e.g.</span></span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>foods_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">food   =</span> <span class="fu">c</span>(<span class="st">"tacos"</span>, <span class="st">"pho"</span>, <span class="st">"pizza"</span>),</span>
-<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">rating =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">8</span>)</span>
-<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>foods_tbl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># D — Structure built by the student, e.g.</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>foods_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">food   =</span> <span class="fu">c</span>(<span class="st">"tacos"</span>, <span class="st">"pho"</span>, <span class="st">"pizza"</span>),</span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">rating =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">8</span>)</span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>foods_tbl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -986,19 +1081,19 @@ $menu
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># E — Type; stored as integer, arguably should be a factor (or a Date)</span></span>
-<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(airquality<span class="sc">$</span>Month)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># E — Type; stored as integer, arguably should be a factor (or a Date)</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(airquality<span class="sc">$</span>Month)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "integer"</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co"># F — Structure: a list holding a tibble and a vector</span></span>
-<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>food_places <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">foods  =</span> foods_tbl,</span>
-<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">places =</span> <span class="fu">c</span>(<span class="st">"truck on Higuera"</span>, <span class="st">"home"</span>, <span class="st">"campus"</span>)</span>
-<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>food_places</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># F — Structure: a list holding a tibble and a vector</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>food_places <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">foods  =</span> foods_tbl,</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">places =</span> <span class="fu">c</span>(<span class="st">"truck on Higuera"</span>, <span class="st">"home"</span>, <span class="st">"campus"</span>)</span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>food_places</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$foods
 # A tibble: 3 × 2
@@ -1012,6 +1107,9 @@ $places
 [1] "truck on Higuera" "home"             "campus"          </code></pre>
 </div>
 </div>
+<blockquote class="blockquote">
+<p><em>A: S · B: T · C: T (7 missing) · D: S · E: T — integer; a factor would make more sense since 5–9 are labels, not amounts · F: S</em></p>
+</blockquote>
 <div class="callout callout-style-default callout-tip callout-titled" title="Activity answers">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1036,6 +1134,10 @@ $places
 </section>
 <section id="exit-question-5-min" class="level2">
 <h2 class="anchored" data-anchor-id="exit-question-5-min">4 · Exit question <span class="timing">5 min</span></h2>
+<blockquote class="blockquote">
+<p><em>In your own words, one sentence each: what is a data type, and what is a data structure? Use one example of each from today — and at least one must be something YOU built.</em></p>
+<p><em>Your answer:</em> A data type is what one value is — <code>4.75</code> is numeric. A data structure is the container holding values — my <code>menu</code> tibble is a data frame whose <code>iced</code> column is logical.</p>
+</blockquote>
 <div class="callout callout-style-default callout-tip callout-titled" title="Model answer">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1053,6 +1155,7 @@ $places
 </ul>
 </div>
 </div>
+<p>Save as <code>fnd02_yourlastname.qmd</code> in your <code>R/</code> folder and <strong>Render</strong>. If a chunk you inserted breaks the render, read the error: it names the chunk.</p>
 
 
 </section>
