@@ -17,7 +17,9 @@ execute:
 CLO: 1.2–1.7, 1.12 · 7.4, 7.6 (intro) · 11.1 · 9 (practiced)
 Grading: this .qmd is completion/receipt (rendered cleanly = credit). The
 POINTS come from the Canvas quiz, whose answers can only be produced by
-completing this file. Values below feed the quiz answer key.
+completing this file. Values below feed the quiz answer key. 16 questions.
+The 👀 "Variables check" prompts are habit-building; grade them for a genuine
+attempt, not exact wording. Model responses are given for each.
 -->
 
 ```{r}
@@ -25,15 +27,21 @@ completing this file. Values below feed the quiz answer key.
 library(tidyverse)
 ```
 
+**Setup 👀 check.** `library()` loads functions into the session but creates no
+object — nothing is assigned with `<-`, so nothing appears in Variables. (Sets
+up the disk-vs-memory idea for Q4.)
+
 # Part A · Positron & the environment
 
-**Q1.** Console · Environment · Source editor.
+**Q1.** Console · Variables (accept Environment) · Editor (accept Source editor).
 
 **Q2.**
 ```{r}
 my_name <- "Immanuel"
 my_name
 ```
+👀 `my_name` appears. If not: chunk never ran (no output either) or `=`/no
+arrow was used and it printed instead of assigning.
 
 **Q3.** Prediction: 16. `wheels` = 16.
 ```{r}
@@ -41,9 +49,14 @@ cars_counted <- 4
 wheels <- cars_counted * 4
 wheels
 ```
+👀 Two (then three, with `my_name`) objects. After `cars_counted <- 10` in the
+Console, `wheels` is **still 16** — it got its value at the moment its `<-`
+line ran; R objects store values, not formulas. (Same idea as Fnd 01 Q4.)
 
-**Q4.** install.packages() = **once** per computer; library() = **every** time
-you start a new session.
+**Q4.** `library(tidyverse)` needs re-running. `install.packages()` wrote the
+package to **disk**, which persists when Positron closes; `library()` loads it
+into the **session's memory**, which is wiped every time the session ends.
+Once per computer / once per session.
 
 # Part B · Data types
 
@@ -53,19 +66,21 @@ class(mtcars$mpg)   # "numeric"
 class(mtcars$cyl)   # "numeric"
 class(mtcars$hp)    # "numeric" (any column accepted; all mtcars cols are numeric)
 ```
-Accept any third column. Teaching note: every `mtcars` column is numeric —
-a fine moment to note that "looks like a category" (cyl = 4/6/8) is still
-stored as numeric until we say otherwise.
+Accept any third column. `cyl` is stored as **numeric** even though it acts
+like a category — R types a column by *what the values are* (numbers), not by
+how we intend to use them. Making it a category is our job (`factor()`, later).
 
-**Q6.** `na.rm = TRUE` removes `NA` values before computing the mean; the
-default `FALSE` returns `NA` if any value is missing.
+**Q6.** `na.rm = TRUE` removes `NA` values before computing the mean. Default is
+`FALSE`, under which a single `NA` makes the whole result `NA`.
 
 **Q7.**
 ```{r}
 test_scores <- c(88, 92, NA, 75, NA, 100)
+is.na(test_scores)
 sum(is.na(test_scores))
 ```
-**2 missing.**
+**2 missing.** `is.na()` returns one TRUE/FALSE per value; `sum()` treats
+`TRUE` as **1** and `FALSE` as 0, so the sum is the count of NAs.
 
 **Q8.** Any values satisfying each; e.g.
 ```{r}
@@ -73,6 +88,8 @@ sum(is.na(test_scores))
 "cat" == "cat"
 5 <= 5
 ```
+The `==` line has exactly one answer (`"cat"`); the other two have infinitely
+many.
 
 # Part C · Data structures from scratch
 
@@ -81,6 +98,9 @@ sum(is.na(test_scores))
 fav_nums <- c(7, 11, 24)
 fav_nums
 ```
+👀 Variables shows `fav_nums` as numeric **of length 3**; `my_name` was
+character of length 1. Same kind of description (type + length) — a single
+value is just a vector of length 1.
 
 **Q10.**
 ```{r}
@@ -90,37 +110,83 @@ menu <- tibble(
 )
 menu
 ```
+👀 The expand arrow reveals the **columns** inside `menu` (each with its own
+type and length). A tibble is a container of vectors; a plain vector has
+nothing inside to expand.
 
-**Q11.**
+**Q11.** `data.frame` vs `tibble`.
+```{r}
+menu_df <- data.frame(
+  drink = c("latte", "drip", "mocha"),
+  price = c(4.75, 2.75, 5.25)
+)
+menu_df
+menu
+class(menu_df)
+class(menu)
+```
+- The tibble prints (1) its **dimensions** — `# A tibble: 3 × 2` — and (2) the
+  **type of every column** under the column names (`<chr>`, `<dbl>`). The
+  data.frame prints neither.
+- `class(menu)` is `"tbl_df" "tbl" "data.frame"` — `"data.frame"` **is** in the
+  list. A tibble is a data frame (everything that works on a data frame works
+  on a tibble) with extra behaviour layered on top.
+- Model description: "A tibble is the tidyverse's modern data frame. It holds
+  the same thing — columns of equal length — but it prints politely: it shows
+  the dimensions and column types, only the first 10 rows, and only the columns
+  that fit on screen, whereas a data.frame prints everything. It also never
+  silently changes your text to factors or your column names. With 50 columns
+  I'd want the tibble — the data.frame would spew every column across the
+  console and I'd have no idea what type anything was."
+
+  Credit for: (a) tibble shows dims + column types when printed, (b) a tibble
+  *is* a data.frame, (c) a sensible preference with a reason. Bonus
+  recognition: tibble prints only 10 rows / fitting columns; no
+  stringsAsFactors surprise; no partial matching with `$`. Do not require these.
+
+**Q12.**
 ```{r}
 my_stuff <- list(name = "Immanuel", number = 42, table = menu)
 my_stuff
 ```
+👀 Three elements of three different kinds inside one object. `c()` could
+**not** do that: `c("a", 1)` gives `"a" "1"` — the number was coerced to text
+because a vector holds one type only. A list is the container for mixed types.
 
-**Q12.** Model: "A data type is what one value is (`mtcars$mpg` is numeric); a
+**Q13.** Model: "A data type is what one value is (`mtcars$mpg` is numeric); a
 data structure is the container holding values (`menu` is a tibble)." Any
 answer pairing a correct type example with a correct structure example.
 
 # Part D · Inspecting data & storage
 
-**Q13.**
+**Q14.**
 ```{r}
 glimpse(mtcars)
 dim(mtcars)
 ```
-Rows: **32** · Columns: **11** · One row = **one car model**.
+Rows: **32** · Columns: **11** · One row = **one car model**. `glimpse()` tells
+more: every column's **name, type, and first values**; `dim()` is just the two
+numbers.
 
-**Q14.**
+👀 `mtcars` is not in Variables because it was not created in this session — it
+ships inside a package (`datasets`, loaded automatically with base R) and is
+looked up from there when you use it. Variables shows only what *this session*
+created.
+
+**Q15.**
 ```{r}
 object.size(mtcars)
 ```
-About **7 KB** (~7,208 bytes). Model sentence: file size matters because R
-loads data into memory, so a file too large for your computer's memory
-cannot be imported (or needs different tools).
+About **7 KB** (~7,208 bytes). Scaling reasoning: 32 million rows is one
+million × 32 rows → roughly 7 KB × 1,000,000 ≈ **7 GB** (any order-of-magnitude
+estimate in the GB range is fine). Objects live in memory (that's what
+Variables shows), so a dataset larger than the computer's memory cannot be
+imported as-is — knowing the size first tells you whether `read_csv()` will
+work or whether you need a different tool.
 
 # Part E · Working with AI
 
-**Q15.** Representative working answer the AI should produce:
+**Q16.** Representative working answer the AI should produce:
 
 ```{r}
 mtcars |>
@@ -135,12 +201,18 @@ mtcars |>
 Expected result: 4-cyl ≈ 26.7 mpg, 6-cyl ≈ 19.7, 8-cyl ≈ 15.1 — a clear
 downward staircase.
 
+👀 Most AI answers pipe straight to the plot and save **nothing** — Variables
+does not change. Fix: assign the summary, e.g.
+`mpg_by_cyl <- mtcars |> group_by(cyl) |> summarise(avg_mpg = mean(mpg))`.
+Some AIs already do this; either observation is correct if it matches what
+Variables shows.
+
 **What to look for in their explanations (not exact wording):**
 - `group_by(cyl)` — splits the cars into groups by cylinder count
 - `summarise(avg_mpg = mean(mpg))` — computes one average mpg per group
 - `ggplot(...) + geom_col()` — draws the averages as bars
 
-**Grading Q15:** credit is for *engaging honestly* — running the AI code,
+**Grading Q16:** credit is for *engaging honestly* — running the AI code,
 getting it to work, and attempting a plain-English read of each piece. A
 correct "one thing I don't understand yet" (e.g., the pipe `|>`, or `factor()`)
 is a sign the question worked as intended. This is CLO 11 (adapt via
@@ -149,4 +221,6 @@ resources) in its earliest, gentlest form — do not grade for CS mastery.
 # Rendering & Canvas
 
 Confirm the student rendered to **both** HTML and docx (the YAML supports
-both). The Canvas quiz is the graded artifact; this file is the gate.
+both). Students are told to **Restart R before rendering** — that is the
+check that nothing depends on Console-only work. The Canvas quiz is the graded
+artifact; this file is the gate.

@@ -23,7 +23,7 @@ try:
     from docx.enum.section import WD_SECTION
     from docx.oxml import OxmlElement
     from docx.oxml.ns import qn
-    from docx.shared import Pt, Inches
+    from docx.shared import Pt, Inches, RGBColor
 except ImportError:  # pragma: no cover
     sys.exit("python-docx is required:  pip install python-docx")
 
@@ -125,7 +125,7 @@ def totals(quiz, fmt):
     return t, e
 
 
-def add_runs(par, text, bold=False, italic=False, font=None, size=None):
+def add_runs(par, text, bold=False, italic=False, font=None, size=None, color=None):
     """Add text; supports **bold** spans inside the string."""
     parts = re.split(r"(\*\*[^*]+\*\*)", text)
     for part in parts:
@@ -146,10 +146,12 @@ def add_runs(par, text, bold=False, italic=False, font=None, size=None):
                 rfonts.set(qn(attr), font)
         if size:
             run.font.size = Pt(size)
+        if color:
+            run.font.color.rgb = RGBColor.from_string(color)
     return par
 
 
-def new_document(fmt):
+def new_document(fmt, header_line=None):
     doc = Document()
     st = doc.styles["Normal"]
     st.font.name = fmt["font_name"]
@@ -164,7 +166,7 @@ def new_document(fmt):
     # page header: Name / username / date on every page (as in the spec)
     hp = sec.header.paragraphs[0]
     hp.text = ""
-    add_runs(hp, fmt["header_line"], font=fmt["font_name"], size=fmt["font_size_pt"])
+    add_runs(hp, header_line or fmt["header_line"], font=fmt["font_name"], size=fmt["font_size_pt"])
     return doc
 
 
@@ -235,8 +237,8 @@ def number_questions(quiz):
 # --------------------------------------------------------------------------- #
 # The three versions
 # --------------------------------------------------------------------------- #
-def build_blank(quiz, fmt):
-    doc = new_document(fmt)
+def build_blank(quiz, fmt, doc=None):
+    doc = doc or new_document(fmt, quiz.get("header_line"))
     intro(doc, quiz, fmt, "blank")
     for q in quiz["questions"]:
         question_text(doc, q, fmt)
@@ -244,26 +246,27 @@ def build_blank(quiz, fmt):
     return doc
 
 
-def build_solution(quiz, fmt):
-    doc = new_document(fmt)
+def build_solution(quiz, fmt, doc=None):
+    doc = doc or new_document(fmt, quiz.get("header_line"))
     intro(doc, quiz, fmt, "solution")
     for q in quiz["questions"]:
         question_text(doc, q, fmt)
+        ink = fmt.get("solution_ink_hex")  # red ink for everything the instructor adds
         p = doc.add_paragraph()
         p.paragraph_format.left_indent = Inches(0.3)
-        add_runs(p, "Model answer: ", bold=True, font=fmt["font_name"], size=fmt["font_size_pt"])
-        add_runs(p, q["answer"], font=fmt["font_name"], size=fmt["font_size_pt"])
+        add_runs(p, "Model answer: ", bold=True, font=fmt["font_name"], size=fmt["font_size_pt"], color=ink)
+        add_runs(p, q["answer"], font=fmt["font_name"], size=fmt["font_size_pt"], color=ink)
         if q.get("instructor_notes"):
             p = doc.add_paragraph()
             p.paragraph_format.left_indent = Inches(0.3)
-            add_runs(p, "Instructor notes: ", bold=True, italic=True, font=fmt["font_name"], size=fmt["font_size_pt"])
-            add_runs(p, q["instructor_notes"], italic=True, font=fmt["font_name"], size=fmt["font_size_pt"])
+            add_runs(p, "Instructor notes: ", bold=True, italic=True, font=fmt["font_name"], size=fmt["font_size_pt"], color=ink)
+            add_runs(p, q["instructor_notes"], italic=True, font=fmt["font_name"], size=fmt["font_size_pt"], color=ink)
         doc.add_paragraph().paragraph_format.space_after = Pt(6)
     return doc
 
 
-def build_rubric(quiz, fmt):
-    doc = new_document(fmt)
+def build_rubric(quiz, fmt, doc=None):
+    doc = doc or new_document(fmt, quiz.get("header_line"))
     intro(doc, quiz, fmt, "rubric")
     t, e = totals(quiz, fmt)
     para(doc, f"**Total:** {t} {fmt['points_label']}" + (f" · **Extra credit:** {e} {fmt['points_label']}" if e else ""), fmt=fmt, space_after=8)
@@ -307,21 +310,44 @@ def build_one(path, versions, fmt):
     wk, ct = int(quiz["week"]), quiz["check_in_type"]
     out_dir = GENERATED / f"week_{wk:02d}" / ct
     out_dir.mkdir(parents=True, exist_ok=True)
+    # week_02.json -> week_02_collab_blank.docx ; week_02_B.json -> week_02_collab_B_blank.docx
+    m = re.fullmatch(r"week_\d{2}_([A-Z])", path.stem)
+    suffix = f"_{m.group(1)}" if m else ""
     outputs = []
     for v in versions:
-        out = out_dir / f"week_{wk:02d}_{ct}_{v}.docx"
+        out = out_dir / f"week_{wk:02d}_{ct}{suffix}_{v}.docx"
         BUILDERS[v](quiz, fmt).save(out)
         outputs.append(out)
         print(f"  wrote {out.relative_to(ROOT.parent.parent)}")
     return outputs
 
 
+def build_combined(paths, versions, fmt):
+    """Several versions (e.g. B and C) in ONE .docx per output type, page break between them."""
+    quizzes = [load_quiz(p) for p in paths]
+    for q in quizzes:
+        number_questions(q)
+    letters = "".join(q.get("version", "A") for q in quizzes)
+    wk, ct = int(quizzes[0]["week"]), quizzes[0]["check_in_type"]
+    out_dir = GENERATED / f"week_{wk:02d}" / ct
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for v in versions:
+        doc = None
+        for i, q in enumerate(quizzes):
+            if doc is not None:
+                doc.add_page_break()
+            doc = BUILDERS[v](q, fmt, doc)
+        out = out_dir / f"week_{wk:02d}_{ct}_{letters}_{v}.docx"
+        doc.save(out)
+        print(f"  wrote {out.relative_to(ROOT.parent.parent)}")
+
+
 def find_sources(week=None, ctype=None):
     types = [ctype] if ctype else list(VALID_TYPES)
     files = []
     for t in types:
-        pattern = f"week_{week:02d}.json" if week is not None else "week_*.json"
-        files += sorted(SOURCE_DIRS[t].glob(pattern))
+        pattern = f"week_{week:02d}*.json" if week is not None else "week_*.json"
+        files += sorted(SOURCE_DIRS[t].glob(pattern))  # week_NN.json (A) and week_NN_B.json, week_NN_C.json
     return files
 
 
@@ -332,6 +358,8 @@ def main(argv=None):
     ap.add_argument("--all", action="store_true", help="build every week found")
     ap.add_argument("--versions", nargs="+", choices=VERSIONS, default=list(VERSIONS),
                     help="which versions to build (default: all three)")
+    ap.add_argument("--combine", nargs="+", metavar="LETTER",
+                    help="build these versions into ONE document per output type, e.g. --combine B C")
     a = ap.parse_args(argv)
     if a.week is None and not a.all:
         ap.error("give --week N or --all")
@@ -342,6 +370,22 @@ def main(argv=None):
     sources = find_sources(None if a.all else a.week, a.type)
     if not sources:
         sys.exit(f"No JSON found for week={a.week} type={a.type or 'both'} under {ROOT}")
+
+    if a.combine:
+        if a.week is None or not a.type:
+            ap.error("--combine needs --week N and --type")
+        paths = []
+        for L in a.combine:
+            p = SOURCE_DIRS[a.type] / (f"week_{a.week:02d}.json" if L == "A" else f"week_{a.week:02d}_{L}.json")
+            if not p.exists():
+                sys.exit(f"missing {p}")
+            paths.append(p)
+        print(f"combined {'+'.join(a.combine)}:")
+        try:
+            build_combined(paths, a.versions, fmt)
+        except ValidationError as e:
+            sys.exit(f"  ERROR — not built:\n    " + str(e).replace("\n", "\n    "))
+        return
 
     failed = 0
     for src in sources:

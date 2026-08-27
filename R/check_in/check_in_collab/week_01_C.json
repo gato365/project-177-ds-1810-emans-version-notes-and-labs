@@ -1,0 +1,46 @@
+{
+  "week": 1,
+  "check_in_type": "collab",
+  "title": "Week 1 Collaborative Check-In",
+  "version": "C",
+  "time_limit": "fifteen minutes",
+  "instructions": "This is an open-note, collaborative evaluation designed to check your understanding of Foundations 01 (Positron and the R Environment) — files and directories, the Console versus the Editor, and R sessions. Work with your group, but each person must turn in their own sheet. You will have {time_limit} to complete the evaluation. I will let you know when to begin once I start the timer. Answer each question clearly and in complete sentences.",
+  "header_line": "Name:_________________\tGroup Number: _________\tDate: _____________",
+  "blank_published": false,
+  "solution_published": false,
+  "questions": [
+    {
+      "id": "collab_w01_q01",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 4,
+      "answer_space_inches": 3.2,
+      "question": "In class we agreed on this layout for the course:\n\n    Desktop/\n    ├── R/\n    │   ├── notes/\n    │   └── labs/\n    └── Data/\n\nA classmate's Desktop currently looks like this (every file shown is a course file):\n\n    Desktop/\n    ├── Notes/\n    │   └── fnd01_notes_positron.qmd\n    ├── R/\n    │   ├── Labs/\n    │   │   ├── lab01_foundations.qmd\n    │   │   └── nba_goats.csv\n    │   └── fnd02_notes_types_structures.qmd\n    └── Data/\n        └── lab02_types.qmd\n\n(a) List every problem with this layout. For each, name the file or folder and say why it is in the wrong place. (b) Redraw the tree so that every file lives where the course layout says it should. (c) In one sentence: why does the course insist on this layout instead of letting each student pick their own?",
+      "answer": "(a) Problems: (1) Notes/ is on the Desktop, outside R/ — it belongs inside R/ (R/notes/) so File → Open Folder on Desktop/R shows it. (2) nba_goats.csv is inside R/Labs/ — a data file, so it belongs in Desktop/Data/. (3) fnd02_notes_types_structures.qmd is loose in R/ — a notes file, so it belongs in R/notes/. (4) lab02_types.qmd is in Data/ — a lab .qmd, so it belongs in R/labs/; Data/ holds only data files (.csv etc.). (b) Corrected tree:\n\nDesktop/\n├── R/\n│   ├── notes/\n│   │   ├── fnd01_notes_positron.qmd\n│   │   └── fnd02_notes_types_structures.qmd\n│   └── labs/\n│       ├── lab01_foundations.qmd\n│       └── lab02_types.qmd\n└── Data/\n    └── nba_goats.csv\n\n(c) A shared layout means the same file paths work on every computer in the room — code that reads Data/coffee_spending.csv runs for everyone without editing, File → Open Folder on Desktop/R shows all course work at once, and you can find any file weeks later.",
+      "rubric": "Part (a) — 2 pts: 0.5 pt per problem correctly identified (file/folder named AND reason), max 2 pts; 0.25 pt per item if the misplacement is named without a reason. Part (b) — 1.5 pts: full credit if the redrawn tree matches the course layout exactly (R/notes, R/labs, Data all correct, no stray files, no leftover Downloads copies); 1 pt if one file is still misplaced or an extra top-level folder remains; 0.5 pt if two files are wrong; 0 otherwise. Part (c) — 0.5 pt: any sound reason — the same path works on every laptop so code that reads from Data/ runs unchanged for everyone; File → Open Folder on Desktop/R shows all course work; files are findable weeks later. 0 pts for 'because the professor said so'.",
+      "instructor_notes": "Four problems, all needed for full credit on (a). The cue is the file extension: .qmd files go under R/ (notes or labs by name), data files go in Data/. Watch for groups that leave Notes/ on the Desktop and just move files into it — the folder itself is misplaced."
+    },
+    {
+      "id": "collab_w01_q02",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 3,
+      "answer_space_inches": 2.4,
+      "question": "A classmate says: \"I'm going to do everything in the Console: it's faster than clicking the little play button, and the output shows up in the same place anyway.\" (a) Explain what the Console and the Editor each do, and what the classmate is getting right and what they are missing. (b) Name one kind of code that IS a good fit for the Console, and one kind that must go in the Editor, and say why.",
+      "answer": "(a) Right: the Console does run code immediately, and output from a chunk also appears in the Console — a chunk is just a saved bundle of Console lines. Missing: the Console does not save anything. Every line typed there is gone after a restart (or tomorrow), and the document cannot render from it. The Editor holds the .qmd file; code in chunks is saved with the file, can be re-run in order, and is what Render uses to rebuild the page from a fresh session. 'Faster' now costs you the whole analysis later. (b) Console: one-off checks — 2 + 2, ?mean, head(mtcars), and install.packages() (once per computer, never in a document). Editor: everything the analysis depends on — object assignments, library() calls, plot code — because it must survive a restart and re-run when rendering.",
+      "rubric": "Part (a) — 2 pts: 1 pt for the Console — runs immediately, shows output, but does NOT save (lost on restart); 1 pt for the Editor — holds the .qmd, code is saved / re-runnable / what Render uses. Deduct 0.5 if the student does not acknowledge that the classmate is right that output appears in both places. Part (b) — 1 pt: 0.5 for a correct Console example with a reason (one-off check, help, install.packages()); 0.5 for a correct Editor example with a reason (assignments, library(), plot code). Half of each for an example with no reason. 0 pts for 'Console is for output, Editor is for code' with nothing about saving.",
+      "instructor_notes": "The classmate's claim that output appears in both places is TRUE — students should acknowledge that, then explain why it doesn't matter. The key word to reward is 'saved' (or 'survives a restart' / 'renders')."
+    },
+    {
+      "id": "collab_w01_q03",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 3,
+      "answer_space_inches": 2.6,
+      "question": "On Monday, your group created three objects in Positron: cups, price, and total. You wrote the code that made them in a .qmd file, saved it, and closed Positron. When you reopen Positron on Wednesday, the Variables pane is empty. (a) What is an R session, and why are cups, price, and total gone? (b) Is your .qmd file still there on Wednesday? Explain why it survived when the objects did not. (c) What is the fastest way to get cups, price, and total back? What does that tell you about where your code should be saved?",
+      "answer": "(a) A session is the running copy of R that Positron talks to (the R 4.x.x label top-right). It has memory — the objects you create and the packages you load — and the Variables pane shows that memory. But the memory is temporary: closing Positron ends the session, and reopening starts a fresh one with nothing in it, so Monday's objects are gone. (b) Yes. The .qmd file lives on disk, not in the session — saving wrote it to the computer's storage, which does not depend on R running. Objects lived only in session memory, which was wiped. (c) Open the .qmd and re-run the chunks that create cups, price, and total — about ten seconds. That is the whole argument for putting code in the file rather than the Console: the session forgets, the file remembers.",
+      "rubric": "Part (a) — 1 pt: 0.5 for defining a session as the running copy of R that Positron talks to, with memory (objects / packages) shown in Variables; 0.5 for 'closing Positron ended the session and the new one starts empty'. Part (b) — 1 pt: 0.5 for 'yes, the file is still there'; 0.5 for the reason — the file is saved on disk, objects lived only in session memory. Part (c) — 1 pt: 0.5 for 're-run the chunks in the .qmd' (0 for 're-type it in the Console'); 0.5 for the lesson — code belongs in the file because the file survives and the session does not.",
+      "instructor_notes": "Q8 + exit question from the lesson. Reward 'the session forgets, the file remembers' or any equivalent. Watch for (c) answers that re-type the code in the Console — that recreates the objects but misses the point."
+    }
+  ]
+}

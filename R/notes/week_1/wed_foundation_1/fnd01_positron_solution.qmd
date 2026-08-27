@@ -13,6 +13,7 @@ execute:
   message: false
 ---
 
+```{=html}
 <!--
 CLO ALIGNMENT
   CLO 1 (1.1 what R is · 1.2 Positron · 1.3 projects/directories ·
@@ -24,193 +25,156 @@ Fill every ____ and every empty chunk. Times in headers are the budget for
 that section.
 Watch the clock at the end of §2 (40' mark) — if behind, cut YT6 and YT7c.
 -->
+```
 
 **Name:** Instructor key · **Date:** \_\_\_\_\_\_\_\_\_\_
 
-> Before anything else, type your name and today's date on the line above
-> (and put your name in the `author:` line at the very top of this file).
+> Before anything else, type your name and today's date on the line above (and put your name in the `author:` line at the very top of this file).
 
 **How to read this document.** Two labels show up over and over:
 
-- **LM = Learning Moment.** I demonstrate; you follow along and run the code.
-- **YT = Your Turn.** You do it yourself — fill the blank or the empty chunk.
+-   **LM = Learning Moment.** I demonstrate; you follow along and run the code.
+-   **YT = Your Turn.** You do it yourself — fill the blank or the empty chunk.
 
 ::: {.callout-warning title="Timing & labels"}
-- **Budget:** panes + session 12′ · running code 12′ · objects 16′ · functions/packages/help 20′ · errors 12′ · save & render 8′ = **80′**
-- **Checkpoint:** end of §2 at the **40′ mark** — if behind, cut YT6 and YT7c
-- [LM]{.lm} **Learning Moment** — instructor demonstrates, students follow
-- [YT]{.yt} **Your Turn** — students do it themselves
-- Say both names out loud the first time each appears — students otherwise guess
+-   **Budget:** panes + session 12′ · running code 12′ · objects 16′ · functions/packages/help 20′ · errors 12′ · save & render 8′ = **80′**
+-   **Checkpoint:** end of §2 at the **40′ mark** — if behind, cut YT6 and YT7c
+-   [LM]{.lm} **Learning Moment** — instructor demonstrates, students follow
+-   [YT]{.yt} **Your Turn** — students do it themselves
+-   Say both names out loud the first time each appears — students otherwise guess
 :::
 
 # 0 · Getting set up and what you are looking at [12 min]{.timing}
 
-**R** is a programming language for working with data. **Positron** is the
-program we use to *talk to* R — an integrated development environment (IDE).
-R does the work; Positron is the workshop it happens in.
+**R** is a programming language for working with data. **Positron** is the program we use to *talk to* R — an integrated development environment (IDE). R does the work; Positron is the workshop it happens in.
 
 ## Setup checklist (do once, before class if you can)
 
 > Need bigger, step-by-step instructions? See [**Prep — Getting Set Up**](../../week_0/prep/setup_positron.qmd).
 
 ::: {.callout-note title="Prep page"}
-- Big-font, step-by-step version for the projector: [**Prep — Getting Set Up**](../../week_0/prep/setup_positron.qmd) (also covers the Session tab and LM/YT)
+-   Big-font, step-by-step version for the projector: [**Prep — Getting Set Up**](../../week_0/prep/setup_positron.qmd) (also covers the Session tab and LM/YT)
 :::
 
 Check each box as you finish it:
 
-- [ ] **1. Install R, then Positron.** Download R from
-  <https://cloud.r-project.org> and install it. Then download Positron from
-  <https://positron.posit.co> and install it. (R first — Positron needs to
-  find it.)
-- [ ] **2. Download today's file.** From the course site, download the
-  `.qmd` file for today. The file name has today's date and `qmd 1` in
-  it — that is this document.
-- [ ] **3. Build your folders on the Desktop.** On your Desktop, create:
-  - a folder named `R`
-  - a folder named `Data`
-  - inside `R`, two folders: `Notes` and `Labs`
+-   [ ] **1. Install R, then Positron.** Download R from <https://cloud.r-project.org> and install it. Then download Positron from <https://positron.posit.co> and install it. (R first — Positron needs to find it.)
 
-  When you are done it looks like this:
+-   [ ] **2. Download today's file.** From the course site, download the `.qmd` file for today. The file name has today's date and `qmd 1` in it — that is this document.
 
-  ```
-  Desktop/
-  ├── R/
-  │   ├── Notes/
-  │   └── Labs/
-  └── Data/
-  ```
-- [ ] **4. Move the file.** Drag the downloaded `.qmd` file out of
-  `Downloads` and into `Desktop/R/Notes/`. (Notes go in `Notes`; labs will
-  go in `Labs`; data files will go in `Data`. Every week.)
-- [ ] **5. Open Positron.**
-- [ ] **6. Open your folder.** In Positron: **File → Open Folder…** and
-  choose `Desktop/R`. The folder's contents appear in the left sidebar.
-- [ ] **7. Open the file.** In the left sidebar, click `Notes`, then click
-  the `.qmd` file. It opens in the middle of the screen — you are now
-  reading it inside Positron.
-- [ ] **8. Fill in your name and date** at the top of this document.
+-   [ ] **3. Build your folders on the Desktop.** On your Desktop, create:
+
+    -   a folder named `R`
+    -   a folder named `Data`
+    -   inside `R`, two folders: `Notes` and `Labs`
+
+    When you are done it looks like this:
+
+    ```         
+    Desktop/
+    ├── R/
+    │   ├── Notes/
+    │   └── Labs/
+    └── Data/
+    ```
+
+-   [ ] **4. Move the file.** Drag the downloaded `.qmd` file out of `Downloads` and into `Desktop/R/Notes/`. (Notes go in `Notes`; labs will go in `Labs`; data files will go in `Data`. Every week.)
+
+-   [ ] **5. Open Positron.**
+
+-   [ ] **6. Open your folder.** In Positron: **File → Open Folder…** and choose `Desktop/R`. The folder's contents appear in the left sidebar.
+
+-   [ ] **7. Open the file.** In the left sidebar, click `Notes`, then click the `.qmd` file. It opens in the middle of the screen — you are now reading it inside Positron.
+
+-   [ ] **8. Fill in your name and date** at the top of this document.
 
 ::: {.callout-important title="Teaching note — setup"}
-- The eight setup steps should be done **before** class: install R → install Positron → download the `.qmd` → make `Desktop/R/{Notes,Labs}` and `Desktop/Data` → move the file into `R/Notes` → open Positron → **File → Open Folder…** on `Desktop/R` → open the file from the sidebar → fill in name and date
-- Budget **3 minutes** at the start to rescue whoever isn't there yet
-- Most common failures:
-  - the file is still in `Downloads`
-  - they opened the *file* rather than the *folder*, so the Explorer sidebar is empty
-- Fix for both: **File → Open Folder… → `Desktop/R`**
-- Make them fill in name and date — first thing they type into a `.qmd`, and how you tell whose render is whose
+-   The eight setup steps should be done **before** class: install R → install Positron → download the `.qmd` → make `Desktop/R/{Notes,Labs}` and `Desktop/Data` → move the file into `R/Notes` → open Positron → **File → Open Folder…** on `Desktop/R` → open the file from the sidebar → fill in name and date
+-   Budget **3 minutes** at the start to rescue whoever isn't there yet
+-   Most common failures:
+    -   the file is still in `Downloads`
+    -   they opened the *file* rather than the *folder*, so the Explorer sidebar is empty
+-   Fix for both: **File → Open Folder… → `Desktop/R`**
+-   Make them fill in name and date — first thing they type into a `.qmd`, and how you tell whose render is whose
 :::
 
 ## The panes [6 min]{.timing}
 
-Positron is divided into **panes**. The numbers in the picture match the
-list below — find each one on *your* screen and check it off. Physically
-point at it.
+Positron is divided into **panes**. The numbers in the picture match the list below — find each one on *your* screen and check it off. Physically point at it.
 
-![Positron's panes. Your screen will look like this, with your `.qmd` open in the Editor instead of the Welcome page.](images/positron_panes.png){width=100%}
+![Positron's panes. Your screen will look like this, with your `.qmd` open in the Editor instead of the Welcome page.](images/positron_panes.png){width="100%"}
 
-- [ ] **1 · Editor** — the big middle area where this `.qmd` file is open.
-  Code you *keep* lives here.
-- [ ] **2 · Console** — bottom of the screen, the tab labeled **CONSOLE**.
-  R answers here, one command at a time. Code you type here is *not saved*.
-- [ ] **3 · Variables** — right side, under the **SESSION** tab. Every object
-  you create this session shows up here. (Right now it says *No variables
-  have been created* — remember what that looks like.)
-- [ ] **4 · Plots** — right side, below Variables. Pictures appear here.
-- [ ] **5 · Explorer** — the top icon in the left sidebar (two overlapping
-  pages). Click it to see the files in the folder you opened.
-- [ ] **6 · Session** — the `R 4.x.x` label in the top-right corner. More on
-  this in a moment.
-- [ ] **7 · Terminal** — the tab next to Console at the bottom. It is *not*
-  R; it talks to your computer's operating system. Know it exists; we will
-  not use it today.
-- [ ] **Help** — opens on the right side when you ask R for documentation
-  (section 3 today).
+-   [ ] **1 · Editor** — the big middle area where this `.qmd` file is open. Code you *keep* lives here.
+-   [ ] **2 · Console** — bottom of the screen, the tab labeled **CONSOLE**. R answers here, one command at a time. Code you type here is *not saved*.
+-   [ ] **3 · Variables** — right side, under the **SESSION** tab. Every object you create this session shows up here. (Right now it says *No variables have been created* — remember what that looks like.)
+-   [ ] **4 · Plots** — right side, below Variables. Pictures appear here.
+-   [ ] **5 · Explorer** — the top icon in the left sidebar (two overlapping pages). Click it to see the files in the folder you opened.
+-   [ ] **6 · Session** — the `R 4.x.x` label in the top-right corner. More on this in a moment.
+-   [ ] **7 · Terminal** — the tab next to Console at the bottom. It is *not* R; it talks to your computer's operating system. Know it exists; we will not use it today.
+-   [ ] **Help** — opens on the right side when you ask R for documentation (section 3 today).
 
 ::: {.callout-important title="Teaching note — panes"}
-- Put the annotated screenshot (`images/positron_panes.png`) on the projector
-- Have students physically point at each numbered pane — the checklist **is** the activity
-- Use Positron's own names consistently: **Editor**, **Console**, **Variables**, **Plots**, **Explorer**
-- Two traps:
-  - **CONSOLE** and **TERMINAL** tabs sit side by side — the Terminal shows a `%` prompt, not `>`
-  - Variables/Plots live inside the **SESSION** panel on the right — if closed, the right side looks blank
-- Terminal / Viewer / Connections get one sentence each — resist the tour becoming the lesson
+-   Put the annotated screenshot (`images/positron_panes.png`) on the projector
+-   Have students physically point at each numbered pane — the checklist **is** the activity
+-   Use Positron's own names consistently: **Editor**, **Console**, **Variables**, **Plots**, **Explorer**
+-   Two traps:
+    -   **CONSOLE** and **TERMINAL** tabs sit side by side — the Terminal shows a `%` prompt, not `>`
+    -   Variables/Plots live inside the **SESSION** panel on the right — if closed, the right side looks blank
+-   Terminal / Viewer / Connections get one sentence each — resist the tour becoming the lesson
 :::
 
-> *YT1 (1 min). A neighbor asks "where do I look to see what objects I've
-> made?" Which pane do you point at? **Variables***
+> *YT1 (1 min). A neighbor asks "where do I look to see what objects I've made?" Which pane do you point at? **Variables***
 >
-> *YT2 (1 min). You type code and want it to be there tomorrow. Which pane
-> does it go in? **The Editor (this `.qmd`)***
+> *YT2 (1 min). You type code and want it to be there tomorrow. Which pane does it go in? **The Editor (this `.qmd`)***
 
 ::: {.callout-tip title="Answers"}
-- [YT1]{.yt} Variables
-- [YT2]{.yt} the Editor (this `.qmd`)
+-   [YT1]{.yt} Variables
+-   [YT2]{.yt} the Editor (this `.qmd`)
 :::
 
 ## The Session [6 min]{.timing}
 
 R runs inside a **session** — a running copy of R that Positron is talking to.
 
-**How to get to the Session tab.** Look at the **top-right corner** of
-Positron (arrow **6** in the picture). It shows which R is running, something
-like `R 4.5.1`. That label *is* your session. Click it once: a small menu
-opens showing the running R, a **Restart** button, a **Shutdown** button, and
-any other interpreters installed on your computer. Close the menu (press
-Escape). Now look just below it on the right side: the panel labeled
-**SESSION** holds the **Variables** and **Plots** panes — everything the
-session is holding in memory, made visible.
+**How to get to the Session tab.** Look at the **top-right corner** of Positron (arrow **6** in the picture). It shows which R is running, something like `R 4.5.1`. That label *is* your session. Click it once: a small menu opens showing the running R, a **Restart** button, a **Shutdown** button, and any other interpreters installed on your computer. Close the menu (press Escape). Now look just below it on the right side: the panel labeled **SESSION** holds the **Variables** and **Plots** panes — everything the session is holding in memory, made visible.
 
 Three things to know about the session, today:
 
-1. **It has memory.** Every object you create lives in the session, and shows
-   up in Variables.
-2. **It can be restarted.** The Restart button (top-right session menu, or the
-   Console toolbar) wipes the session's memory clean — Variables empties out.
-   Your *files* are untouched.
-3. **It can be replaced.** The same menu lets you pick a different R (or
-   Python) if more than one is installed. Don't do that today; just know the
-   button exists.
+1.  **It has memory.** Every object you create lives in the session, and shows up in Variables.
+2.  **It can be restarted.** The Restart button (top-right session menu, or the Console toolbar) wipes the session's memory clean — Variables empties out. Your *files* are untouched.
+3.  **It can be replaced.** The same menu lets you pick a different R (or Python) if more than one is installed. Don't do that today; just know the button exists.
 
-Do this now: create nothing yet, look at Variables (empty), and remember what
-empty looks like — we'll come back after we've made some objects.
+Do this now: create nothing yet, look at Variables (empty), and remember what empty looks like — we'll come back after we've made some objects.
 
 ::: {.callout-important title="Teaching note — getting to the Session tab"}
-- Point at the top-right interpreter label (`R 4.x.x`, arrow 6 on the screenshot)
-- Click it once so they see the menu: running session, Restart, Shutdown, other interpreters — then press Escape
-- Point at the **SESSION** panel beneath it: *"that label is the session; this panel is what the session remembers"*
-- Say the three facts — **memory / restartable / replaceable** — and move on
-- Payoff comes in §4 LM11 when they restart for real
-- Show that Variables is empty *now* — the "before" picture makes the restart in §4 land
+-   Point at the top-right interpreter label (`R 4.x.x`, arrow 6 on the screenshot)
+-   Click it once so they see the menu: running session, Restart, Shutdown, other interpreters — then press Escape
+-   Point at the **SESSION** panel beneath it: *"that label is the session; this panel is what the session remembers"*
+-   Say the three facts — **memory / restartable / replaceable** — and move on
+-   Payoff comes in §4 LM11 when they restart for real
+-   Show that Variables is empty *now* — the "before" picture makes the restart in §4 land
 :::
 
-> *Q1. In one sentence: what is the difference between the Console and the
-> Editor?*
+> *Q1. In one sentence: what is the difference between the Console and the Editor?*
 >
-> *Your answer: The Console runs code once and forgets it; the Editor holds
-> code you keep, so you can re-run everything tomorrow.*
+> *Your answer: The Console runs code once and forgets it; the Editor holds code you keep, so you can re-run everything tomorrow.*
 
 ::: {.callout-tip title="Q1 model answer"}
-- [Q1]{.q} The Console runs code once and forgets it
-- The Editor holds code you keep, so you can re-run everything tomorrow
+-   [Q1]{.q} The Console runs code once and forgets it
+-   The Editor holds code you keep, so you can re-run everything tomorrow
 :::
 
 # 1 · Running code and code chunks [12 min]{.timing}
 
-**LM1 — the Console (2 min).** Click into the Console, type `2 + 2`, press
-Enter. R answers. Now press the up-arrow — the Console remembers your last
-line. Edit it to `2 + 3` and press Enter.
+**LM1 — the Console (2 min).** Click into the Console, type `2 + 2`, press Enter. R answers. Now press the up-arrow — the Console remembers your last line. Edit it to `2 + 3` and press Enter.
 
-**LM2 — a code chunk (5 min).** This document is a **Quarto** file: text and
-code mixed together. The gray boxes are **code chunks**. A chunk is:
+**LM2 — a code chunk (5 min).** This document is a **Quarto** file: text and code mixed together. The gray boxes are **code chunks**. A chunk is:
 
-- opened by a line that reads ```` ```{r} ```` (three backticks, then `{r}`)
-- closed by a line of three backticks ```` ``` ````
-- everything between the two is R code
+-   opened by a line that reads ```` ```{r} ```` (three backticks, then `{r}`)
+-   closed by a line of three backticks ```` ``` ````
+-   everything between the two is R code
 
-Look at the chunk below in the Editor. Notice the small **play button** at
-its top-right corner. Click it (or put your cursor on a line and press
-**Cmd/Ctrl + Enter** to run just that line):
+Look at the chunk below in the Editor. Notice the small **play button** at its top-right corner. Click it (or put your cursor on a line and press **Cmd/Ctrl + Enter** to run just that line):
 
 ```{r}
 # LM2: this line is a COMMENT — R ignores anything after #
@@ -219,13 +183,9 @@ its top-right corner. Click it (or put your cursor on a line and press
 10 / 4
 ```
 
-Two things happened: the results appeared **under the chunk** *and* the same
-code ran in the **Console**. A chunk is just a saved bundle of Console lines.
+Two things happened: the results appeared **under the chunk** *and* the same code ran in the **Console**. A chunk is just a saved bundle of Console lines.
 
-**LM3 — chunk options (2 min).** Lines that start with `#|` at the top of a
-chunk are **options** — instructions to Quarto, not R. You will see
-`#| eval: false` in this document; it means "show this code, but don't run
-it when rendering." Useful for code that is broken on purpose.
+**LM3 — chunk options (2 min).** Lines that start with `#|` at the top of a chunk are **options** — instructions to Quarto, not R. You will see `#| eval: false` in this document; it means "show this code, but don't run it when rendering." Useful for code that is broken on purpose.
 
 ```{r}
 #| eval: false
@@ -234,17 +194,16 @@ this_would_be_an_error
 ```
 
 ::: {.callout-important title="Teaching notes — LM1–LM3"}
-- [LM1]{.lm} The up-arrow trick saves students dozens of retypes this term — worth the 20 seconds
-- [LM2]{.lm} **Anatomy of a chunk:**
-  - put the cursor on the ```` ```{r} ```` line and name its parts out loud: fence, `{r}` = "this is R", fence
-  - click the play button so they see output land **both** under the chunk and in the Console
-  - the sentence to leave them with: *"a chunk is a saved bundle of Console lines"*
-  - students create their own chunks starting Monday (Foundations 02) — today they only run and edit ours
-- [LM3]{.lm} One sentence on `#|` options is enough — they'll write `#| label:` and `#| eval: false` themselves in ETV cycles
+-   [LM1]{.lm} The up-arrow trick saves students dozens of retypes this term — worth the 20 seconds
+-   [LM2]{.lm} **Anatomy of a chunk:**
+    -   put the cursor on the ```` ```{r} ```` line and name its parts out loud: fence, `{r}` = "this is R", fence
+    -   click the play button so they see output land **both** under the chunk and in the Console
+    -   the sentence to leave them with: *"a chunk is a saved bundle of Console lines"*
+    -   students create their own chunks starting Monday (Foundations 02) — today they only run and edit ours
+-   [LM3]{.lm} One sentence on `#|` options is enough — they'll write `#| label:` and `#| eval: false` themselves in ETV cycles
 :::
 
-> *YT3 (3 min). Edit the chunk below so it computes THREE things: 5 minus
-> something to give 1; 100 divided by 8; and 2 to the 10th power (hint: `^`).*
+> *YT3 (3 min). Edit the chunk below so it computes THREE things: 5 minus something to give 1; 100 divided by 8; and 2 to the 10th power (hint: `^`).*
 
 ```{r}
 # YT3: edit and run — start with:  5 - ____
@@ -253,18 +212,16 @@ this_would_be_an_error
 2^10
 ```
 
-> *Q2. Where did the output show up — under the chunk, in the Console, or
-> both? **Both***
+> *Q2. Where did the output show up — under the chunk, in the Console, or both? **Both***
 
 ::: {.callout-note title="Expected — YT3"}
-- [YT3]{.yt} `1` · `12.5` · `1024`
-- [Q2]{.q} **both** (output appears under the chunk *and* in the Console)
+-   [YT3]{.yt} `1` · `12.5` · `1024`
+-   [Q2]{.q} **both** (output appears under the chunk *and* in the Console)
 :::
 
 # 2 · Objects and assignment [16 min]{.timing}
 
-**LM4 — the arrow (3 min).** `<-` stores a value under a name. Without it,
-R computes and forgets. (Type it fast: `Alt + -` inserts `<-` in Positron.)
+**LM4 — the arrow (3 min).** `<-` stores a value under a name. Without it, R computes and forgets. (Type it fast: `Alt + -` inserts `<-` in Positron.)
 
 ```{r}
 # LM4: create an object, then call its name
@@ -274,8 +231,7 @@ cups
 
 Look at the **Variables pane** — `cups` is there now, with its value.
 
-**LM5 — objects combine (4 min).** Predict before you run: what will `total`
-be?
+**LM5 — objects combine (4 min).** Predict before you run: what will `total` be?
 
 ```{r}
 # LM5: predict, then run
@@ -284,7 +240,7 @@ total <- cups * price
 total
 ```
 
-> *Q3. Prediction: **13.5**  · What R said: **13.5***
+> *Q3. Prediction: **13.5** · What R said: **13.5***
 
 **LM6 — overwriting (4 min).** Run this, then check the Variables pane again.
 
@@ -294,25 +250,18 @@ cups <- 10
 total
 ```
 
-> *Q4. `total` did NOT change to 45. Why not? (Hint: WHEN was `total`
-> computed?)*
+> *Q4. `total` did NOT change to 45. Why not? (Hint: WHEN was `total` computed?)*
 >
-> *Your answer: `total` was computed at the moment the `<-` line ran, using
-> `cups = 3`. Changing `cups` later doesn't re-run old lines — R objects store
-> values, not formulas.*
+> *Your answer: `total` was computed at the moment the `<-` line ran, using `cups = 3`. Changing `cups` later doesn't re-run old lines — R objects store values, not formulas.*
 
 ::: {.callout-tip title="Q4 model answer — the most important idea of the day"}
-- [Q4]{.q} `total` was computed *at the moment* the `<-` line ran, using `cups = 3`
-- Changing `cups` later doesn't re-run old lines — **R objects store values, not formulas**
-- Spend the full minutes here
-- Spreadsheet contrast lands well: Excel cells recompute; R objects don't
+-   [Q4]{.q} `total` was computed *at the moment* the `<-` line ran, using `cups = 3`
+-   Changing `cups` later doesn't re-run old lines — **R objects store values, not formulas**
+-   Spend the full minutes here
+-   Spreadsheet contrast lands well: Excel cells recompute; R objects don't
 :::
 
-> *YT4 (5 min). In the chunk below:*
-> *(a) create `hours` holding how many hours you slept last night;*
-> *(b) create `minutes` as `hours` times 60;*
-> *(c) print `minutes`;*
-> *(d) predict — if you now change `hours` to 8, does `minutes` change? Test it.*
+> *YT4 (5 min). In the chunk below:* *(a) create `hours` holding how many hours you slept last night;* *(b) create `minutes` as `hours` times 60;* *(c) print `minutes`;* *(d) predict — if you now change `hours` to 8, does `minutes` change? Test it.*
 
 ```{r}
 # YT4: any sleep value; e.g.
@@ -326,19 +275,16 @@ minutes            # still 420 — same lesson as Q4, now self-discovered
 > *Your prediction for (d): **No — `minutes` stays 420** · What happened: **It stayed 420***
 
 ::: {.callout-tip title="YT4 (d) answer"}
-- [YT4]{.yt} `minutes` does **not** change — Q4 again, but the student built it, so it sticks
-- Have two students say their prediction and result aloud
-- Then point at Variables: `cups`, `price`, `total`, `hours`, `minutes` — five objects, all session memory
+-   [YT4]{.yt} `minutes` does **not** change — Q4 again, but the student built it, so it sticks
+-   Have two students say their prediction and result aloud
+-   Then point at Variables: `cups`, `price`, `total`, `hours`, `minutes` — five objects, all session memory
 :::
 
-Now look at Variables: how many objects are there? Names are on the left,
-values on the right — this pane is your session's memory, made visible.
+Now look at Variables: how many objects are there? Names are on the left, values on the right — this pane is your session's memory, made visible.
 
 # 3 · Functions, packages, help [20 min]{.timing}
 
-**LM7 — a function (4 min).** A function is a named action: `name(arguments)`.
-`mtcars` is a dataset built into R — 32 cars from 1974. No import needed.
-The `$` pulls one column out of it (much more on `$` next week).
+**LM7 — a function (4 min).** A function is a named action: `name(arguments)`. `mtcars` is a dataset built into R — 32 cars from 1974. No import needed. The `$` pulls one column out of it (much more on `$` next week).
 
 ```{r}
 # LM7: call functions on built-in data
@@ -347,14 +293,10 @@ nrow(mtcars)
 ```
 
 ::: {.callout-note title="Expected — LM7"}
-- [LM7]{.lm} `20.09062` · `32`
+-   [LM7]{.lm} `20.09062` · `32`
 :::
 
-> *YT5 (4 min). One line each:*
-> *(a) `max()` of horsepower, `mtcars$hp`;*
-> *(b) `min()` of miles-per-gallon;*
-> *(c) `ncol()` of `mtcars` — how many columns?*
-> *(d) `round()` the mean mpg to 1 decimal place. (Hint: `round(x, 1)`.)*
+> *YT5 (4 min). One line each:* *(a) `max()` of horsepower, `mtcars$hp`;* *(b) `min()` of miles-per-gallon;* *(c) `ncol()` of `mtcars` — how many columns?* *(d) `round()` the mean mpg to 1 decimal place. (Hint: `round(x, 1)`.)*
 
 ```{r}
 # YT5:
@@ -365,32 +307,26 @@ round(mean(mtcars$mpg), 1)
 ```
 
 ::: {.callout-note title="Expected — YT5"}
-- [YT5]{.yt} `335` (the Maserati Bora) · `10.4` · `11` · `20.1`
-- Part (d) is the first *nested* call — say "inside out" once; don't dwell
+-   [YT5]{.yt} `335` (the Maserati Bora) · `10.4` · `11` · `20.1`
+-   Part (d) is the first *nested* call — say "inside out" once; don't dwell
 :::
 
-**LM8 — help (5 min).** Every function has documentation. Run this, and the
-Help pane opens:
+**LM8 — help (5 min).** Every function has documentation. Run this, and the Help pane opens:
 
 ```{r}
 #| eval: false
 ?mean
 ```
 
-Read the **Usage** and **Arguments** sections. That's where the answers to
-"what does this function want from me?" always live.
+Read the **Usage** and **Arguments** sections. That's where the answers to "what does this function want from me?" always live.
 
 > *Q5. From the help page: what does the `na.rm` argument do?*
 >
-> *Your answer: `na.rm = TRUE` tells `mean()` to remove `NA` values before
-> computing; the default `FALSE` returns `NA` if any value is missing.*
+> *Your answer: `na.rm = TRUE` tells `mean()` to remove `NA` values before computing; the default `FALSE` returns `NA` if any value is missing.*
 
-> *YT6 (2 min). Look up `?round`. What is the name of its second argument,
-> and what is its default value? **`digits`** · **`0`***
+> *YT6 (2 min). Look up `?round`. What is the name of its second argument, and what is its default value? **`digits`** · **`0`***
 
-**LM9 — packages (5 min).** A **package** is a collection of functions
-someone wrote. You **install** once (download to your computer), you **load**
-every session (open the toolbox):
+**LM9 — packages (5 min).** A **package** is a collection of functions someone wrote. You **install** once (download to your computer), you **load** every session (open the toolbox):
 
 ```{r}
 #| eval: false
@@ -403,21 +339,19 @@ library(tidyverse)              # EVERY session you use it
 library(tidyverse)
 ```
 
-> *Q6. Fill the blanks: install.packages() runs **once** per computer;
-> library() runs **once** per session.*
+> *Q6. Fill the blanks: install.packages() runs **once** per computer; library() runs **once** per session.*
 
 ::: {.callout-tip title="Q5 · YT6 · Q6 answers"}
-- [Q5]{.q} `na.rm = TRUE` tells `mean()` to remove `NA` values before computing; the default `FALSE` returns `NA` if any value is missing
-  - plant the flag: this argument returns in Foundations 03 and every ETV cycle
-- [YT6]{.yt} `digits`, default `0` — the purpose is reading a Usage line, not the fact itself
-- [Q6]{.q} install runs **once per computer**; library runs **once every session**
-  - analogy that sticks: install = buying the drill; library = taking it out of the garage
+-   [Q5]{.q} `na.rm = TRUE` tells `mean()` to remove `NA` values before computing; the default `FALSE` returns `NA` if any value is missing
+    -   plant the flag: this argument returns in Foundations 03 and every ETV cycle
+-   [YT6]{.yt} `digits`, default `0` — the purpose is reading a Usage line, not the fact itself
+-   [Q6]{.q} install runs **once per computer**; library runs **once every session**
+    -   analogy that sticks: install = buying the drill; library = taking it out of the garage
 :::
 
 # 4 · When things break [12 min]{.timing}
 
-**LM10 — read the error (4 min).** Run this broken line. Read the message
-*slowly* before fixing it.
+**LM10 — read the error (4 min).** Run this broken line. Read the message *slowly* before fixing it.
 
 ```{r}
 #| eval: false
@@ -433,20 +367,17 @@ mean(mtcars$mpg)
 
 > *Q7. What did the error message say, and what did it mean?*
 >
-> *Your answer: `could not find function "meen"` — the name doesn't exist:
-> a typo, or a package not loaded.*
+> *Your answer: `could not find function "meen"` — the name doesn't exist: a typo, or a package not loaded.*
 
 ::: {.callout-tip title="Q7 model answer"}
-- [Q7]{.q} "could not find function" means the *name* doesn't exist — a typo, or a package not loaded
-- Name the two most common error families now:
-  - `could not find function` → typo / `library()` missing
-  - `object not found` → name typo / never created
-- Students who can *classify* an error stop fearing errors
+-   [Q7]{.q} "could not find function" means the *name* doesn't exist — a typo, or a package not loaded
+-   Name the two most common error families now:
+    -   `could not find function` → typo / `library()` missing
+    -   `object not found` → name typo / never created
+-   Students who can *classify* an error stop fearing errors
 :::
 
-> *YT7 (4 min). Each chunk below has ONE bug. Read the error, then fix it
-> in place. Write the error family in the comment (typo in a function name?
-> object that doesn't exist? something else?).*
+> *YT7 (4 min). Each chunk below has ONE bug. Read the error, then fix it in place. Write the error family in the comment (typo in a function name? object that doesn't exist? something else?).*
 
 ```{r}
 #| eval: false
@@ -482,48 +413,37 @@ mean(mtcars$mpg)
 ```
 
 ::: {.callout-caution title="YT7 answers — three error families"}
-- [YT7a]{.yt} `mtcars$mgp` → returns `NULL`; `mean` warns "argument is not numeric or logical: returning NA"
-  - family: **column-name typo** — `$` on a missing column gives `NULL`, not an error (the sneakiest of the three)
-  - fix: `mpg`
-- [YT7b]{.yt} `Mtcars` → `Error: object 'Mtcars' not found`
-  - family: **object not found** — R is case-sensitive
-  - fix: `mtcars`
-- [YT7c]{.yt} missing `)` → Console shows a `+` prompt waiting for more; in a chunk, "unexpected end of input"
-  - family: **unbalanced parentheses**
-  - fix: add `)` — and show them **Escape** in the Console to get out of a `+` prompt
+-   [YT7a]{.yt} `mtcars$mgp` → returns `NULL`; `mean` warns "argument is not numeric or logical: returning NA"
+    -   family: **column-name typo** — `$` on a missing column gives `NULL`, not an error (the sneakiest of the three)
+    -   fix: `mpg`
+-   [YT7b]{.yt} `Mtcars` → `Error: object 'Mtcars' not found`
+    -   family: **object not found** — R is case-sensitive
+    -   fix: `mtcars`
+-   [YT7c]{.yt} missing `)` → Console shows a `+` prompt waiting for more; in a chunk, "unexpected end of input"
+    -   family: **unbalanced parentheses**
+    -   fix: add `)` — and show them **Escape** in the Console to get out of a `+` prompt
 :::
 
-**LM11 — the reset button (4 min).** If R gets confused, restart the session:
-Console toolbar → **Restart R** (or the top-right session menu). Do it now,
-for real. Then look at Variables.
+**LM11 — the reset button (4 min).** If R gets confused, restart the session: Console toolbar → **Restart R** (or the top-right session menu). Do it now, for real. Then look at Variables.
 
-> *Q8. After the restart: is `cups` still in Variables? **No** · Is the code
-> that CREATED `cups` still in this file? **Yes** · Re-run section 2's chunks —
-> how long did it take to get `cups` back? **About 10 seconds***
+> *Q8. After the restart: is `cups` still in Variables? **No** · Is the code that CREATED `cups` still in this file? **Yes** · Re-run section 2's chunks — how long did it take to get `cups` back? **About 10 seconds***
 
 ::: {.callout-important title="LM11 — restart for real"}
-- [LM11]{.lm} Everyone restarts → Variables empties
-- [Q8]{.q} `cups` gone · code still here · re-running §2 takes ~10 seconds
-- That 10-second recovery *is* the argument for putting code in the file
+-   [LM11]{.lm} Everyone restarts → Variables empties
+-   [Q8]{.q} `cups` gone · code still here · re-running §2 takes \~10 seconds
+-   That 10-second recovery *is* the argument for putting code in the file
 :::
 
 # 5 · Save & render [8 min]{.timing}
 
-Save this file into your project's `R/` folder as
-`fnd01_yourlastname.qmd`, then press **Render** (the button above the
-Editor, or Cmd/Ctrl + Shift + K). A webpage appears — your first
-reproducible document. Every chunk in it re-ran from a *fresh* session to
-build that page.
+Save this file into your project's `R/` folder as `fnd01_yourlastname.qmd`, then press **Render** (the button above the Editor, or Cmd/Ctrl + Shift + K). A webpage appears — your first reproducible document. Every chunk in it re-ran from a *fresh* session to build that page.
 
-> *Exit question: name one thing that lives in the Variables pane and one
-> thing that lives in the Editor, and say which one survives a restart.*
+> *Exit question: name one thing that lives in the Variables pane and one thing that lives in the Editor, and say which one survives a restart.*
 >
-> *Your answer: `cups` lives in Variables and is gone after a restart; this
-> `.qmd` (and the code that recreates `cups`) lives in the Editor and
-> survives.*
+> *Your answer: `cups` lives in Variables and is gone after a restart; this `.qmd` (and the code that recreates `cups`) lives in the Editor and survives.*
 
 ::: {.callout-tip title="Exit model answer"}
-- `cups` lives in Variables → gone after restart
-- this `.qmd` lives in the Editor → survives
-- the code that *recreates* `cups` survives — the entire argument for reproducible documents, made on day one without ever saying "CLO 9"
+-   `cups` lives in Variables → gone after restart
+-   this `.qmd` lives in the Editor → survives
+-   the code that *recreates* `cups` survives — the entire argument for reproducible documents, made on day one without ever saying "CLO 9"
 :::

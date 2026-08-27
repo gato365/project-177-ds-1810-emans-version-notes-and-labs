@@ -57,8 +57,38 @@ Question fields:
 | `instructor_notes` | optional grading notes (solution only) |
 | `answer_space_inches` | blank space under the question in the blank version |
 
-Quiz-level fields: `title`, `version` (A/B), `time_limit`, `instructions`
+Quiz-level fields: `title`, `version` (A/B/C), `time_limit`, `instructions`
 (`{time_limit}` is substituted and bolded).
+
+### Multiple versions of one quiz
+
+`week_NN.json` is version A. Add `week_NN_B.json`, `week_NN_C.json` (same `week`,
+`version: "B"` / `"C"`) for alternates. `--week NN` builds all of them; the extra
+versions get a letter in the file name:
+
+```
+generated/week_01/collab/week_01_collab_blank.docx      ← A
+generated/week_01/collab/week_01_collab_B_blank.docx    ← B
+generated/week_01/collab/week_01_collab_C_blank.docx    ← C
+```
+
+Several versions in ONE document (page break between them):
+
+```sh
+python R/check_in/scripts/build_checkins.py --week 1 --type collab --combine B C --versions solution rubric
+# -> generated/week_01/collab/week_01_collab_BC_{solution,rubric}.docx
+```
+
+A quiz JSON may set `"header_line"` to override the page header from `format.json`
+(e.g. `Group Number:` instead of `Cal Poly username:` for collaborative quizzes).
+
+(`publish_checkin.py` currently handles version A only.)
+
+### Red ink in solutions
+
+In the solution version, *Model answer* and *Instructor notes* are printed in red
+(`solution_ink_hex` in `templates/format.json`, default `EE0000`). Edit the JSON, not
+the built `.docx` — a rebuild overwrites any hand edits.
 
 ## Setting points
 

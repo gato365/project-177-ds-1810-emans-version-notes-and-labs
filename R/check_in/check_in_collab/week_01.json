@@ -1,0 +1,45 @@
+{
+  "week": 1,
+  "check_in_type": "collab",
+  "title": "Week 1 Collaborative Check-In",
+  "version": "A",
+  "time_limit": "fifteen minutes",
+  "instructions": "This is an open-note, collaborative evaluation designed to check your understanding of Foundations 01 (Positron and the R Environment) — files and directories, the Console versus the Editor, and R sessions. Work with your group, but each person must turn in their own sheet. You will have {time_limit} to complete the evaluation. I will let you know when to begin once I start the timer. Answer each question clearly and in complete sentences.",
+  "blank_published": false,
+  "solution_published": false,
+  "questions": [
+    {
+      "id": "collab_w01_q01",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 6,
+      "answer_space_inches": 3.2,
+      "question": "In class we agreed on this layout for the course:\n\n    Desktop/\n    ├── R/\n    │   ├── Notes/\n    │   └── Labs/\n    └── Data/\n\nA classmate's Desktop currently looks like this (every file shown is a course file):\n\n    Desktop/\n    ├── fnd01_positron.qmd\n    ├── Downloads/\n    │   ├── fnd02_types_structures.qmd\n    │   └── coffee_spending.csv\n    ├── R/\n    │   ├── lab01_foundations.qmd\n    │   └── Notes/\n    │       └── nba_goats.csv\n    └── Data/\n\n(a) List every problem with this layout. For each, name the file or folder and say why it is in the wrong place. (b) Redraw the tree so that every file lives where the course layout says it should. (c) In one sentence: why does the course insist on this layout instead of letting each student pick their own?",
+      "answer": "(a) Problems: (1) fnd01_positron.qmd is loose on the Desktop — notes belong in R/Notes/. (2) fnd02_types_structures.qmd was left in Downloads — it was never moved into R/Notes/ (the #1 setup failure from class). (3) coffee_spending.csv is in Downloads — data files belong in Desktop/Data/. (4) lab01_foundations.qmd sits directly in R/ — labs belong in R/Labs/, and the Labs folder was never created. (5) nba_goats.csv is inside R/Notes/ — a data file, so it belongs in Desktop/Data/, not next to the notes. (b) Corrected tree:\n\nDesktop/\n├── R/\n│   ├── Notes/\n│   │   ├── fnd01_positron.qmd\n│   │   └── fnd02_types_structures.qmd\n│   └── Labs/\n│       └── lab01_foundations.qmd\n└── Data/\n    ├── coffee_spending.csv\n    └── nba_goats.csv\n\n(c) A shared layout means the same file paths work on every computer in the room — code that reads Data/coffee_spending.csv runs for everyone without editing, File → Open Folder on Desktop/R shows all course work at once, and you can find any file weeks later.",
+      "rubric": "Part (a) (3 pts): there are 5 problems; 0.75 pt each for the first four correctly identified (file or folder named AND the reason), max 3 pts. Half credit per item if the misplacement is named but no reason is given. Part (b) (2 pts): 2 pts if the redrawn tree matches the course layout exactly (R/Notes, R/Labs, Data all correct, no stray files, no leftover Downloads copies); 1 pt if one file is still misplaced or an extra top-level folder remains; 0 pts if two or more files are wrong. Part (c) (1 pt): 1 pt for any sound reason — the same path works on every laptop, so code that reads a file (e.g. from Data/) runs unchanged for everyone; Positron's File → Open Folder on Desktop/R shows all course work in the Explorer; files are findable weeks later. 0 pts for 'because the professor said so'.",
+      "instructor_notes": "Five problems; students need four for full credit on (a). Watch for groups that 'fix' it by moving Downloads into R — Downloads is not a course folder and should disappear from the tree entirely. Also watch for a redrawn tree that keeps a copy in Downloads AND puts one in Notes — duplicates are a problem, not a fix."
+    },
+    {
+      "id": "collab_w01_q02",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 4,
+      "answer_space_inches": 2.4,
+      "question": "Explain the difference between the Console and the Editor in Positron. Then give one specific situation in which you would type into the Console and one in which you would put the code in the Editor, and say why in each case.",
+      "answer": "The Console runs code one line at a time and forgets it — nothing typed there is saved; it is R's 'scratch paper'. The Editor holds the .qmd file: code kept in a chunk is saved with the file and can be re-run tomorrow, rendered, and shared. Console use: quick one-off checks — 2 + 2, ?mean, looking at head(mtcars), testing a line before committing to it, or install.packages() (which runs once per computer and should never be in a document). Editor use: anything that is part of the analysis — creating objects, loading packages with library(), the code that produces a plot — because it must survive a restart and re-run from scratch when the document renders.",
+      "rubric": "2 pts for the explanation: 1 pt — Console explanation: runs code immediately, one line at a time, NOT saved / lost after restart. 1 pt — Editor explanation: holds the .qmd file; code in chunks is saved, re-runnable, rendered. 2 pts for the situations/uses: 1 pt for a correct Console example with a reason, 1 pt for a correct Editor example with a reason. Half credit for an example with no reason. 0 pts for 'Console is for output, Editor is for code' with nothing about saving.",
+      "instructor_notes": "Students often say 'Console is for output' — that is incomplete: output also appears under chunks. The distinction to reward is saved vs. not saved. The install.packages() example is a strong Console answer."
+    },
+    {
+      "id": "collab_w01_q03",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 5,
+      "answer_space_inches": 2.6,
+      "question": "What is an R session? Explain why it matters, and describe what happens to each of the following when the session is restarted: (a) the objects you created (for example cups and total), (b) a package you loaded with library(tidyverse), and (c) the code in your .qmd file.",
+      "answer": "An R session is the running copy of R that Positron is talking to (the R 4.x.x label in the top-right). It has memory: every object you create and every package you load lives in the session, and the Variables pane shows that memory. It matters because the session is temporary — restarting it (or coming back tomorrow) starts fresh, so your work must be reproducible from the file. On restart: (a) the objects are gone — Variables empties; they come back only by re-running the code that created them. (b) The package is unloaded — it is still installed on disk, but library(tidyverse) has to be run again in the new session. (c) The .qmd file is untouched — it lives on disk, not in the session — and re-running its chunks rebuilds (a) and (b) in seconds. That is why code goes in the file.",
+      "rubric": "1 pt for defining a session as the running copy of R that Positron talks to, with memory (objects/packages) that the Variables pane shows. 1 pt for why it matters: the session is temporary — a restart (or a fresh render) starts from nothing, so the file must recreate everything. 3 pts (1 each) for the three items: objects gone (Variables empties); packages must be re-loaded with library() but stay installed; the .qmd file is unaffected and re-running it restores everything. Half credit on an item if the outcome is right but the reason is missing; 0 pts on the package item for 'the package was deleted/uninstalled'.",
+      "instructor_notes": "This is §0 'The Session' + LM11 + Q8 from the lesson. The install-vs-library distinction in (b) is the common miss: students say 'the package is deleted'. It is not — it is unloaded. Credit 'memory / restartable / replaceable' language."
+    }
+  ]
+}

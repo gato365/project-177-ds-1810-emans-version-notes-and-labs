@@ -59,8 +59,8 @@
       "points": 1,
       "answer_space_inches": 0.8,
       "question": "Which city was Dr. Williams most excited about visiting this summer?",
-      "answer": "Kyoto or Tokyo (either is accepted).",
-      "rubric": "1 pt extra credit for Kyoto or Tokyo. No partial credit.",
+      "answer": "Kyoto, Tokyo, or Osaka (any is accepted).",
+      "rubric": "1 pt extra credit for Kyoto, Tokyo, or Osaka. No partial credit.",
       "instructor_notes": "From the day-one introduction; not on the syllabus."
     }
   ]
