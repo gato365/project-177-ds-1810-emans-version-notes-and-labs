@@ -1,0 +1,46 @@
+{
+  "week": 2,
+  "check_in_type": "collab",
+  "title": "Week 2 Collaborative Check-In",
+  "version": "A",
+  "time_limit": "fifteen minutes",
+  "instructions": "This is an open-note, collaborative evaluation designed to check your understanding of Foundations 02 (Data Types and Data Structures) — vectors, data frames, and what goes wrong when you build them. Work with your group, but each person must turn in their own sheet. You will have {time_limit} to complete the evaluation. I will let you know when to begin once I start the timer. Answer each question clearly and in complete sentences; write code exactly as you would type it.",
+  "header_line": "Name:_________________\tGroup Number: _________\tDate: _____________",
+  "blank_published": false,
+  "solution_published": false,
+  "questions": [
+    {
+      "id": "collab_w02_q01",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 5,
+      "answer_space_inches": 2.6,
+      "question": "VECTORS — wrong code. A classmate recorded the price of a latte at three shops near campus and tried to average them:\n\n    price <- c(4.75, \"5.45\", 5.95)\n    mean(price)\n\nR printed a warning and returned NA. (a) What is class(price), and why — what did R do to the 4.75 and 5.95? (b) Name the concept from class that explains this. (c) Rewrite the two lines so mean() returns 5.383. (d) A different classmate wrote c(TRUE, 2, 3) and got 1 2 3. Explain in one sentence what happened to TRUE, using the same concept.",
+      "answer": "(a) \"character\" — a vector holds ONE type, so the quoted \"5.45\" forced R to convert 4.75 and 5.95 to text (\"4.75\", \"5.95\"); mean() of text is NA with a warning. (b) Coercion (type coercion). (c) price <- c(4.75, 5.45, 5.95) then mean(price) → 5.383333 (accept as.numeric(price) as the fix). (d) TRUE was coerced to the number 1 because a vector must hold one type and numbers can represent TRUE/FALSE as 1/0.",
+      "rubric": "(a) 1.5 pts: 0.5 for \"character\"; 1 for the reason — one quoted value made the whole vector text / a vector holds one type (0.5 if only 'the quotes' is mentioned with no one-type rule). (b) 0.5 pt for 'coercion' (accept 'type conversion'). (c) 2 pts: full credit for c(4.75, 5.45, 5.95) with mean(price), or for as.numeric(price); 1 pt if the quotes are removed but the code has a syntax error or wrong function; 0 if still quoted. (d) 1 pt: TRUE became 1 because the vector must be one type (0.5 for 'TRUE became 1' with no reason).",
+      "instructor_notes": "Fnd 02 YT2/Q5 (coercion) and YT5a (when things break). Groups that answer (c) with mean(price, na.rm = TRUE) have misdiagnosed the problem — that is worth 0 on (c) and a conversation: NA here is not a missing value, it is a failed computation."
+    },
+    {
+      "id": "collab_w02_q02",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 5,
+      "answer_space_inches": 3.0,
+      "question": "DATA FRAMES — wrong code. A group tried to build the Rec Center headcount table from class and got an error:\n\n    library(tibble)\n    rec <- tibble(\n      slot   = c(\"morning\", \"afternoon\", \"evening\"),\n      hour   = c(7, 13),\n      people = c(38, 112, 164)\n    )\n\n(a) Write the error family in your own words and say which column caused it. (b) Fix the code so it runs (write the full corrected tibble() call). (c) After the fix, the printout shows a tag under each column name, e.g. <chr> and <dbl>. What do those tags tell you, and which FAMILY (quantitative / categorical / other) is each of the three columns? (d) The group wants slot to plot in the order morning → afternoon → evening, not alphabetically. Write the ONE line of code that makes that happen.",
+      "answer": "(a) Mismatched column lengths — every column in a data frame must have the same number of values; hour has 2 values while slot and people have 3 (R says 'Tibble columns must have compatible sizes · Size 3: Existing data · Size 2: Column hour'). (b) rec <- tibble(slot = c(\"morning\", \"afternoon\", \"evening\"), hour = c(7, 13, 18), people = c(38, 112, 164)) — any third hour value accepted. (c) The tags are each column's data TYPE: <chr> character, <dbl> double/numeric. slot is categorical; hour is quantitative (accept 'other/time' with a reason); people is quantitative. (d) rec$slot <- factor(rec$slot, levels = c(\"morning\", \"afternoon\", \"evening\"))",
+      "rubric": "(a) 1 pt: 0.5 for 'columns have different lengths / sizes' and 0.5 for naming hour. (b) 1.5 pts: full credit for a tibble() call with three values in every column; 1 pt if the lengths are fixed but there is a syntax slip (missing comma/quote); 0.5 if they delete a row from the other two columns instead (it runs, but loses data — mention it); 0 if lengths still differ. (c) 1.5 pts: 0.5 for 'the tags are the column types (character / numeric)'; 1 for the families — slot categorical, people quantitative, hour quantitative or other-with-reason (0.5 if one family is wrong). (d) 1 pt: factor(rec$slot, levels = c(\"morning\", \"afternoon\", \"evening\")) assigned back to rec$slot (0.5 if factor() with the correct levels but not assigned; 0 for sort() or alphabetizing).",
+      "instructor_notes": "Fnd 02 YT3 (deliberate break), LM9 (rec tribble + factor), §1.3 families, §1.4 factors vs characters. Part (d) is the discriminating item — the levels= argument in the right order."
+    },
+    {
+      "id": "collab_w02_q03",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 5,
+      "answer_space_inches": 3.2,
+      "question": "BUILD ONE, THEN BREAK ONE. (a) Write the code to create a data frame called eats with THREE columns for FOUR places you eat near campus: place (text), price (a number, what you usually spend), and open_late (TRUE/FALSE). Use tibble() or data.frame(). (b) Write nrow(eats), ncol(eats), and class(eats$price) and state what each returns for your table. (c) Now write a SECOND version of your eats code that contains exactly ONE mistake of your choice — a mismatched column length, a number in quotes, a missing quote around text, or a value R will silently turn into NA. Circle the mistake, name its error family, and say what R will do: give a red error, or run and produce something wrong?",
+      "answer": "(a) e.g. eats <- tibble(place = c(\"Woodstock's\", \"Firestone\", \"Campus Market\", \"Chipotle\"), price = c(12, 15, 8, 11), open_late = c(TRUE, TRUE, FALSE, FALSE)). (b) nrow(eats) → 4; ncol(eats) → 3; class(eats$price) → \"numeric\". (c) Any one deliberate bug, correctly diagnosed. Examples: price = c(12, 15, 8) → mismatched lengths → red error ('compatible sizes'); price = c(12, \"15\", 8, 11) → coercion → runs, price becomes <chr>, mean() would fail; place = c(Woodstock's, ...) → missing quotes → red error (object not found / unexpected symbol); a factor with a level typo → runs, value becomes NA silently.",
+      "rubric": "(a) 2 pts: 1 for a syntactically correct tibble()/data.frame() call with three named columns; 0.5 for every column having exactly four values; 0.5 for the right types (text in quotes, bare numbers, bare TRUE/FALSE). (b) 1 pt: 4, 3, \"numeric\" (accept \"double\"); 0.5 if one is wrong. (c) 2 pts: 0.5 for a version with exactly one real mistake, clearly marked; 0.5 for naming the error family correctly; 1 for correctly predicting R's behaviour — red error vs. runs-but-wrong — matched to that mistake (0.5 if they name a plausible consequence but get loud/silent backwards). A 'mistake' that R accepts as valid code (e.g. a different number) earns 0 for (c).",
+      "instructor_notes": "Fnd 02 YT2/YT3 (build), activity item D, and §2b 'When things break' (loud vs silent errors). The point of (c) is that students can PREDICT the failure — that's the skill. Praise groups that choose a silent one."
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+---
+title: "Lab 02 — Types, Structures, and Looking Inside Data"
+subtitle: "STAT/DATA 1810 · Take-home (AI permitted) · SOLUTION"
+author: "Instructor key"
+date: today
+format:
+  html:
+    toc: true
+    embed-resources: true
+  docx: default
+execute:
+  warning: false
+  message: false
+---
+
+<!--
+CLO: 1.4, 1.5, 1.6, 1.12 · 7.4, 7.6 · 11.1 · 9 (practiced)
+Grading: this .qmd is completion/receipt (rendered cleanly = credit). The
+POINTS come from the Canvas quiz (make_canvas_quiz.py), whose answers can only
+be produced by completing this file. Values below feed the quiz key.
+The 👀 prompts are habit-building; grade for a genuine attempt.
+-->
+
+```{r}
+#| label: setup
+library(tibble)
+```
+
+**Setup 👀.** `library()` loads functions, creates no object. We load only
+`tibble` because that is all the document uses — loading nine packages for
+one function is slow, hides which package a function came from, and is a
+habit that breaks the moment two packages share a name.
+
+# Part A · Data types
+
+**Q1.**
+```{r}
+class(5.45); class("Scout Coffee"); class(38L); class(5.45 > 4.75)
+```
+`"numeric"` · `"character"` · `"integer"` · `"logical"`. Usual surprises: `38L`
+is integer (the `L`), and a comparison *produces* a logical.
+
+**Q2.** price Q/numeric · shop C/character (accept factor) · date O/Date ·
+iced C/logical · headcount Q/numeric (accept integer).
+
+**Q3.**
+```{r}
+slot_chr <- c("evening", "morning", "afternoon", "morning", "evening", "evening")
+slot_fct <- factor(slot_chr, levels = c("morning", "afternoon", "evening"))
+class(slot_chr); class(slot_fct)
+table(slot_chr); table(slot_fct)
+```
+👀 Variables: `slot_chr` is *character [6]*; `slot_fct` is *factor with 3
+levels*. Order: the character table is **alphabetical**; the factor table
+follows the **levels you gave**. Typo: `"Morning"` becomes **`NA`, with no
+error** — the value isn't on the menu. Rule: use a factor when a column is a
+**category with a known set of values** (and when order matters for
+tables/plots); keep free text as character.
+
+**Q4.** `levels` sets the allowed values *and their order*. Left out, the
+levels are the unique values **sorted alphabetically**.
+
+# Part B · Data structures from scratch
+
+**Q5.**
+```{r}
+shop  <- c("Julian's", "Starbucks", "Scout Coffee")
+price <- c(4.75, 5.45, 5.95)
+iced  <- c(TRUE, FALSE, TRUE)
+class(shop); class(price); class(iced)
+price_broken <- c(4.75, "5.45", 5.95)
+class(price_broken)
+```
+👀 same length 3; `price` is numeric, `price_broken` is **character**.
+**Coercion**: a vector holds one type, so R converts everything to the type
+that can hold all values — text.
+
+**Q6.**
+```{r}
+lattes <- tibble(shop = shop, price = price, iced = iced)
+lattes
+nrow(lattes); ncol(lattes); class(lattes)
+```
+3 · 3 · `"tbl_df" "tbl" "data.frame"`. Q6b error: *"Tibble columns must have
+compatible sizes. • Size 3: Existing data. • Size 2: Column `price`."* — the
+sizes (3 vs 2) and the column (`price`). 👀 Expanding shows three vectors of
+length 3: **every column is a vector, and all columns have the same length**.
+
+**Q7.**
+```{r}
+me <- list(first = "Eman", n_classes = 4, lattes = lattes)
+me
+length(me)
+```
+`c("Eman", 4)` → `"Eman" "4"`: the 4 became text. A list keeps each part's own
+type (and can hold a whole tibble); a vector coerces to one type.
+
+**Q8.** Model: "A data type is what one value is — `5.45` is numeric. A data
+structure is the container — my `lattes` tibble is a data frame whose `iced`
+column is logical." Any correct type + structure pair, one self-built.
+
+# Part C · Inspecting & accessing
+
+**Q9.**
+```{r}
+glimpse(airquality); summary(airquality); dim(airquality)
+```
+**153 rows × 6 columns**; one row = **one day** (NYC, May–Sep 1973). Every
+column is `<int>` — stored quantitative, but `Month` (and `Day`) is really a
+**label**, i.e. categorical/other. Missing: **Ozone 37**, **Solar.R 7**. 👀
+`airquality` ships in the `datasets` package — Variables shows only what this
+session created.
+
+**Q10.**
+```{r}
+mean(airquality$Temp)
+mean(airquality$Ozone)
+mean(airquality$Ozone, na.rm = TRUE)
+sum(is.na(airquality$Ozone))
+sum(airquality$Temp > 90)
+```
+**77.88** · `NA` because any NA poisons `mean()` · **42.13** · **37** ·
+**14 days**. `Temp > 90` is a logical vector; `sum()` counts each `TRUE` as
+**1**.
+
+**Q11.**
+```{r}
+airquality[1:5, c("Ozone", "Temp")]
+airquality[nrow(airquality), ]
+iris[51:53, ]
+```
+(c) **versicolor**. `nrow()` inside the bracket keeps working when the data
+changes size — a hard-coded 153 silently returns the wrong row tomorrow.
+
+**Q12.**
+```{r}
+july_temp <- airquality$Temp[airquality$Month == 7]
+length(july_temp); mean(july_temp)
+```
+👀 `july_temp` was created *in this session* with `<-`; `airquality` was not.
+Length **31** · mean **83.9°F**.
+
+# Part D · The pipe and the size of data
+
+**Q13.**
+```{r}
+airquality$Ozone |> mean(na.rm = TRUE) |> round(1)      # 42.1
+iris$Species |> unique() |> length()                    # 3
+airquality$Ozone |> is.na() |> which() |> head()        # 5 10 25 26 27 32
+```
+Sentence: "Take the Species column, and then keep the unique values, and then
+count them." The pipe fills only the **first argument** of the next function;
+every other argument (`na.rm = TRUE`) stays where you wrote it.
+
+**Q14.**
+```{r}
+object.size(airquality); object.size(iris); object.size(lattes)
+```
+airquality ≈ **5.6 KB** · iris ≈ **7.3 KB** · lattes ≈ **1–2 KB** (accept
+any value in the KB range; depends on strings). All in **KB**. A 3 MB photo
+holds about 3,000 / 5.6 ≈ **500** airquality datasets (accept 400–600).
+
+**Q15.** 8.8 million rows ÷ 153 rows ≈ 57,500 × 5.6 KB ≈ **320 MB** (accept
+anything from ~300 MB to ~350 MB, or "a few hundred MB"). One year **fits**
+in 8 GB; ten years ≈ 3.2 GB **also fits**, though with little room to work
+(R copies objects). Check `file.size()` / the file's size on disk *before*
+importing, and compare to memory — the E stage's first question.
+
+# Part E · Working with AI
+
+**Q16.** Representative working answer:
+
+```{r}
+aq <- airquality
+aq$Month <- factor(aq$Month,
+                   levels = 5:9,
+                   labels = c("May", "June", "July", "August", "September"))
+aq$Month |> table()
+```
+
+Expected: May 31 · June 30 · July 31 · August 31 · September 30. 👀 Most AI
+answers either modify a *copy* (`aq`, a new object appears) or modify
+`airquality` directly (a **local copy** of `airquality` now appears in
+Variables — the built-in one is untouched); either observation is correct if
+it matches the pane. From this lab: `factor(levels = ...)`, `$`, `|>`.
+New: the `labels =` argument (or `month.name`, or `dplyr::count()` if the AI
+ignored the base-R instruction — fine, they should notice and say so).
+
+**Grading Q16:** credit for running it, getting it to work, and an honest
+plain-English read of each line. Naming `labels =` or `table()` as "the thing
+I haven't seen" is the intended outcome.
+
+# Rendering & Canvas
+
+Confirm the render to **both** HTML and docx, after **Restart R**. The Canvas
+quiz (`make_canvas_quiz.py`) is the graded artifact; this file is the gate.

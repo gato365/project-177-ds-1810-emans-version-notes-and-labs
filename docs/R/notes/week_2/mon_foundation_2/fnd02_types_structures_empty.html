@@ -371,10 +371,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul class="collapse">
   <li><a href="#the-one-distinction-4-min" id="toc-the-one-distinction-4-min" class="nav-link active" data-scroll-target="#the-one-distinction-4-min">0 · The one distinction (4 min)</a></li>
-  <li><a href="#data-types-30-min" id="toc-data-types-30-min" class="nav-link" data-scroll-target="#data-types-30-min">1 · Data types (30 min)</a></li>
-  <li><a href="#data-structures-26-min" id="toc-data-structures-26-min" class="nav-link" data-scroll-target="#data-structures-26-min">2 · Data structures (26 min)</a></li>
-  <li><a href="#in-class-activity-type-it-or-contain-it-15-min" id="toc-in-class-activity-type-it-or-contain-it-15-min" class="nav-link" data-scroll-target="#in-class-activity-type-it-or-contain-it-15-min">3 · In-class activity: type it or contain it (15 min)</a></li>
+  <li><a href="#data-types-28-min" id="toc-data-types-28-min" class="nav-link" data-scroll-target="#data-types-28-min">1 · Data types (28 min)</a></li>
+  <li><a href="#data-structures-24-min" id="toc-data-structures-24-min" class="nav-link" data-scroll-target="#data-structures-24-min">2 · Data structures (24 min)</a></li>
+  <li><a href="#b-when-things-break-6-min" id="toc-b-when-things-break-6-min" class="nav-link" data-scroll-target="#b-when-things-break-6-min">2b · When things break (6 min)</a></li>
+  <li><a href="#in-class-activity-type-it-or-contain-it-12-min" id="toc-in-class-activity-type-it-or-contain-it-12-min" class="nav-link" data-scroll-target="#in-class-activity-type-it-or-contain-it-12-min">3 · In-class activity: type it or contain it (12 min)</a></li>
   <li><a href="#exit-question-5-min" id="toc-exit-question-5-min" class="nav-link" data-scroll-target="#exit-question-5-min">4 · Exit question (5 min)</a></li>
+  <li><a href="#save-render-1-min" id="toc-save-render-1-min" class="nav-link" data-scroll-target="#save-render-1-min">5 · Save &amp; render (1 min)</a></li>
   </ul>
 </nav>
     </div>
@@ -421,6 +423,19 @@ LM = learning moment. YT = your turn. Times in headers are the section budget.
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)   <span class="co"># today we need tibble() and tribble() — that's it</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<blockquote class="blockquote">
+<p>👀 <strong>Variables check.</strong> Loading <code>tibble</code> added <em>nothing</em> to the Variables pane. Why not? (Think: what does <code>library()</code> do versus what <code>&lt;-</code> does.)</p>
+</blockquote>
+<p><strong>Name:</strong> ____________________ · <strong>Date:</strong> __________</p>
+<blockquote class="blockquote">
+<p>Before anything else, type your name and today’s date on the line above (and put your name in the <code>author:</code> line at the very top of this file).</p>
+</blockquote>
+<p><strong>How to read this document.</strong> Two labels show up over and over:</p>
+<ul>
+<li><strong>LM = Learning Moment.</strong> I demonstrate; you follow along and run the code.</li>
+<li><strong>YT = Your Turn.</strong> You do it yourself — fill the blank or the empty chunk.</li>
+<li><strong>👀 Variables check.</strong> Glance at the <strong>Variables</strong> pane (right side, under SESSION) and answer the question. It is your session’s memory made visible.</li>
+</ul>
 <section id="the-one-distinction-4-min" class="level2">
 <h2 class="anchored" data-anchor-id="the-one-distinction-4-min">0 · The one distinction (4 min)</h2>
 <blockquote class="blockquote">
@@ -430,8 +445,8 @@ LM = learning moment. YT = your turn. Times in headers are the section budget.
 <p>You already know how to insert a chunk (<strong>Cmd/Ctrl + Shift + I</strong>, from last week). Whenever you see <strong>“➕ insert a chunk”</strong>, make one — every YT today depends on it.</p>
 <div class="vspace" style="height:1.5rem" aria-hidden="true"></div>
 </section>
-<section id="data-types-30-min" class="level2">
-<h2 class="anchored" data-anchor-id="data-types-30-min">1 · Data types (30 min)</h2>
+<section id="data-types-28-min" class="level2">
+<h2 class="anchored" data-anchor-id="data-types-28-min">1 · Data types (28 min)</h2>
 <section id="the-types-defined-first-before-any-code-5-min" class="level3">
 <h3 class="anchored" data-anchor-id="the-types-defined-first-before-any-code-5-min">1.1 · The types, defined first (before any code) (5 min)</h3>
 <p>Every single value in R has a <strong>type</strong>. Here are the ones you’ll live with, each with a Cal Poly example:</p>
@@ -618,6 +633,9 @@ afternoon   evening   morning
 </div>
 </div>
 <blockquote class="blockquote">
+<p>👀 <strong>Variables check.</strong> <code>slot_chr</code> and <code>slot_fct</code> are both listed — same six values. How does Variables describe each one differently?</p>
+</blockquote>
+<blockquote class="blockquote">
 <p><em>Q3. How many levels does <code>slot_fct</code> have, and what order did we give them? Why would that order matter on a bar chart?</em></p>
 <p><em>Your answer:</em></p>
 </blockquote>
@@ -650,8 +668,8 @@ afternoon   evening   morning
 <div class="vspace" style="height:1.5rem" aria-hidden="true"></div>
 </section>
 </section>
-<section id="data-structures-26-min" class="level2">
-<h2 class="anchored" data-anchor-id="data-structures-26-min">2 · Data structures (26 min)</h2>
+<section id="data-structures-24-min" class="level2">
+<h2 class="anchored" data-anchor-id="data-structures-24-min">2 · Data structures (24 min)</h2>
 <p><strong>LM7 — vector: one type, many values (4 min).</strong> Built with <code>c()</code>. Three places to get a latte near campus:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM7: a vector</span></span>
@@ -708,6 +726,9 @@ afternoon   evening   morning
 <p><em>YT3 (5 min). ➕ Insert a chunk. Build a tibble called <code>lattes</code> from YOUR vectors from YT2 — columns <code>shop</code>, <code>price</code>, <code>size</code>, <code>iced</code>. Print it. Then run <code>nrow(lattes)</code>, <code>ncol(lattes)</code>, and <code>class(lattes)</code>. What happens if one vector has only two values? Try it (make a broken one on purpose), read the error, then fix it.</em></p>
 </blockquote>
 <!-- ➕ insert a chunk here -->
+<blockquote class="blockquote">
+<p>👀 <strong>Variables check.</strong> <code>lattes</code> gets an expand arrow that <code>price</code> did not. Click it. What is inside, and why does a tibble get one when a vector doesn’t?</p>
+</blockquote>
 <p><strong>LM9 — tribble: a tibble typed row by row, with a factor inside (3 min).</strong> Rec Center headcounts, three slots. Note the <code>slot</code> column is made a factor <em>with the order we want</em>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM9: Rec Center headcounts — a tribble, then a factor column</span></span>
@@ -772,8 +793,32 @@ $data
 </blockquote>
 <div class="vspace" style="height:1.5rem" aria-hidden="true"></div>
 </section>
-<section id="in-class-activity-type-it-or-contain-it-15-min" class="level2">
-<h2 class="anchored" data-anchor-id="in-class-activity-type-it-or-contain-it-15-min">3 · In-class activity: type it or contain it (15 min)</h2>
+<section id="b-when-things-break-6-min" class="level2">
+<h2 class="anchored" data-anchor-id="b-when-things-break-6-min">2b · When things break (6 min)</h2>
+<p>Today’s errors are <em>type</em> and <em>structure</em> errors. Same rule as last week: read the message slowly, name the family, then fix it.</p>
+<blockquote class="blockquote">
+<p><em>YT5 (6 min). Each chunk below has ONE bug. Read the error (or the silent wrong answer!), fix it in place, and write the error family in the comment.</em></p>
+</blockquote>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT5a — error family: ____</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>price <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">4.75</span>, <span class="st">"5.45"</span>, <span class="fl">5.95</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(price)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT5b — error family: ____</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">shop =</span> <span class="fu">c</span>(<span class="st">"Julian's"</span>, <span class="st">"Starbucks"</span>, <span class="st">"Scout Coffee"</span>), <span class="at">price =</span> <span class="fu">c</span>(<span class="fl">4.75</span>, <span class="fl">5.45</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YT5c — error family: ____</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"morning"</span>, <span class="st">"Morning"</span>, <span class="st">"evening"</span>), <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"morning"</span>, <span class="st">"afternoon"</span>, <span class="st">"evening"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<blockquote class="blockquote">
+<p><em>Which of the three gave NO red error message? ____ What did it give instead?</em></p>
+</blockquote>
+<div class="vspace" style="height:1.5rem" aria-hidden="true"></div>
+</section>
+<section id="in-class-activity-type-it-or-contain-it-12-min" class="level2">
+<h2 class="anchored" data-anchor-id="in-class-activity-type-it-or-contain-it-12-min">3 · In-class activity: type it or contain it (12 min)</h2>
 <p>For each item, write <strong>T</strong> if the question is about a type and <strong>S</strong> if it’s about a structure, then answer it with code. ➕ Insert <strong>one chunk per item</strong> (A through F) so each answer is its own runnable piece.</p>
 <ul>
 <li><strong>A.</strong> What is <code>rec</code> (from LM9) — its structure?</li>
@@ -795,7 +840,10 @@ $data
 <p><em>In your own words, one sentence each: what is a data type, and what is a data structure? Use one example of each from today — and at least one must be something YOU built.</em></p>
 <p><em>Your answer:</em></p>
 </blockquote>
-<p>Save as <code>fnd02_yourlastname.qmd</code> in your <code>R/</code> folder and <strong>Render</strong>. If a chunk you inserted breaks the render, read the error: it names the chunk.</p>
+</section>
+<section id="save-render-1-min" class="level2">
+<h2 class="anchored" data-anchor-id="save-render-1-min">5 · Save &amp; render (1 min)</h2>
+<p>Save this file into your <code>R/Notes/</code> folder as <code>fnd02_yourlastname.qmd</code>. Then <strong>Restart R</strong> (top-right session menu → Restart) — watch Variables empty out — and press <strong>Render</strong> (Cmd/Ctrl + Shift + K). If a chunk you inserted breaks the render, read the error: it names the chunk. Restarting first is how you prove that everything the document needs is <em>in</em> the document.</p>
 
 
 </section>

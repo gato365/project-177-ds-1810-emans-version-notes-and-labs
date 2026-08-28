@@ -1,0 +1,385 @@
+---
+title: "Lab 02 — Types, Structures, and Looking Inside Data"
+subtitle: "STAT/DATA 1810 · Take-home (AI permitted) · Student version"
+author: "Your name here"
+date: today
+format:
+  html:
+    toc: true
+    embed-resources: true
+  docx: default
+execute:
+  warning: false
+  message: false
+---
+
+```{=html}
+<!--
+CLO ALIGNMENT (Foundations 02 + 03; see course website → PLOs & CLOs)
+  CLO 1  1.4 assignment · 1.5 data types (numeric/character/logical/factor/date)
+         · 1.6 containers (vector, data frame/tibble, list) · 1.12 storage
+         magnitudes (object.size, KB/MB/GB reasoning)
+  CLO 7  7.4 comparison operators · 7.6 is.na()
+  CLO 11 11.1 ?function help · 11.x AI-assisted code reading
+  CLO 9  practiced, not graded (this IS a rendered Quarto document)
+Datasets: airquality, iris (built in) + tibbles you build about Cal Poly.
+Target time: 60–90 min. 16 questions.
+HOW TO SUCCEED: fill every blank (____), complete every empty chunk, and
+answer every "> Your answer:" prompt. The lab must RENDER cleanly to submit.
+-->
+```
+
+# Welcome to Lab 02
+
+This lab covers **Foundations 02 and 03**: what a value *is* (its type), what
+*holds* values (its structure), how to look inside a dataset before you touch
+it, how to reach in and take a piece, and how big data actually is. The
+examples are Cal Poly examples — lattes near campus, Rec Center headcounts —
+plus two built-in datasets, `airquality` and `iris`.
+
+**What this lab checks** (the course learning outcomes it maps to):
+
+| You will show that you can… | CLO |
+|---|---|
+| tell a data *type* from a data *structure*, and name the type of any value | 1.5, 1.6 |
+| build a vector, a tibble, and a list from scratch — and predict what breaks | 1.4, 1.6 |
+| explain why a factor is not just text, and put its levels in order | 1.5 |
+| inspect an unfamiliar data frame (`glimpse`, `summary`, `dim`) before computing on it | 1.6 |
+| pull out a column with `$`, count missing values with `is.na()`, and read a pipe `|>` as "and then" | 1.6, 7.4, 7.6 |
+| estimate an object's size in KB/MB/GB and reason about whether it fits in memory | 1.12 |
+| read a help page, and read AI-written code you did not write | 11.1 |
+| render a reproducible document from a fresh session | 9 |
+
+**The habit from Lab 01 continues.** Every 👀 **Variables check** means: look
+at the Variables pane and answer. Before you run anything it should be empty
+— if it isn't, restart R.
+
+```{r}
+#| label: setup
+library(tibble)   # tibble(), tribble(), glimpse() — all this lab needs
+```
+
+> 👀 **Variables check.** Lab 01 loaded `tidyverse`; this lab loads only
+> `tibble`. Neither added anything to Variables. In one sentence, why do we
+> load only what a document needs?
+>
+> Your answer:
+
+------------------------------------------------------------------------
+
+# Part A · Data types (Q1–Q4)
+
+**Q1.** Predict, then run. Write your four predictions *before* running the
+chunk, using the type table from Foundations 02.
+
+> Predictions: `5.45` ____ · `"Scout Coffee"` ____ · `38L` ____ · `5.45 > 4.75` ____
+
+```{r}
+# Q1: the four types you'll live with
+class(5.45)             # a Starbucks latte in the UU
+class("Scout Coffee")   # where the latte came from
+class(38L)              # people in the Rec Center at 7 am
+class(5.45 > 4.75)      # is the UU latte pricier than Julian's?
+```
+
+> Which one, if any, surprised you, and why?
+>
+> Your answer:
+
+**Q2.** Families. For each variable, write **Q** (quantitative), **C**
+(categorical), or **O** (other — a date or time), and name the R type you'd
+expect it to be stored as.
+
+> -   the price of your latte: ____ / ____
+> -   the shop that made it: ____ / ____
+> -   the date you bought it: ____ / ____
+> -   whether it was iced: ____ / ____
+> -   the number of people in the Rec Center at 5 pm: ____ / ____
+
+**Q3.** Factor vs character. The Rec Center logs a time slot for every
+headcount. Run the chunk and study the two `table()` outputs.
+
+```{r}
+# Q3: same words, two types
+slot_chr <- c("evening", "morning", "afternoon", "morning", "evening", "evening")
+slot_fct <- factor(slot_chr, levels = c("morning", "afternoon", "evening"))
+class(slot_chr)
+class(slot_fct)
+table(slot_chr)
+table(slot_fct)
+```
+
+> 👀 **Variables check.** How does the Variables pane describe `slot_fct`
+> differently from `slot_chr`? ____
+>
+> -   The two tables contain the same counts but in a different order. What
+>     decides the order in each? ____
+> -   Now add a typo on purpose: in the Console run
+>     `factor(c("morning", "Morning"), levels = c("morning", "afternoon", "evening"))`.
+>     What did the capital-M value become, and did R give an error? ____
+> -   One sentence: when should a column be a factor instead of character?
+>
+> Your answer:
+
+**Q4.** Help page. Open `?factor` and read the **Arguments** section.
+
+```{r}
+#| eval: false
+# Q4: open the help page (no output when rendered — that's fine)
+?factor
+```
+
+> What does the `levels` argument control (one sentence)? What happens, by
+> default, if you leave it out — in what order do the levels come?
+>
+> Your answer:
+
+------------------------------------------------------------------------
+
+# Part B · Data structures from scratch (Q5–Q8)
+
+**Q5.** Vectors and coercion. Build three vectors about lattes at Julian's,
+the UU Starbucks, and Scout Coffee, then break one on purpose.
+
+```{r}
+# Q5: three vectors, one per column-to-be
+shop  <- c("Julian's", "Starbucks", "Scout Coffee")
+price <- c(____, ____, ____)          # numbers — what a latte costs at each
+iced  <- c(____, ____, ____)          # TRUE / FALSE — would you get it iced?
+class(shop); class(price); class(iced)
+
+# now the break: put quotes around ONE price and check the class
+price_broken <- c(____, "____", ____)
+class(price_broken)
+```
+
+> 👀 **Variables check.** `price` and `price_broken` have the same length.
+> What does Variables say is different about them? ____
+>
+> Why did one pair of quotes change the type of *all three* values? Use the
+> word from class.
+>
+> Your answer:
+
+**Q6.** A tibble from your vectors, then a deliberate error.
+
+```{r}
+# Q6: build lattes from the vectors in Q5, then inspect it
+lattes <- tibble(shop = ____, price = ____, iced = ____)
+lattes
+nrow(lattes); ncol(lattes); class(lattes)
+```
+
+```{r}
+#| eval: false
+# Q6b: make it FAIL — give price only two values. Copy the error message
+# into your answer below, then set this chunk back to eval: false (or delete it)
+tibble(shop = shop, price = c(____, ____))
+```
+
+> The error message names two things: the sizes involved and the column that
+> broke. Copy the message here and underline (or quote) those two parts:
+>
+> Your answer:
+>
+> 👀 **Variables check.** Expand `lattes`. Each thing inside has its own type
+> and a length of 3. What rule about data frames does that picture show?
+
+**Q7.** A list. Build one that holds text, a number, and your whole `lattes`
+tibble.
+
+```{r}
+# Q7: a list called me
+me <- list(first = "____", n_classes = ____, lattes = ____)
+me
+length(me)
+```
+
+> Could `c()` hold these three things without changing any of them? Try
+> `c("Eman", 4)` in the Console — what happened to the 4, and what does that
+> tell you a list can do that a vector cannot?
+>
+> Your answer:
+
+**Q8.** In one sentence each, define **data type** and **data structure**,
+using one example of each *from this lab* — at least one must be an object
+you built.
+
+> Your answer:
+
+------------------------------------------------------------------------
+
+# Part C · Inspecting & accessing (Q9–Q12)
+
+**Q9.** You've been handed `airquality`. Run the three lines every dataset
+gets first.
+
+```{r}
+# Q9: inspect before you compute
+glimpse(airquality)
+summary(airquality)
+dim(airquality)
+```
+
+> -   Rows: ____ · Columns: ____ · One row represents: ____
+> -   Type tag on every column (from `glimpse`): ____ — quantitative or
+>     categorical? Is `Month` *really* quantitative? One sentence.
+> -   Which two columns have missing values, and how many each (from
+>     `summary`)? ____ and ____
+>
+> 👀 **Variables check.** `airquality` is not listed even though you just
+> used it three times. Where does it live? ____
+
+**Q10.** `$` and `is.na()`. Fill the blanks.
+
+```{r}
+# Q10: one column at a time
+mean(airquality$Temp)
+mean(airquality$Ozone)                       # returns NA — why?
+mean(airquality$Ozone, ____ = TRUE)          # fix it with the argument from ?mean
+____(is.na(airquality$Ozone))                # how many Ozone values are missing?
+sum(airquality$Temp > ____)                  # how many days were above 90°F?
+```
+
+> -   Mean Temp: ____ · Mean Ozone once fixed: ____ · Missing Ozone: ____ ·
+>     Days above 90: ____
+> -   `sum(airquality$Temp > 90)` counts days. What is R adding up, and what
+>     is each `TRUE` worth?
+>
+> Your answer:
+
+**Q11.** `[rows, columns]` — just enough. Write ONE line for each.
+
+```{r}
+# Q11: rectangles
+____                    # (a) rows 1–5, only the Ozone and Temp columns
+____                    # (b) the LAST row of airquality — use nrow(), not 153
+____                    # (c) rows 51–53 of iris, all columns
+```
+
+> (c) shows which species? ____ · Why do we write `nrow(airquality)` inside
+> the brackets instead of typing 153?
+>
+> Your answer:
+
+**Q12.** Access, then assign. Save July's temperatures as their own object.
+
+```{r}
+# Q12: pull July out of airquality
+july_temp <- airquality$Temp[airquality$Month == ____]
+length(july_temp)
+mean(july_temp)
+```
+
+> 👀 **Variables check.** `july_temp` appears; `airquality` still does not.
+> What is the difference between the two, in terms of where each came from?
+> ____ · Length of `july_temp`: ____ · Mean July temperature: ____
+
+------------------------------------------------------------------------
+
+# Part D · The pipe and the size of data (Q13–Q15)
+
+**Q13.** Rewrite each nested line as a pipe, **one step per line**, and
+confirm the answer is unchanged. Then read one of them aloud as a sentence
+with "and then."
+
+```{r}
+# Q13: nested -> piped
+round(mean(airquality$Ozone, na.rm = TRUE), 1)
+# your pipe version:
+
+
+length(unique(iris$Species))
+# your pipe version:
+
+
+head(which(is.na(airquality$Ozone)))
+# your pipe version:
+
+```
+
+> Write the second one as a sentence: "Take ____, and then ____, and then
+> ____."
+>
+> In the first one, `na.rm = TRUE` stays inside `mean()` even in the pipe
+> version. Why — what does the pipe fill in, and what does it leave alone?
+>
+> Your answer:
+
+**Q14.** How big are our objects?
+
+```{r}
+# Q14: bytes
+object.size(airquality)
+object.size(iris)
+object.size(lattes)
+```
+
+> -   In KB (divide by 1,000): airquality ≈ ____ · iris ≈ ____ · lattes ≈ ____
+> -   Which unit from the ladder are all three in — bytes, KB, MB, or GB? ____
+> -   One phone photo is about 3 MB. About how many `airquality` datasets fit in
+>     one photo? ____
+
+**Q15.** Reason at scale. `airquality` is 153 rows and about 5.6 KB. A weather
+station network records the same six columns for **every hour, at 1,000
+stations, for a year** (about 8.8 million rows).
+
+> -   Roughly how big would that be? Show the multiplication and give the
+>     answer with a unit: ____
+> -   Your laptop has 8 GB of memory. Does that dataset fit? Would ten years
+>     of it fit? What would you check *before* trying to import it?
+>
+> Your answer:
+
+------------------------------------------------------------------------
+
+# Part E · Working with AI (Q16)
+
+**Q16.** As in Lab 01, ask an AI assistant to write code you have not fully
+learned yet, run it, and explain it.
+
+**Step 1 — copy this exact prompt to your AI:**
+
+> *"In R, using only base R and the tibble package, take the built-in
+> airquality data frame, convert its Month column to a factor whose levels are
+> the month names May through September, and then use the pipe |> to produce
+> a table of how many days are in each month. Explain nothing — just give me
+> the code."*
+
+**Step 2 — paste the AI's code below and run it.** If it errors, give the AI
+the error message and paste the working version.
+
+```{r}
+# Q16: paste the AI-generated code here and run it
+
+```
+
+> 👀 **Variables check.** Did the AI's code *modify* `airquality`, create a
+> new object, or print without saving? Use the Variables pane to decide, and
+> say how you know.
+>
+> Your explanations (one plain-English line per piece of the code):
+>
+> 1.  
+>
+> 2.  
+>
+> 3.  
+>
+> Which line uses something from THIS lab (factor levels, `|>`, `$`)? Which
+> line uses something you have not seen yet?
+
+------------------------------------------------------------------------
+
+# Finish: render your lab (required)
+
+1.  Save the file into `R/Labs/` as `lab02_yourlastname.qmd`.
+2.  **Restart R** (top-right session menu → Restart). Watch Variables empty
+    out. Then click **Render** — once to **HTML** and once to **Word**.
+3.  If rendering fails, the error names the chunk. The usual causes: a
+    leftover `____`, an empty required chunk, the Q6b chunk not set back to
+    `eval: false`, or code that only worked because of something typed in the
+    Console.
+
+**Then:** go to Canvas and take the **Lab 02 Quiz**. It asks for values and
+answers you produced above.

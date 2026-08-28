@@ -20,24 +20,43 @@ CLO ALIGNMENT
   CLO 7 (7.6 is.na in practice)
   CLO 9 practiced: you insert your own chunks (➕)
 Time: 80 min. Datasets: airquality, iris, mtcars (built in).
-Timing: job 2' · inspecting 20' · accessing 20' · the pipe 15' · storage 13'
-        · ETV preview 5' · exit 5' = 80'
-Checkpoint: §3 (the pipe) starts by 42'. If behind, cut YT3(c) and YT5.
+Timing: job 2' · inspecting 20' · accessing 18' · the pipe 15' · when things break 5'
+        · storage 11' · ETV preview 5' · exit 4' = 80'
+Checkpoint: §3 (the pipe) starts by 40'. If behind, cut YT3(c) and YT5.
+Carries the Fnd 01 conventions: Name/Date line, LM/YT legend, 👀 Variables
+checks, a 'when things break' section, restart-then-render close.
 Packages: tibble only (glimpse()). The pipe |> is base R — no package needed.
 Ends with a 5-minute live preview of a full ETV cycle — where all of this is going.
 LM = learning moment. YT = your turn. Times in headers are the section budget.
 -->
-
-**Name:** Instructor key
 
 ```{r}
 #| label: setup
 library(tibble)   # for glimpse(). The pipe |> is built into R — nothing to load.
 ```
 
-::: {.callout-warning title="Timing & checkpoints"}
-- **Budget:** job 2′ · inspecting 20′ · accessing 20′ · the pipe 15′ · storage 13′ · ETV preview 5′ · exit 5′ = **80′**
-- **Checkpoint:** §3 (the pipe) starts by **42′** — if behind, cut YT3(c) and YT5
+> 👀 **Variables check.** Still empty after `library()`. And `airquality`,
+> which we use all class, will *never* appear there — it ships inside a
+> package. Variables shows only what *this session* created.
+
+**Name:** Instructor key · **Date:** \_\_\_\_\_\_\_\_\_\_
+
+> Before anything else, type your name and today's date on the line above (and put your name in the `author:` line at the very top of this file).
+
+**How to read this document.** Two labels show up over and over:
+
+- **LM = Learning Moment.** I demonstrate; you follow along and run the code.
+- **YT = Your Turn.** You do it yourself — fill the blank or the empty chunk.
+- **👀 Variables check.** Glance at the **Variables** pane (right side, under
+  SESSION) and answer the question. It is your session's memory made visible.
+
+::: {.callout-warning title="Timing & labels"}
+- **Budget:** job 2′ · inspecting 20′ · accessing 18′ · the pipe 15′ · when things break 5′ · storage 11′ · ETV preview 5′ · exit 4′ = **80′**
+- **Checkpoint:** §3 (the pipe) starts by **40′** — if behind, cut YT3(c) and YT5
+- [LM]{.lm} **Learning Moment** — instructor demonstrates, students follow
+- [YT]{.yt} **Your Turn** — students do it themselves
+- 👀 **Variables check** — the Fnd 01 / Lab 01 habit; keep it alive: every 👀 is a 20-second look at the pane, not a discussion
+- Say the LM/YT names out loud the first time each appears — students otherwise guess
 - `$` / `[ ]` are deliberately lighter than before: enough to read code and grab a column, not a drill. The pipe and "how big is data" got the time instead
 - The ETV preview closes foundations: run a Cycle-0-style coffee import → plot live, narrating nothing but the three stage names — Monday they drive C1
 :::
@@ -157,7 +176,7 @@ summary(mtcars)
 
 {{< vspace 1.5rem >}}
 
-# 2 · Accessing data — just enough [20 min]{.timing}
+# 2 · Accessing data — just enough [18 min]{.timing}
 
 Three tools, three jobs. You need to *read* all three; you'll *write* mostly
 the first one:
@@ -168,13 +187,17 @@ the first one:
 | `[rows, cols]` | a rectangle, by position/name | usually a data frame |
 | `[[ ]]` | one element, dug out | the thing itself |
 
-**LM4 — `$`, the workhorse (5 min).**
+**LM4 — `$`, the workhorse (4 min).**
 
 ```{r}
 # LM4: a column is a vector
 airquality$Temp
 mean(airquality$Temp)
 ```
+
+> 👀 **Variables check.** Nothing new — we *looked* at a column but never
+> assigned it. Now run `july_temp <- airquality$Temp[airquality$Month == 7]`
+> in the Console: Variables shows it as a numeric vector of length 31.
 
 ::: {.callout-note title="Expected"}
 - **77.88°F**
@@ -209,7 +232,7 @@ sum(airquality$Temp > 90)
 - **(d)** **14 days** — the first *logical vector doing arithmetic* (TRUE = 1); say it once, it returns with `filter()` Monday
 :::
 
-**LM5 — `[rows, columns]` and `[[ ]]`, in one pass (5 min).** Predict each
+**LM5 — `[rows, columns]` and `[[ ]]`, in one pass (4 min).** Predict each
 before running. Square brackets take a *position or a name*; double brackets
 dig out *one thing*:
 
@@ -342,7 +365,69 @@ airquality$Temp[airquality$Temp > 90] |> length()
 
 {{< vspace 1.5rem >}}
 
-# 4 · How big is data? [13 min]{.timing}
+# 3b · When things break [5 min]{.timing}
+
+Today's errors are *access* errors — asking for something that isn't where
+you pointed. Read, name the family, fix.
+
+> *YT4b (5 min). Each chunk below has ONE bug. Read the error (or the
+> silent `NULL`!), fix it in place, and write the error family in the comment.*
+
+```{r}
+#| eval: false
+# YT4b-1 — error family: ____
+mean(airquality$temp)
+```
+
+```{r}
+# YT4b-1 — error family: column-name typo — `$` on a missing column returns NULL, mean() warns and gives NA (R is case-sensitive)
+mean(airquality$Temp)
+```
+
+```{r}
+#| eval: false
+# YT4b-2 — error family: ____
+airquality[1:5, c("Ozone", "Temperature")]
+```
+
+```{r}
+# YT4b-2 — error family: undefined columns selected — the name in [ ] must match exactly
+airquality[1:5, c("Ozone", "Temp")]
+```
+
+```{r}
+#| eval: false
+# YT4b-3 — error family: ____
+airquality$Ozone |>
+  is.na() |>
+  which()
+  head()
+```
+
+```{r}
+# YT4b-3 — error family: a broken pipe — the missing |> means head() runs on nothing (error: argument "x" is missing)
+airquality$Ozone |>
+  is.na() |>
+  which() |>
+  head()
+```
+
+::: {.callout-caution title="YT4b answers — three error families for accessing data"}
+- [YT4b-1]{.yt} `airquality$temp` → `NULL`, then `mean()` warns and returns `NA` — **no red error**
+  - family: **column-name typo with `$`** (case-sensitive) — the sneakiest, same as Fnd 01 YT7a
+  - fix: `Temp`; habit: `names(airquality)` first
+- [YT4b-2]{.yt} `Error in [.data.frame: undefined columns selected`
+  - family: **wrong name inside `[ ]`** — brackets *do* error where `$` stays silent
+  - fix: `"Temp"`
+- [YT4b-3]{.yt} `Error in head(): argument "x" is missing, with no default`
+  - family: **broken pipe** — a line without `|>` at its end ends the chain; the next line runs alone
+  - fix: add the `|>`; rule: every line of a chain except the last ends in `|>`
+- Land the contrast: `$` fails *quietly*, `[ ]` fails *loudly*, a pipe fails *one line late*. Reading the message tells you which
+:::
+
+{{< vspace 1.5rem >}}
+
+# 4 · How big is data? [11 min]{.timing}
 
 **LM8 — the ladder (4 min).** Data size is measured in **bytes** — one byte
 is roughly one letter. Every step up the ladder multiplies by a thousand:
@@ -374,7 +459,7 @@ object.size(mtcars)
 ```
 
 > *Q5. Order the three from smallest to largest, and name the unit they're
-> in: airquality (≈ 5.6 KB) < mtcars (≈ 7.2 KB) < iris (≈ 7.8 KB) — all
+> in: airquality (≈ 5.6 KB) < mtcars (≈ 7.2 KB) < iris (≈ 7.3 KB) — all
 > kilobytes, i.e. a few paragraphs each.*
 
 **Why it matters (3 min):** R holds data **in memory** — the orange bar, not
@@ -388,7 +473,7 @@ next week begins.
 > and 8,000 / 500 = 16. How many hours of HD video is that? Not even three.*
 
 ::: {.callout-tip title="Q5 & Q6 answers"}
-- [Q5]{.q} actually run it: airquality ≈ 5.6 KB, mtcars ≈ 7.2 KB, iris ≈ 7.8 KB → **airquality < mtcars < iris**, all in KB
+- [Q5]{.q} actually run it: airquality ≈ 5.6 KB, mtcars ≈ 7.2 KB, iris ≈ 7.3 KB → **airquality < mtcars < iris**, all in KB
   - mtcars is small in rows but its row *names* cost bytes — a fun 20-second aside if asked; otherwise just confirm the order
 - [Q6]{.q} **about 16 copies** — 8 GB ≈ 8,000 MB; 8,000 / 500 = 16; that whole 8 GB is under three hours of HD video
   - honest version: overhead means fewer in practice; R also copies objects when you modify them
@@ -409,13 +494,13 @@ object.size(iris)
 object.size(iris$Sepal.Length)
 ```
 
-> *One column is ≈ 1.2 KB of ≈ 7.8 KB — about 15%, which is less than 1/5.
+> *One column is ≈ 1.2 KB of ≈ 7.3 KB — about 17%, which is less than 1/5.
 > It doesn't match because the data frame itself costs something: column
 > names, row labels, and the Species factor's level table are stored on top
 > of the raw numbers.*
 
 ::: {.callout-tip title="YT5 answer"}
-- [YT5]{.yt} one column ≈ 1.2 KB of ≈ 7.8 KB — about **15%**, less than 1/5
+- [YT5]{.yt} one column ≈ 1.2 KB of ≈ 7.3 KB — about **17%**, less than 1/5
 - Why: the data frame carries overhead (names, row labels, the factor's level table) beyond its raw numbers
 - Full credit: any answer noticing "less than 1/5, because the container itself costs something"
 :::
@@ -435,7 +520,7 @@ drive.
 - No function explanations — the mystique is the motivation
 :::
 
-# 6 · Exit question [5 min]{.timing}
+# 6 · Exit question [4 min]{.timing}
 
 > *You're handed `mysterydata`, a data frame you've never seen. Write the
 > three lines you'd run FIRST, in order, and say what each tells you. Then
@@ -477,4 +562,10 @@ mysterydata$score |> mean(na.rm = TRUE) |> round(1)
 - The habits being graded: **inspect before you compute**, and **write it as a recipe**
 :::
 
-Save as `fnd03_yourlastname.qmd` in your `R/` folder and **Render**.
+# 7 · Save & render [1 min]{.timing}
+
+Save this file into your `R/Notes/` folder as `fnd03_yourlastname.qmd`. Then
+**Restart R** — watch Variables empty out — and press **Render**. That is
+the last foundations document; from Monday every file you render is an ETV
+cycle, and every one of them starts with the three inspection lines from
+today's exit question.

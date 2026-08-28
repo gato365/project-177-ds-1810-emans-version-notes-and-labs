@@ -1,0 +1,67 @@
+{
+  "week": 2,
+  "check_in_type": "self",
+  "title": "Week 2 Self Check-In",
+  "version": "A",
+  "time_limit": "five minutes",
+  "instructions": "This is a closed-note evaluation designed to check your understanding of Lab 01 (Positron, objects, data types, and data structures). You will have {time_limit} to complete the evaluation. I will let you know when to begin once I start the timer. This assessment must be completed individually, without any collaboration or assistance. Answer each question clearly.",
+  "blank_published": false,
+  "solution_published": false,
+  "questions": [
+    {
+      "id": "self_w02_q01",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 3,
+      "answer_space_inches": 0.8,
+      "question": "In Positron, which pane lists every object you have created this session (the pane you were asked to glance at after each chunk in Lab 01)?",
+      "answer": "The Variables pane (accept 'Environment').",
+      "rubric": "3 pts for 'Variables' (accept 'Environment' or 'Session → Variables'). 0 pts for Console, Editor, Plots, Help, or Terminal. No partial credit.",
+      "instructor_notes": "Lab 01 Q1 and every 👀 Variables check. Fnd 01 §0 'The panes'."
+    },
+    {
+      "id": "self_w02_q02",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 4,
+      "answer_space_inches": 1.2,
+      "question": "You close Positron and reopen it the next day. R says could not find function when you try a tidyverse function. Which ONE of these two lines must be run again, and in one sentence, why does the OTHER one not need it?\n\n    install.packages(\"tidyverse\")\n    library(tidyverse)",
+      "answer": "library(tidyverse) must be run again. install.packages() wrote the package to the computer's disk, which persists after Positron closes; library() loads it into the session's memory, which is wiped every time the session ends. (Install once per computer; library once per session.)",
+      "rubric": "2 pts for naming library(tidyverse) as the line to re-run (0 pts for install.packages, 'both', or 'neither'). 2 pts for the reason: install saves to disk / persists, while library loads into the session / memory that is lost when Positron closes — accept 'once per computer vs once per session' or the drill/garage analogy. 1 pt for a partial reason (e.g. 'library loads it' with no mention of disk/memory or session).",
+      "instructor_notes": "Lab 01 Q4; Fnd 01 LM9 (install = buying the drill; library = taking it out of the garage). Lab 01 Quiz Q3."
+    },
+    {
+      "id": "self_w02_q03",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 4,
+      "answer_space_inches": 1.0,
+      "question": "In Lab 01 you ran the two lines below. (a) What number does the second line return? (b) What is R treating each TRUE as when it adds them up?\n\n    test_scores <- c(88, 92, NA, 75, NA, 100)\n    sum(is.na(test_scores))",
+      "answer": "(a) 2. (b) Each TRUE counts as 1 (and FALSE as 0), so the sum is the number of missing values.",
+      "rubric": "2 pts for (a) = 2 (0 pts otherwise). 2 pts for (b) TRUE = 1 / FALSE = 0 (accept 'TRUE counts as one'). 1 pt for (b) if the student says is.na() 'finds the NAs' but never says TRUE is counted as 1.",
+      "instructor_notes": "Lab 01 Q7; Fnd 02 LM5 (is.na + sum idiom). Lab 01 Quiz Q6–Q7."
+    },
+    {
+      "id": "self_w02_q04",
+      "type": "short_answer",
+      "extra_credit": false,
+      "points": 4,
+      "answer_space_inches": 1.2,
+      "question": "In Lab 01 you typed c(\"a\", 1) in the Console. (a) Write exactly what R printed. (b) In one sentence, why did that happen to the 1?",
+      "answer": "(a) \"a\" \"1\" — a character vector of length 2. (b) A vector holds only ONE type, so R coerced the number to text (the type that can hold both values).",
+      "rubric": "2 pts for (a) — \"a\" \"1\" with the 1 in quotes (accept 'the 1 became text / a string'; 1 pt if the student says 'a character vector' without showing the output; 0 pts for 'an error' or 'a list'). 2 pts for (b) — a vector holds one type / R coerces everything to character (accept the word 'coercion' alone as full credit). 1 pt for 'it became a character' with no reason.",
+      "instructor_notes": "Lab 01 Q12 (👀 check) and Fnd 02 Q5 (coercion). Lab 01 Quiz Q9."
+    },
+    {
+      "id": "self_w02_q05",
+      "type": "short_answer",
+      "extra_credit": true,
+      "points": 1,
+      "answer_space_inches": 0.6,
+      "question": "[From Lab 01 Q16, the AI question] After grouping mtcars by number of cylinders, which cylinder group (4, 6, or 8) had the HIGHEST average miles per gallon?",
+      "answer": "4 cylinders (≈ 26.7 mpg; 6-cyl ≈ 19.7; 8-cyl ≈ 15.1).",
+      "rubric": "1 pt extra credit for '4' / '4 cylinders'. No partial credit.",
+      "instructor_notes": "Lab 01 Q16 / Lab 01 Quiz Q14. Only answerable by a student who actually ran the AI code."
+    }
+  ]
+}

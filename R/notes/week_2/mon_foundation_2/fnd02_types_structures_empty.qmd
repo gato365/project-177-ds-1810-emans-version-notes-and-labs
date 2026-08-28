@@ -27,6 +27,21 @@ LM = learning moment. YT = your turn. Times in headers are the section budget.
 library(tibble)   # today we need tibble() and tribble() — that's it
 ```
 
+> 👀 **Variables check.** Loading `tibble` added *nothing* to the Variables
+> pane. Why not? (Think: what does `library()` do versus what `<-` does.)
+
+**Name:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ · **Date:** \_\_\_\_\_\_\_\_\_\_
+
+> Before anything else, type your name and today's date on the line above
+> (and put your name in the `author:` line at the very top of this file).
+
+**How to read this document.** Two labels show up over and over:
+
+- **LM = Learning Moment.** I demonstrate; you follow along and run the code.
+- **YT = Your Turn.** You do it yourself — fill the blank or the empty chunk.
+- **👀 Variables check.** Glance at the **Variables** pane (right side, under
+  SESSION) and answer the question. It is your session's memory made visible.
+
 # 0 · The one distinction (4 min)
 
 > **Type** = what a single value *is* (number? text? TRUE/FALSE?).
@@ -40,7 +55,7 @@ depends on it.
 
 {{< vspace 1.5rem >}}
 
-# 1 · Data types (30 min)
+# 1 · Data types (28 min)
 
 ## 1.1 · The types, defined first (before any code) (5 min)
 
@@ -134,6 +149,9 @@ table(slot_chr)   # alphabetical — afternoon first
 table(slot_fct)   # the order YOU chose — morning first
 ```
 
+> 👀 **Variables check.** `slot_chr` and `slot_fct` are both listed — same six
+> values. How does Variables describe each one differently?
+
 > *Q3. How many levels does `slot_fct` have, and what order did we give
 > them? Why would that order matter on a bar chart?*
 >
@@ -172,7 +190,7 @@ is.factor(____)
 
 {{< vspace 1.5rem >}}
 
-# 2 · Data structures (26 min)
+# 2 · Data structures (24 min)
 
 **LM7 — vector: one type, many values (4 min).** Built with `c()`. Three
 places to get a latte near campus:
@@ -226,6 +244,9 @@ latte_tbl
 
 <!-- ➕ insert a chunk here -->
 
+> 👀 **Variables check.** `lattes` gets an expand arrow that `price` did not.
+> Click it. What is inside, and why does a tibble get one when a vector doesn't?
+
 **LM9 — tribble: a tibble typed row by row, with a factor inside (3 min).**
 Rec Center headcounts, three slots. Note the `slot` column is made a factor
 *with the order we want*:
@@ -273,7 +294,38 @@ matrix(1:6, nrow = 2)
 
 {{< vspace 1.5rem >}}
 
-# 3 · In-class activity: type it or contain it (15 min)
+# 2b · When things break (6 min)
+
+Today's errors are *type* and *structure* errors. Same rule as last week:
+read the message slowly, name the family, then fix it.
+
+> *YT5 (6 min). Each chunk below has ONE bug. Read the error (or the silent
+> wrong answer!), fix it in place, and write the error family in the comment.*
+
+```{r}
+#| eval: false
+# YT5a — error family: ____
+price <- c(4.75, "5.45", 5.95)
+mean(price)
+```
+
+```{r}
+#| eval: false
+# YT5b — error family: ____
+tibble(shop = c("Julian's", "Starbucks", "Scout Coffee"), price = c(4.75, 5.45))
+```
+
+```{r}
+#| eval: false
+# YT5c — error family: ____
+factor(c("morning", "Morning", "evening"), levels = c("morning", "afternoon", "evening"))
+```
+
+> *Which of the three gave NO red error message? ____ What did it give instead?*
+
+{{< vspace 1.5rem >}}
+
+# 3 · In-class activity: type it or contain it (12 min)
 
 For each item, write **T** if the question is about a type and **S** if it's
 about a structure, then answer it with code. ➕ Insert **one chunk per item**
@@ -303,5 +355,10 @@ about a structure, then answer it with code. ➕ Insert **one chunk per item**
 >
 > *Your answer:*
 
-Save as `fnd02_yourlastname.qmd` in your `R/` folder and **Render**. If a
-chunk you inserted breaks the render, read the error: it names the chunk.
+# 5 · Save & render (1 min)
+
+Save this file into your `R/Notes/` folder as `fnd02_yourlastname.qmd`. Then
+**Restart R** (top-right session menu → Restart) — watch Variables empty out —
+and press **Render** (Cmd/Ctrl + Shift + K). If a chunk you inserted breaks
+the render, read the error: it names the chunk. Restarting first is how you
+prove that everything the document needs is *in* the document.

@@ -27,6 +27,21 @@ LM = learning moment. YT = your turn. Times in headers are the section budget.
 library(tibble)   # for glimpse(). The pipe |> is built into R — nothing to load.
 ```
 
+> 👀 **Variables check.** Still empty after `library()`. And `airquality`,
+> which we use all class, will *never* appear there. Where does it live, then?
+
+**Name:** \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ · **Date:** \_\_\_\_\_\_\_\_\_\_
+
+> Before anything else, type your name and today's date on the line above
+> (and put your name in the `author:` line at the very top of this file).
+
+**How to read this document.** Two labels show up over and over:
+
+- **LM = Learning Moment.** I demonstrate; you follow along and run the code.
+- **YT = Your Turn.** You do it yourself — fill the blank or the empty chunk.
+- **👀 Variables check.** Glance at the **Variables** pane (right side, under
+  SESSION) and answer the question. It is your session's memory made visible.
+
 # 0 · Today's job (2 min)
 
 You get handed a dataset. Before any analysis, you must answer three
@@ -101,7 +116,7 @@ doesn't belong in a rendered document.)*
 
 {{< vspace 1.5rem >}}
 
-# 2 · Accessing data — just enough (20 min)
+# 2 · Accessing data — just enough (18 min)
 
 Three tools, three jobs. You need to *read* all three; you'll *write* mostly
 the first one:
@@ -112,13 +127,17 @@ the first one:
 | `[rows, cols]` | a rectangle, by position/name | usually a data frame |
 | `[[ ]]` | one element, dug out | the thing itself |
 
-**LM4 — `$`, the workhorse (5 min).**
+**LM4 — `$`, the workhorse (4 min).**
 
 ```{r}
 # LM4: a column is a vector
 airquality$Temp
 mean(airquality$Temp)
 ```
+
+> 👀 **Variables check.** Nothing new appeared — why not? Now run
+> `july_temp <- airquality$Temp[airquality$Month == 7]` in the Console. What
+> does Variables say about `july_temp` (type and length)? ____
 
 > *YT2 (5 min). ➕ Insert a chunk. Using `$`, find:*
 > *(a) the mean of Wind;*
@@ -132,7 +151,7 @@ mean(airquality$Temp)
 
 > *(a) ____ · (b) ____ · (c) ____ · (d) ____*
 
-**LM5 — `[rows, columns]` and `[[ ]]`, in one pass (5 min).** Predict each
+**LM5 — `[rows, columns]` and `[[ ]]`, in one pass (4 min).** Predict each
 before running. Square brackets take a *position or a name*; double brackets
 dig out *one thing*:
 
@@ -221,7 +240,41 @@ airquality$Ozone |>
 
 {{< vspace 1.5rem >}}
 
-# 4 · How big is data? (13 min)
+# 3b · When things break (5 min)
+
+Today's errors are *access* errors — asking for something that isn't where
+you pointed. Read, name the family, fix.
+
+> *YT4b (5 min). Each chunk below has ONE bug. Read the error (or the
+> silent `NULL`!), fix it in place, and write the error family in the comment.*
+
+```{r}
+#| eval: false
+# YT4b-1 — error family: ____
+mean(airquality$temp)
+```
+
+```{r}
+#| eval: false
+# YT4b-2 — error family: ____
+airquality[1:5, c("Ozone", "Temperature")]
+```
+
+```{r}
+#| eval: false
+# YT4b-3 — error family: ____
+airquality$Ozone |>
+  is.na() |>
+  which()
+  head()
+```
+
+> *Which one gave NO red error message? ____ Which tool — `$` or `[ ]` — is
+> louder when you get a name wrong? ____*
+
+{{< vspace 1.5rem >}}
+
+# 4 · How big is data? (11 min)
 
 **LM8 — the ladder (4 min).** Data size is measured in **bytes** — one byte
 is roughly one letter. Every step up the ladder multiplies by a thousand:
@@ -281,7 +334,7 @@ import a CSV → transform → plot. Every function you just learned appears in
 the first thirty seconds — and every line is joined by `|>`. Monday, you
 drive.
 
-# 6 · Exit question (5 min)
+# 6 · Exit question (4 min)
 
 > *You're handed `mysterydata`, a data frame you've never seen. Write the
 > three lines you'd run FIRST, in order, and say what each tells you. Then
@@ -299,4 +352,8 @@ drive.
 
 > *Your explanation:*
 
-Save as `fnd03_yourlastname.qmd` in your `R/` folder and **Render**.
+# 7 · Save & render (1 min)
+
+Save this file into your `R/Notes/` folder as `fnd03_yourlastname.qmd`. Then
+**Restart R** — watch Variables empty out — and press **Render**. If it
+fails, the error names the chunk.

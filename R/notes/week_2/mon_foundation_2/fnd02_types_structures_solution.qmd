@@ -20,8 +20,11 @@ CLO ALIGNMENT
   CLO 7 preview (7.6 is.na())
   CLO 9 practiced: students insert their own chunks (taught in Foundations 01)
 Time: 80 min. Datasets: tiny Cal Poly examples built in class + iris, airquality.
-Timing: distinction 4' · types 30' · structures 26' · activity 15' · exit 5' = 80'
-Checkpoint: §2 should start by the 34' mark. If behind, drop YT4 and E/F.
+Timing: distinction 4' · types 28' · structures 24' · when things break 6'
+        · activity 12' · exit 5' · save & render 1' = 80'
+Checkpoint: §2 should start by the 32' mark. If behind, drop YT4 and E/F.
+Carries the Fnd 01 conventions: Name/Date line, LM/YT legend, 👀 Variables
+checks, a 'when things break' section, restart-then-render close.
 Rule of the day: a TYPE is what one value is; a STRUCTURE is how values are held.
 Packages: ONLY tibble today (tibble(), tribble()). No tidyverse — load what the
 lesson needs, nothing more.
@@ -33,9 +36,27 @@ LM = learning moment. YT = your turn. Times in headers are the section budget.
 library(tibble)   # today we need tibble() and tribble() — that's it
 ```
 
-::: {.callout-warning title="Timing & emphasis"}
-- **Budget:** distinction 4′ · types 30′ · structures 26′ · activity 15′ · exit 5′ = **80′**
-- **Checkpoint:** §2 should start by the **34′ mark** — if behind, drop YT4 and activity items E/F
+> 👀 **Variables check.** Loading `tibble` added *nothing* to the Variables
+> pane. `library()` opens a toolbox; only `<-` creates an object.
+
+**Name:** Instructor key · **Date:** \_\_\_\_\_\_\_\_\_\_
+
+> Before anything else, type your name and today's date on the line above (and put your name in the `author:` line at the very top of this file).
+
+**How to read this document.** Two labels show up over and over:
+
+- **LM = Learning Moment.** I demonstrate; you follow along and run the code.
+- **YT = Your Turn.** You do it yourself — fill the blank or the empty chunk.
+- **👀 Variables check.** Glance at the **Variables** pane (right side, under
+  SESSION) and answer the question. It is your session's memory made visible.
+
+::: {.callout-warning title="Timing & labels"}
+- **Budget:** distinction 4′ · types 28′ · structures 24′ · when things break 6′ · activity 12′ · exit 5′ · save & render 1′ = **80′**
+- **Checkpoint:** §2 should start by the **32′ mark** — if behind, drop YT4 and activity items E/F
+- [LM]{.lm} **Learning Moment** — instructor demonstrates, students follow
+- [YT]{.yt} **Your Turn** — students do it themselves
+- 👀 **Variables check** — the Fnd 01 / Lab 01 habit; keep it alive: every 👀 is a 20-second look at the pane, not a discussion
+- Say the LM/YT names out loud the first time each appears — students otherwise guess
 - Practice goes to **vectors, data frames/tibbles, lists**; matrix & tribble get one chunk each, no drills
 - **Packages:** only `tibble`. Say it out loud: *"we load what today needs, not the whole tidyverse"*
 :::
@@ -59,7 +80,7 @@ depends on it.
 
 {{< vspace 1.5rem >}}
 
-# 1 · Data types [30 min]{.timing}
+# 1 · Data types [28 min]{.timing}
 
 ## 1.1 · The types, defined first (before any code) [5 min]{.timing}
 
@@ -176,6 +197,10 @@ table(slot_chr)   # alphabetical — afternoon first
 table(slot_fct)   # the order YOU chose — morning first
 ```
 
+> 👀 **Variables check.** `slot_chr` and `slot_fct` are both listed — same six
+> values, but Variables describes one as *character* and one as *factor with
+> 3 levels*. That description IS the type.
+
 > *Q3. How many levels does `slot_fct` have, and what order did we give
 > them? Why would that order matter on a bar chart?*
 >
@@ -244,7 +269,7 @@ class(Sys.Date() + 7)
 
 {{< vspace 1.5rem >}}
 
-# 2 · Data structures [26 min]{.timing}
+# 2 · Data structures [24 min]{.timing}
 
 **LM7 — vector: one type, many values (4 min).** Built with `c()`. Three
 places to get a latte near campus:
@@ -330,6 +355,10 @@ lattes <- tibble(shop = shops, price = price, size = size, iced = iced)
 lattes
 nrow(lattes); ncol(lattes); class(lattes)
 ```
+
+> 👀 **Variables check.** `lattes` gets an expand arrow that `price` did not.
+> Click it: four columns, each with its own type and length 3. A data frame
+> is a container of vectors — and the pane shows you exactly that.
 
 ```{r}
 #| eval: false
@@ -421,7 +450,65 @@ matrix(1:6, nrow = 2)
 
 {{< vspace 1.5rem >}}
 
-# 3 · In-class activity: type it or contain it [15 min]{.timing}
+# 2b · When things break [6 min]{.timing}
+
+Today's errors are *type* and *structure* errors. Same rule as last week:
+read the message slowly, name the family, then fix it.
+
+> *YT5 (6 min). Each chunk below has ONE bug. Read the error (or the silent
+> wrong answer!), fix it in place, and write the error family in the comment.*
+
+```{r}
+#| eval: false
+# YT5a — error family: ____
+price <- c(4.75, "5.45", 5.95)
+mean(price)
+```
+
+```{r}
+# YT5a — error family: coercion — one quoted number turned the whole vector to character; mean() warns and returns NA
+price <- c(4.75, 5.45, 5.95)
+mean(price)
+```
+
+```{r}
+#| eval: false
+# YT5b — error family: ____
+tibble(shop = c("Julian's", "Starbucks", "Scout Coffee"), price = c(4.75, 5.45))
+```
+
+```{r}
+# YT5b — error family: column lengths don't match (size 3 vs size 2) — every column must be the same length
+tibble(shop = c("Julian's", "Starbucks", "Scout Coffee"), price = c(4.75, 5.45, 5.95))
+```
+
+```{r}
+#| eval: false
+# YT5c — error family: ____
+factor(c("morning", "Morning", "evening"), levels = c("morning", "afternoon", "evening"))
+```
+
+```{r}
+# YT5c — error family: a value not on the factor's menu becomes NA (no error!) — "Morning" ≠ "morning"
+factor(c("morning", "morning", "evening"), levels = c("morning", "afternoon", "evening"))
+```
+
+::: {.callout-caution title="YT5 answers — three error families for types & structures"}
+- [YT5a]{.yt} `c(4.75, "5.45", 5.95)` → the vector is **character**; `mean()` warns *"argument is not numeric or logical: returning NA"*
+  - family: **coercion** — one text value drags the whole vector to text. The tell is the quotes in the printout
+  - fix: remove the quotes (later: `as.numeric()`)
+- [YT5b]{.yt} `Tibble columns must have compatible sizes` — **size 3 vs size 2**
+  - family: **mismatched column lengths** — the error names the sizes *and* the column
+  - fix: give every column the same number of values
+- [YT5c]{.yt} no error at all — `"Morning"` prints as `<NA>`
+  - family: **value not in the factor's levels** → silently becomes `NA` (the sneakiest of the three; the menu metaphor from §1.4 explains it)
+  - fix: match the level exactly (`"morning"`) — R is case-sensitive
+- Two of the three are *silent*: no red text. Say it: **the absence of an error is not the presence of a right answer** — print your objects
+:::
+
+{{< vspace 1.5rem >}}
+
+# 3 · In-class activity: type it or contain it [12 min]{.timing}
 
 For each item, write **T** if the question is about a type and **S** if it's
 about a structure, then answer it with code. ➕ Insert **one chunk per item**
@@ -515,5 +602,15 @@ eats_list
 - Bonus signal: a student who names the *family* (quantitative/categorical) alongside the type has the whole lesson
 :::
 
-Save as `fnd02_yourlastname.qmd` in your `R/` folder and **Render**. If a
-chunk you inserted breaks the render, read the error: it names the chunk.
+# 5 · Save & render [1 min]{.timing}
+
+Save this file into your `R/Notes/` folder as `fnd02_yourlastname.qmd`. Then
+**Restart R** (top-right session menu → Restart) — watch Variables empty out —
+and press **Render** (Cmd/Ctrl + Shift + K). If a chunk you inserted breaks
+the render, read the error: it names the chunk. Restarting first is how you
+prove that everything the document needs is *in* the document.
+
+::: {.callout-important title="Teaching note — restart, then render"}
+- Same close as Fnd 01 and Lab 01: **restart → Variables empties → render**. The 10-second rebuild is the argument for code-in-the-file
+- A render that fails on a student-inserted chunk is a *good* failure: the error names the chunk — have them read it aloud
+:::
