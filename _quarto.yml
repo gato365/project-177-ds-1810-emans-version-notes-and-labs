@@ -92,6 +92,9 @@ website:
     left: "STAT/DATA 1810 · Data Science I"
     right: "Built with [Quarto](https://quarto.org)"
 
+filters:
+  - vspace
+
 format:
   html:
     theme:

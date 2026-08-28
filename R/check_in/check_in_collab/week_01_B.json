@@ -6,6 +6,7 @@
   "time_limit": "fifteen minutes",
   "instructions": "This is an open-note, collaborative evaluation designed to check your understanding of Foundations 01 (Positron and the R Environment) — files and directories, the Console versus the Editor, and R sessions. Work with your group, but each person must turn in their own sheet. You will have {time_limit} to complete the evaluation. I will let you know when to begin once I start the timer. Answer each question clearly and in complete sentences.",
   "header_line": "Name:_________________\tGroup Number: _________\tDate: _____________",
+  "total_points": 15,
   "blank_published": false,
   "solution_published": false,
   "questions": [

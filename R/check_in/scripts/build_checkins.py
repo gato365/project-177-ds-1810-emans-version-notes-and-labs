@@ -119,6 +119,11 @@ def totals(quiz, fmt):
     reg = [q["points"] for q in quiz["questions"] if not q.get("extra_credit")]
     ec = [q["points"] for q in quiz["questions"] if q.get("extra_credit")]
     t = fmt["points_placeholder"] if any(p is None for p in reg) else fmt_points(sum(reg), fmt)
+    # Optional quiz-level override: "total_points" pins the stated total (intro sentence +
+    # rubric Total line) regardless of the per-question sum. Use when the distributed blank
+    # already says a total that the questions don't add up to, so solution/rubric match it.
+    if quiz.get("total_points") is not None:
+        t = fmt_points(quiz["total_points"], fmt)
     e = None
     if ec:
         e = fmt["points_placeholder"] if any(p is None for p in ec) else fmt_points(sum(ec), fmt)

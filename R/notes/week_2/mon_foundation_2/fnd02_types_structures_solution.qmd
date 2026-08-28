@@ -18,118 +18,103 @@ CLO ALIGNMENT
   CLO 1 (1.5 data types: numeric/character/factor/date · 1.6 containers:
          vector, data frame/tibble, list, matrix · 1.4 assignment reinforced)
   CLO 7 preview (7.6 is.na())
-  CLO 9 practiced: students INSERT THEIR OWN CHUNKS today
-Time: 80 min. Datasets: iris, airquality (built in) + tiny constructed examples.
-Timing: distinction+chunks 8' · types 22' · structures 30' · activity 15'
-        · exit 5' = 80'
-Emphasis per spec: vectors, data frames/tibbles, lists get practice;
-matrix & tribble get one chunk each, no drills.
-Checkpoint: §2 should start by the 30' mark. If behind, drop YT4 and E/F.
+  CLO 9 practiced: students insert their own chunks (taught in Foundations 01)
+Time: 80 min. Datasets: tiny Cal Poly examples built in class + iris, airquality.
+Timing: distinction 4' · types 30' · structures 26' · activity 15' · exit 5' = 80'
+Checkpoint: §2 should start by the 34' mark. If behind, drop YT4 and E/F.
 Rule of the day: a TYPE is what one value is; a STRUCTURE is how values are held.
+Packages: ONLY tibble today (tibble(), tribble()). No tidyverse — load what the
+lesson needs, nothing more.
 LM = learning moment. YT = your turn. Times in headers are the section budget.
 -->
 
 ```{r}
 #| label: setup
-library(tidyverse)
+library(tibble)   # today we need tibble() and tribble() — that's it
 ```
 
 ::: {.callout-warning title="Timing & emphasis"}
-- **Budget:** distinction + chunks 8′ · types 22′ · structures 30′ · activity 15′ · exit 5′ = **80′**
-- **Checkpoint:** §2 should start by the **30′ mark** — if behind, drop YT4 and activity items E/F
+- **Budget:** distinction 4′ · types 30′ · structures 26′ · activity 15′ · exit 5′ = **80′**
+- **Checkpoint:** §2 should start by the **34′ mark** — if behind, drop YT4 and activity items E/F
 - Practice goes to **vectors, data frames/tibbles, lists**; matrix & tribble get one chunk each, no drills
+- **Packages:** only `tibble`. Say it out loud: *"we load what today needs, not the whole tidyverse"*
 :::
 
-# 0 · The one distinction, and your own chunks [8 min]{.timing}
+# 0 · The one distinction [4 min]{.timing}
 
 > **Type** = what a single value *is* (number? text? TRUE/FALSE?).
 > **Structure** = the container holding many values (vector? data frame? list?).
 
 Everything today hangs off that sentence.
 
+You already know how to insert a chunk (**Cmd/Ctrl + Shift + I**, from last
+week). Whenever you see **"➕ insert a chunk"**, make one — every YT today
+depends on it.
+
 ::: {.callout-important title="Teaching note — the sentence on the board"}
 - Write it and leave it there all class: **type = one value's nature; structure = the container**
+- Chunk insertion was taught in Foundations 01 — do **not** re-teach it; if someone is stuck, a neighbor shows them the shortcut
+- One line on the `setup` chunk: we load `tibble` only. Last week's `library(tidyverse)` loads nine packages; today needs one function family from one of them
 :::
 
-**New skill today: you make the chunks.** Last week every chunk was provided.
-From now on, when you see **"➕ insert a chunk"**, you create one yourself.
-Three ways — pick one and practice it until it's automatic:
+{{< vspace 1.5rem >}}
 
-1. Keyboard: **Cmd + Shift + I** (Mac) / **Ctrl + Shift + I** (Windows).
-2. Command Palette (Cmd/Ctrl + Shift + P) → type *Quarto: Insert Code Cell*.
-3. Type it by hand: a line with ```` ```{r} ````, your code, then a line with
-   ```` ``` ````.
+# 1 · Data types [30 min]{.timing}
 
-::: {.callout-important title="Teaching note — inserting chunks"}
-- Demonstrate the shortcut (**Cmd/Ctrl + Shift + I**) *once*, slowly, on the projector: cursor on a blank line → press it → fence appears → type `1 + 1` → run
-- Then [YT0]{.yt}: walk the room for 2 minutes — every screen must show output under a student-made chunk before moving on
-- This is the one thing today that can't be caught up on later; every later YT depends on it
-- Students who type the fence by hand are fine — the skill is "I can make a chunk," not the shortcut
+## 1.1 · The types, defined first (before any code) [5 min]{.timing}
+
+Every single value in R has a **type**. Here are the ones you'll live with,
+each with a Cal Poly example:
+
+| Type | What it is | Example value |
+|---|---|---|
+| **numeric** (double) | a number that can have decimals | `4.75` — a latte at Julian's |
+| **integer** | a whole number (written with an `L`) | `38L` — people in the Rec Center at 7 am |
+| **character** | text, in quotes | `"Scout Coffee"` |
+| **logical** | `TRUE` or `FALSE` | `TRUE` — the drink is iced |
+| **factor** | text from a *fixed menu* of allowed values | `"morning"` from {morning, afternoon, evening} |
+| **Date** / **date-time** | a calendar date; a date *and* clock time | `2026-09-22` / `2026-09-22 07:00:00` |
+| **NA** | a missing value — a hole, not a type of its own | the headcount nobody recorded |
+
+::: {.callout-important title="Teaching note — definitions before class()"}
+- Read the table row by row *before* anyone runs code. The order today is: **define the type → then discover it with `class()`**
+- Ask: "If I write a latte price, which row?" (numeric) "The name of the shop?" (character) "Whether it's iced?" (logical)
+- `NA` gets one sentence: it's a placeholder for "nobody knows," and it can sit inside any type
 :::
 
-> *YT0 (3 min). Directly below this line, insert a chunk. Inside it, write a
-> comment `# YT0` and the line `1 + 1`. Run it. If output appears under your
-> chunk, you're ready.*
+## 1.2 · Finding the type with `class()` [7 min]{.timing}
 
-<!-- ➕ insert a chunk here -->
-
-```{r}
-# YT0
-1 + 1
-```
-
-# 1 · Data types [22 min]{.timing}
-
-**LM1 — the four you'll live with (4 min).** Predict each `class()` before
-running:
+**LM1 — `class()` tells you the type (4 min).** Three lattes, three prices.
+Predict each `class()` from the table above, *then* run:
 
 ```{r}
-# LM1: predict, then run
-class(4.75)
-class(4L)
-class("latte")
-class(TRUE)
+# LM1: predict from the table, then run
+class(4.75)            # Julian's latte
+class(38L)             # people in the Rec Center at 7 am
+class("Scout Coffee")  # where the latte came from
+class(TRUE)            # iced?
 ```
 
 > *Q1. Predictions: numeric · integer · character · logical*
 
 ::: {.callout-note title="Expected — LM1 & Q1"}
 - [LM1]{.lm} `"numeric"` · `"integer"` · `"character"` · `"logical"`
-- [Q1]{.q} most students predict `"numeric"` for `4L` — good; the surprise is the point
-- The `L` suffix is worth 30 seconds, no more
+- [Q1]{.q} most students predict `"numeric"` for `38L` — the `L` suffix is worth 30 seconds, no more: R stores whole numbers as integers when you ask, otherwise as doubles
 :::
 
-**LM2 — doubles vs integers (2 min).** Both are numeric; `typeof()` tells
-them apart.
+**LM2 — doubles vs integers (1 min).** Both are numeric; `typeof()` tells them
+apart.
 
 ```{r}
 # LM2
 typeof(4.75)
-typeof(4L)
+typeof(38L)
 ```
 
-**LM3 — factors (4 min).** A factor is text with a fixed menu of allowed
-values (levels). `iris$Species` is built in:
+**LM3 — dates and date-times (2 min).**
 
 ```{r}
-# LM3: character vs factor
-class(iris$Species)
-levels(iris$Species)
-```
-
-> *Q2. How many levels does Species have, and what are they?*
->
-> *Your answer:* 3 levels — setosa, versicolor, virginica.
-
-::: {.callout-tip title="Q2 answer"}
-- [Q2]{.q} **3 levels** — setosa, versicolor, virginica
-- The menu metaphor ("a factor is text with a fixed menu") pays rent in week 6 when forcats arrives
-:::
-
-**LM4 — dates and date-times (2 min).**
-
-```{r}
-# LM4
+# LM3
 today <- Sys.Date()
 class(today)
 
@@ -137,49 +122,113 @@ right_now <- Sys.time()
 class(right_now)
 ```
 
-::: {.callout-note title="Expected — LM4"}
-- [LM4]{.lm} `"Date"` and `"POSIXct" "POSIXt"`
+::: {.callout-note title="Expected — LM3"}
+- [LM3]{.lm} `"Date"` and `"POSIXct" "POSIXt"`
 - Say "date-time" and move on — lubridate handles the ugliness in week 4
 :::
 
-**LM5 — NA, the missing value (3 min).** `airquality` (built in) has real
-missing ozone readings:
+## 1.3 · Three families: quantitative, categorical, other [6 min]{.timing}
+
+R's types sort into three families you'll use to pick plots and summaries all
+term:
+
+| Family | Question it answers | R types | Cal Poly examples |
+|---|---|---|---|
+| **Quantitative** | *how much? how many?* — you can average it | numeric, integer | latte price (`4.75`), Rec Center headcount (`38`), miles from campus (`2.3`) |
+| **Categorical** | *which kind? which group?* — you count it | character, factor, logical | coffee shop (`"Julian's"`, `"Starbucks"`, `"Scout"`), time slot (`"morning"`), iced (`TRUE`) |
+| **Other** (time/date) | *when?* — ordered, but not a plain number | Date, date-time | the day you bought the latte, the clock time you swiped into the Rec |
+
+> *Q2. Which family: (a) the number of people in the Rec Center at 5 pm ·
+> (b) the shop that made your latte · (c) the date of the game vs. UCSB ·
+> (d) whether you bought a latte today (yes/no)?*
+>
+> *Your answer:* (a) quantitative · (b) categorical · (c) other — a date ·
+> (d) categorical — a logical is a two-level category.
+
+::: {.callout-tip title="Q2 answer + why the families matter"}
+- [Q2]{.q} (a) **quantitative** (b) **categorical** (c) **other / date** (d) **categorical** — logical is a yes/no category
+- Why bother: quantitative → histograms and means; categorical → bar charts and counts; dates → line plots over time. Week 3's plots pick themselves once you name the family
+- Trap to name now: a number can be categorical. Your student ID is digits, but averaging student IDs is nonsense
+:::
+
+**A small distinction — "string" vs "character".** Other languages call text a
+*string*. R calls the *type* **character**, and one piece of text (`"Scout
+Coffee"`) is a **string** — a character value of length one. So `"latte"` is a
+string, its class is character, and `c("latte", "mocha")` is a character
+*vector* of two strings. You'll hear both words; they are not in conflict.
+
+## 1.4 · Factors vs characters — why it matters [6 min]{.timing}
+
+**LM4 — the same text, two types (4 min).** Rec Center headcounts come with a
+time slot. As character, the slots are just words; as a **factor**, they come
+with a fixed menu of allowed values (**levels**) *in an order you choose*:
+
+```{r}
+# LM4: character vs factor
+slot_chr <- c("evening", "morning", "afternoon", "morning", "evening", "evening")
+slot_fct <- factor(slot_chr, levels = c("morning", "afternoon", "evening"))
+
+class(slot_chr)
+class(slot_fct)
+levels(slot_fct)
+
+table(slot_chr)   # alphabetical — afternoon first
+table(slot_fct)   # the order YOU chose — morning first
+```
+
+> *Q3. How many levels does `slot_fct` have, and what order did we give
+> them? Why would that order matter on a bar chart?*
+>
+> *Your answer:* 3 levels — morning, afternoon, evening. A bar chart follows
+> the levels, so the factor plots the day in time order; the character
+> version plots alphabetically (afternoon, evening, morning), which reads as
+> nonsense.
+
+::: {.callout-tip title="Q3 answer — the two reasons factors exist"}
+- [Q3]{.q} **3 levels**, in the order morning → afternoon → evening
+- **Reason 1 — order.** Characters sort alphabetically; factors sort by *your* levels. Every plot and table of a categorical variable inherits that order
+- **Reason 2 — a fixed menu.** A factor knows `"night"` is *not* allowed (it becomes `NA`); a character column will happily accept `"Morning"`, `"morning "`, and `"AM"` as three different groups. Factors are how you catch typos in categories
+- Rule of thumb to leave them with: **character = free text (names, comments); factor = a category with a known set of values**
+- The menu metaphor pays rent in week 6 when forcats arrives
+:::
+
+**LM5 — NA, the missing value (2 min).** `airquality` (built in) has real
+missing ozone readings; `is.na()` finds them and `sum()` counts them:
 
 ```{r}
 # LM5: count the missing values in Ozone
 sum(is.na(airquality$Ozone))
 ```
 
-> *Q3. How many Ozone values are missing? 37*
+> *Q4. How many Ozone values are missing? 37*
 
-::: {.callout-tip title="Q3 answer"}
-- [Q3]{.q} **37 missing**
-- Real 1973 NYC air data — the missing values are genuinely missing, not planted
+::: {.callout-tip title="Q4 answer"}
+- [Q4]{.q} **37 missing**
 - First appearance of the `is.na()` + `sum()` idiom; students use it in every cycle
 :::
 
-**LM6 — the is.\* family (3 min).** Test types with functions that return
+**LM6 — the is.\* family (2 min).** Test types with functions that return
 TRUE/FALSE:
 
 ```{r}
 # LM6: any correct fills work, e.g.
 is.numeric(4.75)
-is.character("latte")
+is.character("Scout Coffee")
 is.logical(TRUE)
-is.factor(iris$Species)
+is.factor(slot_fct)
 ```
 
 > *YT1 (4 min). ➕ Insert a chunk below. In it, find the `class()` of each of
-> the following, predicting first: `"TRUE"` (with quotes) · `3 > 2` ·
+> the following, predicting first: `"TRUE"` (with quotes) · `4.75 > 4.25` ·
 > `mtcars$cyl` · `Sys.Date() + 7`. Then in the comment, write which one
 > surprised you.*
 
 <!-- ➕ insert a chunk here -->
 
 ```{r}
-# YT1 — surprise: "TRUE" in quotes is character, and 3 > 2 makes a logical
+# YT1 — surprise: "TRUE" in quotes is character, and a comparison makes a logical
 class("TRUE")
-class(3 > 2)
+class(4.75 > 4.25)
 class(mtcars$cyl)
 class(Sys.Date() + 7)
 ```
@@ -188,52 +237,58 @@ class(Sys.Date() + 7)
 
 ::: {.callout-note title="Expected — YT1"}
 - [YT1]{.yt} `"character"` · `"logical"` · `"numeric"` · `"Date"`
-- Surprise #1: `"TRUE"` — quotes make it text
-- Surprise #2: `3 > 2` *produces* a logical — comparisons are how logicals get made in practice (`filter()` in two weeks)
-- `mtcars$cyl` being numeric though it only takes 4/6/8 previews activity item E
+- Surprise #1: `"TRUE"` — quotes make it text (a string!)
+- Surprise #2: `4.75 > 4.25` *produces* a logical — comparisons are how logicals get made in practice (`filter()` in two weeks)
+- `mtcars$cyl` being numeric though it only takes 4/6/8 previews activity item E: **the type R stores is not always the family the data means**
 :::
 
-# 2 · Data structures [30 min]{.timing}
+{{< vspace 1.5rem >}}
 
-**LM7 — vector: one type, many values (4 min).** Built with `c()`:
+# 2 · Data structures [26 min]{.timing}
+
+**LM7 — vector: one type, many values (4 min).** Built with `c()`. Three
+places to get a latte near campus:
 
 ```{r}
 # LM7: a vector
-drinks <- c("latte", "drip", "mocha")
-drinks
-length(drinks)
-class(drinks)
+shops <- c("Julian's", "Starbucks", "Scout Coffee")
+shops
+length(shops)
+class(shops)
 ```
 
 > *YT2 (4 min). ➕ Insert a chunk. Build THREE vectors and print each:*
-> *(a) `prices` — three numbers, one price per drink above;*
-> *(b) `sizes` — three sizes as text ("small", "medium", "large");*
-> *(c) `iced` — three TRUE/FALSE values, whether each drink is iced.*
-> *Then run `class()` on each. What happens if you run `c(1, "two", 3)`? Try
-> it and look at the class.*
+> *(a) `price` — what a latte costs at each shop above (Julian's on campus,
+> the Starbucks in the UU, Scout downtown — use real prices if you know
+> them, e.g. 4.75, 5.45, 5.95);*
+> *(b) `size` — the size you'd order at each, as text ("small", "medium",
+> "large");*
+> *(c) `iced` — three TRUE/FALSE values, whether you'd get it iced.*
+> *Then run `class()` on each. What happens if you run `c(4.75, "five", 5.95)`?
+> Try it and look at the class.*
 
 <!-- ➕ insert a chunk here -->
 
 ```{r}
 # YT2
-prices <- c(4.75, 2.75, 5.25)
-sizes  <- c("small", "medium", "large")
-iced   <- c(TRUE, FALSE, TRUE)
-prices; sizes; iced
-class(prices); class(sizes); class(iced)
-c(1, "two", 3)
-class(c(1, "two", 3))
+price <- c(4.75, 5.45, 5.95)
+size  <- c("small", "medium", "large")
+iced  <- c(TRUE, FALSE, TRUE)
+price; size; iced
+class(price); class(size); class(iced)
+c(4.75, "five", 5.95)
+class(c(4.75, "five", 5.95))
 ```
 
-> *Q4. `c(1, "two", 3)` has class character. In one phrase, why?*
+> *Q5. `c(4.75, "five", 5.95)` has class character. In one phrase, why?*
 >
 > *Your answer:* A vector holds one type, so R coerces everything to text.
 
-::: {.callout-tip title="Q4 answer — coercion"}
-- [Q4]{.q} **character**
+::: {.callout-tip title="Q5 answer — coercion"}
+- [Q5]{.q} **character**
 - A vector holds *one* type, so R converts everything to the type that can hold all of it — text
 - This is **coercion**, arriving by accident rather than lecture — say the word once
-- They meet it again when a numeric column imports as `<chr>` because of one stray "N/A"
+- They meet it again when a price column imports as `<chr>` because one row says "free"
 :::
 
 **LM8 — data frame & tibble: vectors standing side by side (6 min).** Each
@@ -241,45 +296,45 @@ column is a vector; every column has the same length.
 
 ```{r}
 # LM8: same data, two containers
-menu_df  <- data.frame(drink = drinks, price = c(4.75, 2.75, 5.25))
-menu_tbl <- tibble(drink = drinks, price = c(4.75, 2.75, 5.25))
+latte_df  <- data.frame(shop = shops, price = c(4.75, 5.45, 5.95))
+latte_tbl <- tibble(shop = shops, price = c(4.75, 5.45, 5.95))
 
-menu_df
-menu_tbl
+latte_df
+latte_tbl
 ```
 
-> *Q5. Name one visible difference between how the data frame and the tibble
+> *Q6. Name one visible difference between how the data frame and the tibble
 > printed:*
 >
 > *Your answer:* The tibble announces its dimensions (`# A tibble: 3 × 2`) and
 > shows column types (`<chr>`, `<dbl>`); the data frame shows neither.
 
-::: {.callout-tip title="Q5 model answers (any one)"}
-- [Q5]{.q} the tibble announces its dimensions (`# A tibble: 3 × 2`)
-- the tibble shows column types (`<chr>`, `<dbl>`)
+::: {.callout-tip title="Q6 model answers (any one)"}
+- [Q6]{.q} the tibble announces its dimensions (`# A tibble: 3 × 2`)
+- the tibble shows column types (`<chr>`, `<dbl>`) — **the families from §1.3, printed for you**
 - the data frame shows row numbers without types
 - **Framing:** a tibble IS a data frame with better manners — we'll say "data frame" for both
 :::
 
-> *YT3 (5 min). ➕ Insert a chunk. Build a tibble called `menu` from YOUR
-> vectors from YT2 — columns `drink`, `price`, `size`, `iced`. Print it.
-> Then run `nrow(menu)`, `ncol(menu)`, and `class(menu)`. What happens if one
-> vector has only two values? Try it (make a broken one on purpose), read
+> *YT3 (5 min). ➕ Insert a chunk. Build a tibble called `lattes` from YOUR
+> vectors from YT2 — columns `shop`, `price`, `size`, `iced`. Print it.
+> Then run `nrow(lattes)`, `ncol(lattes)`, and `class(lattes)`. What happens if
+> one vector has only two values? Try it (make a broken one on purpose), read
 > the error, then fix it.*
 
 <!-- ➕ insert a chunk here -->
 
 ```{r}
 # YT3
-menu <- tibble(drink = drinks, price = prices, size = sizes, iced = iced)
-menu
-nrow(menu); ncol(menu); class(menu)
+lattes <- tibble(shop = shops, price = price, size = size, iced = iced)
+lattes
+nrow(lattes); ncol(lattes); class(lattes)
 ```
 
 ```{r}
 #| eval: false
 # YT3 — the deliberate break
-tibble(drink = drinks, price = c(4.75, 2.75))
+tibble(shop = shops, price = c(4.75, 5.45))
 #> Error: Tibble columns must have compatible sizes.
 #> • Size 3: Existing data.
 #> • Size 2: Column `price`.
@@ -287,33 +342,42 @@ tibble(drink = drinks, price = c(4.75, 2.75))
 
 ```{r}
 # YT3 — the fix: give price all three values
-tibble(drink = drinks, price = c(4.75, 2.75, 5.25))
+tibble(shop = shops, price = c(4.75, 5.45, 5.95))
 ```
 
 ::: {.callout-caution title="YT3 teaching note — a good error"}
 - [YT3]{.yt} The error names the sizes *and* the column — have someone read it aloud
 - "Every column the same length" is now something they've felt, not heard
-- `class(menu)` returns three things (`tbl_df`, `tbl`, `data.frame`) — say "it's a data frame, with extra labels" and move on
+- `class(lattes)` returns three things (`tbl_df`, `tbl`, `data.frame`) — say "it's a data frame, with extra labels" and move on
 :::
 
-**LM9 — tribble: a tibble typed row by row (2 min)** (brief — you'll rarely
-need it):
+**LM9 — tribble: a tibble typed row by row, with a factor inside (3 min).**
+Rec Center headcounts, three slots. Note the `slot` column is made a factor
+*with the order we want*:
 
 ```{r}
-# LM9
-tribble(
-  ~drink,  ~price,
-  "chai",   4.50,
-  "espresso", 3.00
+# LM9: Rec Center headcounts — a tribble, then a factor column
+rec <- tribble(
+  ~slot,       ~hour, ~people,
+  "morning",     7,     38,
+  "afternoon",  13,    112,
+  "evening",    18,    164
 )
+rec$slot <- factor(rec$slot, levels = c("morning", "afternoon", "evening"))
+rec
 ```
+
+::: {.callout-note title="LM9 — read the type tags"}
+- `slot` prints as `<fct>`, `hour` and `people` as `<dbl>` — categorical, quantitative, quantitative. The tibble is telling you the families
+- `rec$slot <- factor(...)` is the first time they *change* a column's type — one sentence: "we told R this text is a category with an order"
+:::
 
 **LM10 — list: the junk drawer (4 min).** A list holds *anything*, even other
 structures:
 
 ```{r}
 # LM10
-my_list <- list(name = "week 2", nums = c(1, 2, 3), data = menu_tbl)
+my_list <- list(name = "week 2", nums = c(1, 2, 3), data = latte_tbl)
 my_list
 length(my_list)
 ```
@@ -325,14 +389,15 @@ length(my_list)
 :::
 
 > *YT4 (3 min). ➕ Insert a chunk. Build a list called `me` with three named
-> parts: your first name (text), the number of classes you're taking, and
-> your `menu` tibble. Print it. Notice how each part keeps its own type.*
+> parts: your first name (text), the number of classes you're taking this
+> quarter, and your `lattes` tibble. Print it. Notice how each part keeps its
+> own type.*
 
 <!-- ➕ insert a chunk here -->
 
 ```{r}
 # YT4 — e.g.
-me <- list(first = "Eman", n_classes = 4, menu = menu)
+me <- list(first = "Eman", n_classes = 4, lattes = lattes)
 me
 ```
 
@@ -343,16 +408,18 @@ me
 matrix(1:6, nrow = 2)
 ```
 
-> *Q6. Which structure could hold a column of names AND a column of numbers:
-> a matrix or a data frame? Why?*
+> *Q7. Which structure could hold a column of shop names AND a column of
+> prices: a matrix or a data frame? Why?*
 >
 > *Your answer:* A data frame — a matrix forces every cell to one type, so the
-> numbers would be coerced to text.
+> prices would be coerced to text.
 
-::: {.callout-tip title="Q6 answer"}
-- [Q6]{.q} **a data frame**
-- A matrix forces every cell to one type, so names + numbers would coerce the numbers to text — same coercion as Q4, now at the structure level
+::: {.callout-tip title="Q7 answer"}
+- [Q7]{.q} **a data frame**
+- A matrix forces every cell to one type, so names + prices would coerce the prices to text — same coercion as Q5, now at the structure level
 :::
+
+{{< vspace 1.5rem >}}
 
 # 3 · In-class activity: type it or contain it [15 min]{.timing}
 
@@ -360,15 +427,15 @@ For each item, write **T** if the question is about a type and **S** if it's
 about a structure, then answer it with code. ➕ Insert **one chunk per item**
 (A through F) so each answer is its own runnable piece.
 
-- **A.** What is `iris` — its structure?
-- **B.** What is `iris$Sepal.Length` — its type?
+- **A.** What is `rec` (from LM9) — its structure?
+- **B.** What is `rec$people` — its type? Which family?
 - **C.** Is there any NA anywhere in `airquality$Solar.R`? How many?
-- **D.** Build a tibble with 2 columns: your three favorite foods and a
-  rating (1–10) for each.
+- **D.** Build a tibble with 2 columns: three places you eat near campus and
+  a rating (1–10) for each.
 - **E.** What is `airquality$Month` — its type? Should it be? (Months are
-  numbers here — would a factor make more sense? One sentence.)
+  stored as numbers here — would a factor make more sense? One sentence.)
 - **F.** Build a list holding your food tibble from D *and* a character
-  vector of the three places you eat those foods.
+  vector of what you order at each place.
 
 ::: {.callout-important title="Teaching note — one chunk per item"}
 - Check that students actually made **six chunks**
@@ -379,12 +446,12 @@ about a structure, then answer it with code. ➕ Insert **one chunk per item**
 
 ```{r}
 # A — Structure
-class(iris)          # "data.frame"
+class(rec)          # a tibble (tbl_df / tbl / data.frame)
 ```
 
 ```{r}
 # B — Type
-class(iris$Sepal.Length)   # "numeric"
+class(rec$people)   # "numeric" — quantitative
 ```
 
 ```{r}
@@ -394,11 +461,11 @@ sum(is.na(airquality$Solar.R))   # 7
 
 ```{r}
 # D — Structure built by the student, e.g.
-foods_tbl <- tibble(
-  food   = c("tacos", "pho", "pizza"),
-  rating = c(10, 9, 8)
+eats <- tibble(
+  place  = c("Woodstock's", "Firestone", "Campus Market"),
+  rating = c(9, 10, 6)
 )
-foods_tbl
+eats
 ```
 
 ```{r}
@@ -408,25 +475,28 @@ class(airquality$Month)
 
 ```{r}
 # F — Structure: a list holding a tibble and a vector
-food_places <- list(
-  foods  = foods_tbl,
-  places = c("truck on Higuera", "home", "campus")
+eats_list <- list(
+  places = eats,
+  orders = c("pizza", "tri-tip sandwich", "burrito")
 )
-food_places
+eats_list
 ```
 
-> *A: S · B: T · C: T (7 missing) · D: S · E: T — integer; a factor would make
-> more sense since 5–9 are labels, not amounts · F: S*
+> *A: S · B: T (numeric, quantitative) · C: T (7 missing) · D: S · E: T —
+> integer; a factor would make more sense since 5–9 are labels, not amounts ·
+> F: S*
 
 ::: {.callout-tip title="Activity answers"}
-- **A** = S (structure)
-- **B** = T (type)
+- **A** = S (structure — a tibble)
+- **B** = T — `"numeric"`, quantitative
 - **C** = T — 7 missing
 - **D** = S
 - **E** = T — `"integer"`; a factor would make sense since 5–9 are labels, not amounts
 - **F** = S
-- **E is the discussion item:** *the type R stores is not always the type the data means* — that's the whole reason `mutate()` + `factor()` exists
+- **E is the discussion item:** *the type R stores is not always the family the data means* — that's the whole reason `mutate()` + `factor()` exists, and it's §1.4 again
 :::
+
+{{< vspace 1.5rem >}}
 
 # 4 · Exit question [5 min]{.timing}
 
@@ -434,14 +504,15 @@ food_places
 > data structure? Use one example of each from today — and at least one must
 > be something YOU built.*
 >
-> *Your answer:* A data type is what one value is — `4.75` is numeric. A data
-> structure is the container holding values — my `menu` tibble is a data frame
-> whose `iced` column is logical.
+> *Your answer:* A data type is what one value is — `4.75` (a Julian's
+> latte) is numeric. A data structure is the container holding values — my
+> `lattes` tibble is a data frame whose `iced` column is logical.
 
 ::: {.callout-tip title="Model answer"}
-- *"A data type is what one value is — `4.75` is numeric. A data structure is the container holding values — my `menu` tibble is a data frame whose `iced` column is logical."*
+- *"A data type is what one value is — `4.75` is numeric. A data structure is the container holding values — my `lattes` tibble is a data frame whose `iced` column is logical."*
 - Passes: any answer pairing one correct **type** example with one correct **structure** example
 - At least one example should be from a student-built object
+- Bonus signal: a student who names the *family* (quantitative/categorical) alongside the type has the whole lesson
 :::
 
 Save as `fnd02_yourlastname.qmd` in your `R/` folder and **Render**. If a

@@ -1,0 +1,8 @@
+{
+  "Vertical space (vspace shortcode)": {
+    "prefix": ["vspace", "vs"],
+    "scope": "quarto,markdown",
+    "body": ["", "{{< vspace ${1|1.5rem,1rem,2rem,3rem|} >}}", ""],
+    "description": "Insert vertical space between headers / blocks (renders via _extensions/vspace)"
+  }
+}

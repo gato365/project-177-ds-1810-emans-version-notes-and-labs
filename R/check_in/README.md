@@ -59,6 +59,9 @@ Question fields:
 
 Quiz-level fields: `title`, `version` (A/B/C), `time_limit`, `instructions`
 (`{time_limit}` is substituted and bolded).
+Optional `total_points` pins the stated total (intro sentence and rubric `Total:` line)
+regardless of what the question points add up to — use it when the blank that students
+received already states a total (e.g. after a hand edit) so solution/rubric match it.
 
 ### Multiple versions of one quiz
 

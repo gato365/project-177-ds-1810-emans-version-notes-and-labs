@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-3419c12d2d41a837959b2e6a2ea9a81c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../../site_libs/bootstrap/bootstrap-5c77d48b288134329f54619843bf6bbd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-2f657f143ef641edc334cc154b352bb9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -371,11 +371,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul class="collapse">
   <li><a href="#todays-job-2-min" id="toc-todays-job-2-min" class="nav-link active" data-scroll-target="#todays-job-2-min">0 · Today’s job (2 min)</a></li>
-  <li><a href="#inspecting-data-22-min" id="toc-inspecting-data-22-min" class="nav-link" data-scroll-target="#inspecting-data-22-min">1 · Inspecting data (22 min)</a></li>
-  <li><a href="#accessing-data-33-min" id="toc-accessing-data-33-min" class="nav-link" data-scroll-target="#accessing-data-33-min">2 · Accessing data (33 min)</a></li>
-  <li><a href="#how-big-is-data-10-min" id="toc-how-big-is-data-10-min" class="nav-link" data-scroll-target="#how-big-is-data-10-min">3 · How big is data? (10 min)</a></li>
-  <li><a href="#where-this-is-going-5-min-watch" id="toc-where-this-is-going-5-min-watch" class="nav-link" data-scroll-target="#where-this-is-going-5-min-watch">4 · Where this is going (5 min — watch)</a></li>
-  <li><a href="#exit-question-8-min" id="toc-exit-question-8-min" class="nav-link" data-scroll-target="#exit-question-8-min">5 · Exit question (8 min)</a></li>
+  <li><a href="#inspecting-data-20-min" id="toc-inspecting-data-20-min" class="nav-link" data-scroll-target="#inspecting-data-20-min">1 · Inspecting data (20 min)</a></li>
+  <li><a href="#accessing-data-just-enough-20-min" id="toc-accessing-data-just-enough-20-min" class="nav-link" data-scroll-target="#accessing-data-just-enough-20-min">2 · Accessing data — just enough (20 min)</a></li>
+  <li><a href="#the-pipe-the-symbol-youll-type-more-than-any-other-15-min" id="toc-the-pipe-the-symbol-youll-type-more-than-any-other-15-min" class="nav-link" data-scroll-target="#the-pipe-the-symbol-youll-type-more-than-any-other-15-min">3 · The pipe <code>|&gt;</code> — the symbol you’ll type more than any other (15 min)</a></li>
+  <li><a href="#how-big-is-data-13-min" id="toc-how-big-is-data-13-min" class="nav-link" data-scroll-target="#how-big-is-data-13-min">4 · How big is data? (13 min)</a></li>
+  <li><a href="#where-this-is-going-5-min-watch" id="toc-where-this-is-going-5-min-watch" class="nav-link" data-scroll-target="#where-this-is-going-5-min-watch">5 · Where this is going (5 min — watch)</a></li>
+  <li><a href="#exit-question-5-min" id="toc-exit-question-5-min" class="nav-link" data-scroll-target="#exit-question-5-min">6 · Exit question (5 min)</a></li>
   </ul>
 </nav>
     </div>
@@ -411,22 +412,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!--
 CLO ALIGNMENT
   CLO 1 (1.6 containers in use · 1.12 storage magnitudes, object.size/file.size)
-  CLO 1 accessing: $, [ ], [[ ]]
+  CLO 1 accessing: $, [ ], [[ ]]  (kept light — the tidyverse verbs take over Monday)
   CLO 7 (7.6 is.na in practice)
   CLO 9 practiced: you insert your own chunks (➕)
 Time: 80 min. Datasets: airquality, iris, mtcars (built in).
+Packages: tibble only (glimpse()). The pipe |> is base R — no package needed.
 Ends with a 5-minute live preview of a full ETV cycle — where all of this is going.
 LM = learning moment. YT = your turn. Times in headers are the section budget.
 -->
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)   <span class="co"># for glimpse(). The pipe |&gt; is built into R — nothing to load.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="todays-job-2-min" class="level2">
 <h2 class="anchored" data-anchor-id="todays-job-2-min">0 · Today’s job (2 min)</h2>
-<p>You get handed a dataset. Before any analysis, you must answer three questions: <strong>What is this? How big is it? What’s inside?</strong> Today is those three questions, as functions — and then, once you know what’s inside, how to <em>reach in and take a piece</em>.</p>
+<p>You get handed a dataset. Before any analysis, you must answer three questions: <strong>What is this? How big is it? What’s inside?</strong> Today is those three questions, as functions — then how to <em>reach in and take a piece</em> — and then the one symbol that will carry every line of code you write for the rest of the quarter.</p>
+<div class="vspace" style="height:1.5rem" aria-hidden="true"></div>
 </section>
-<section id="inspecting-data-22-min" class="level2">
-<h2 class="anchored" data-anchor-id="inspecting-data-22-min">1 · Inspecting data (22 min)</h2>
+<section id="inspecting-data-20-min" class="level2">
+<h2 class="anchored" data-anchor-id="inspecting-data-20-min">1 · Inspecting data (20 min)</h2>
 <p>We’ll interrogate <code>airquality</code> — 1973 New York air measurements, built in.</p>
 <p><strong>LM1 — the first look (5 min).</strong> Run each; note what question each answers:</p>
 <div class="cell">
@@ -464,7 +467,7 @@ LM = learning moment. YT = your turn. Times in headers are the section budget.
 <p><em>Q1. Rows: ____ · Columns: ____ · What is one OBSERVATION here (what does one row represent)?</em></p>
 <p><em>Your answer:</em></p>
 </blockquote>
-<p><strong>LM2 — names and structure (5 min).</strong></p>
+<p><strong>LM2 — names and structure (4 min).</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM2</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(airquality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -497,7 +500,7 @@ $ Day     &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
 <p><em>Q2. <code>str()</code> and <code>glimpse()</code> answer the same question. Which is easier to read, and what do the <code>&lt;int&gt;</code> / <code>int</code> tags tell you?</em></p>
 <p><em>Your answer:</em></p>
 </blockquote>
-<p><strong>LM3 — the numeric overview (4 min).</strong></p>
+<p><strong>LM3 — the numeric overview (3 min).</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM3</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(airquality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -532,10 +535,11 @@ $ Day     &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
 <blockquote class="blockquote">
 <p><em>(a) ____ · (b) ____ · (c) ____ · (d) ____ · (e) ____</em></p>
 </blockquote>
+<div class="vspace" style="height:1.5rem" aria-hidden="true"></div>
 </section>
-<section id="accessing-data-33-min" class="level2">
-<h2 class="anchored" data-anchor-id="accessing-data-33-min">2 · Accessing data (33 min)</h2>
-<p>Three tools, three jobs:</p>
+<section id="accessing-data-just-enough-20-min" class="level2">
+<h2 class="anchored" data-anchor-id="accessing-data-just-enough-20-min">2 · Accessing data — just enough (20 min)</h2>
+<p>Three tools, three jobs. You need to <em>read</em> all three; you’ll <em>write</em> mostly the first one:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -586,16 +590,16 @@ $ Day     &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
 </div>
 </div>
 <blockquote class="blockquote">
-<p><em>YT2 (4 min). ➕ Insert a chunk. Using <code>$</code>, find:</em> <em>(a) the mean of Wind;</em> <em>(b) the max Temp;</em> <em>(c) the mean of Ozone — it comes back <code>NA</code>. Fix it with the argument you looked up in the help page last week;</em> <em>(d) how many days had Temp above 90? (Hint: <code>sum(airquality$Temp &gt; 90)</code> — TRUE counts as 1.)</em></p>
+<p><em>YT2 (5 min). ➕ Insert a chunk. Using <code>$</code>, find:</em> <em>(a) the mean of Wind;</em> <em>(b) the max Temp;</em> <em>(c) the mean of Ozone — it comes back <code>NA</code>. Fix it with the argument you looked up in the help page last week;</em> <em>(d) how many days had Temp above 90? (Hint: <code>sum(airquality$Temp &gt; 90)</code> — TRUE counts as 1.)</em></p>
 </blockquote>
 <!-- ➕ insert a chunk here -->
 <blockquote class="blockquote">
 <p><em>(a) ____ · (b) ____ · (c) ____ · (d) ____</em></p>
 </blockquote>
-<p><strong>LM5 — <code>[rows, columns]</code> (6 min).</strong> Predict each before running:</p>
+<p><strong>LM5 — <code>[rows, columns]</code> and <code>[[ ]]</code>, in one pass (5 min).</strong> Predict each before running. Square brackets take a <em>position or a name</em>; double brackets dig out <em>one thing</em>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM5: predict, then run</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>airquality[<span class="dv">1</span>, ]        <span class="co"># first row, all columns</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>airquality[<span class="dv">1</span>, ]                        <span class="co"># first row, all columns</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -603,17 +607,7 @@ $ Day     &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
   </script>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>airquality[, <span class="dv">4</span>]        <span class="co"># all rows, 4th column</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  [1] 67 72 74 62 56 66 65 59 61 69 74 69 66 68 58 64 66 57 68 62 59 73 61 61 57
- [26] 58 57 67 81 79 76 78 74 67 84 85 79 82 87 90 87 93 92 82 80 79 77 72 65 73
- [51] 76 77 76 76 76 75 78 73 80 77 83 84 85 81 84 83 83 88 92 92 89 82 73 81 91
- [76] 80 81 82 84 87 85 74 81 82 86 85 82 86 88 86 83 81 81 81 82 86 85 87 89 90
-[101] 90 92 86 86 82 80 79 77 79 76 78 78 77 72 75 79 81 86 88 97 94 96 94 91 92
-[126] 93 93 87 84 80 78 75 73 81 76 77 71 71 78 67 76 68 82 64 71 81 69 63 70 77
-[151] 75 76 68</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>airquality[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="fu">c</span>(<span class="st">"Ozone"</span>, <span class="st">"Temp"</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>airquality[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="fu">c</span>(<span class="st">"Ozone"</span>, <span class="st">"Temp"</span>)]    <span class="co"># a rectangle</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -621,109 +615,205 @@ $ Day     &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
   </script>
 </div>
 </div>
-</div>
-<blockquote class="blockquote">
-<p><em>YT3 (5 min). ➕ Insert a chunk. Write ONE line for each:</em> <em>(a) rows 10 through 15 of ONLY the Month and Day columns;</em> <em>(b) the last row of airquality (use <code>nrow()</code> inside the brackets — no hard-coded 153);</em> <em>(c) rows 1–3, columns 1–3, by position;</em> <em>(d) all rows of the Temp column, but as a data frame not a vector (hint: leave out the comma).</em></p>
-</blockquote>
-<!-- ➕ insert a chunk here -->
-<p><strong>LM6 — <code>[[ ]]</code>, digging one thing out (4 min).</strong></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM6: single element — row 1's Temp</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>airquality[[<span class="dv">1</span>, <span class="st">"Temp"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>airquality[[<span class="dv">1</span>, <span class="st">"Temp"</span>]]                <span class="co"># one cell, dug out</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 67</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># and on a list:</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">nums =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">word =</span> <span class="st">"hello"</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>my_list[[<span class="st">"nums"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 2 3</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>my_list<span class="sc">$</span>word</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the same three tools on a list (Monday's junk drawer):</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">nums =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">word =</span> <span class="st">"hello"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>my_list<span class="sc">$</span>word</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "hello"</code></pre>
 </div>
-</div>
-<p><strong>LM7 — the comparison (4 min).</strong> Run all three; look closely at what each returns:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM7: three ways at the same column</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality<span class="sc">$</span>Temp)          <span class="co"># vector</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>my_list[[<span class="st">"nums"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 67 72 74 62 56 66</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality[<span class="st">"Temp"</span>])       <span class="co"># still a data frame (note the header!)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Temp"],"name":[1],"type":["int"],"align":["right"]}],"data":[{"1":"67","_rn_":"1"},{"1":"72","_rn_":"2"},{"1":"74","_rn_":"3"},{"1":"62","_rn_":"4"},{"1":"56","_rn_":"5"},{"1":"66","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality[[<span class="st">"Temp"</span>]])     <span class="co"># vector again</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 67 72 74 62 56 66</code></pre>
+<pre><code>[1] 1 2 3</code></pre>
 </div>
 </div>
 <blockquote class="blockquote">
-<p><em>Q4. Which of the three kept the data frame wrapping? ____</em></p>
+<p><em>Q4. <code>airquality$Temp</code> and <code>airquality[["Temp"]]</code> give the same vector. <code>airquality["Temp"]</code> does not — what is it instead? ____</em></p>
 </blockquote>
-<p><strong>LM8 — missing values, located (2 min).</strong></p>
+<blockquote class="blockquote">
+<p><em>YT3 (5 min). ➕ Insert a chunk. Switch to <code>iris</code>. Write ONE line for each:</em> <em>(a) the Species column as a vector — how long is it?</em> <em>(b) rows 51–53, all columns — what species are they?</em> <em>(c) the last row of iris (use <code>nrow()</code> inside the brackets — no hard-coded 150).</em></p>
+</blockquote>
+<!-- ➕ insert a chunk here -->
+<div class="vspace" style="height:1.5rem" aria-hidden="true"></div>
+</section>
+<section id="the-pipe-the-symbol-youll-type-more-than-any-other-15-min" class="level2">
+<h2 class="anchored" data-anchor-id="the-pipe-the-symbol-youll-type-more-than-any-other-15-min">3 · The pipe <code>|&gt;</code> — the symbol you’ll type more than any other (15 min)</h2>
+<div class="callout callout-style-default callout-important callout-titled" title="Read this one out loud">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Read this one out loud
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><code>|&gt;</code> means “and then.”</strong> Take the thing on the left, hand it to the function on the right. That’s it. Everything from Monday on — every ETV cycle, every plot, every summary — is a chain of <em>and then</em>s.</p>
+</div>
+</div>
+<p><strong>LM6 — the same code, two ways (5 min).</strong> Question: <em>on average, how warm were the July days?</em> Without the pipe, you read this <strong>inside-out</strong>, from the deepest parentheses to the outermost:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM8: WHICH rows are missing Ozone?</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">is.na</span>(airquality<span class="sc">$</span>Ozone)) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM6a: nested — read from the INSIDE out</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">mean</span>(airquality<span class="sc">$</span>Temp[airquality<span class="sc">$</span>Month <span class="sc">==</span> <span class="dv">7</span>]), <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 83.9</code></pre>
+</div>
+</div>
+<p>With the pipe, you read it <strong>top-to-bottom, like a recipe</strong>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM6b: piped — read "and then", top to bottom</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Temp[airquality<span class="sc">$</span>Month <span class="sc">==</span> <span class="dv">7</span>] <span class="sc">|&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>() <span class="sc">|&gt;</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 83.9</code></pre>
+</div>
+</div>
+<p>Same answer. But the second one you can <em>say</em>: “take July’s temperatures, <strong>and then</strong> average them, <strong>and then</strong> round to one decimal.”</p>
+<div class="callout callout-style-default callout-note callout-titled" title="How the pipe works — the one rule">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>How the pipe works — the one rule
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><code>x |&gt; f()</code> is exactly <code>f(x)</code>. The left side becomes the <strong>first argument</strong> of the function on the right</li>
+<li><code>x |&gt; f(y)</code> is <code>f(x, y)</code> — extra arguments go where they always did</li>
+<li>So <code>airquality$Temp |&gt; mean(na.rm = TRUE)</code> is <code>mean(airquality$Temp, na.rm = TRUE)</code></li>
+<li>Keyboard: <strong>Cmd/Ctrl + Shift + M</strong> types <code>|&gt;</code> for you in Positron</li>
+<li>Style: one step per line, indent the continuation. Your eye follows the recipe</li>
+</ul>
+</div>
+</div>
+<p><strong>LM7 — a real chain (4 min).</strong> Which days are missing Ozone? Read each line as “and then”:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM7: WHICH rows are missing Ozone? — read it as a sentence</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Ozone <span class="sc">|&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">is.na</span>() <span class="sc">|&gt;</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">which</span>() <span class="sc">|&gt;</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  5 10 25 26 27 32</code></pre>
 </div>
 </div>
 <blockquote class="blockquote">
-<p><em>YT4 — access challenge (7 min). ➕ Insert a chunk. Switch to <code>iris</code>.</em> <em>(a) the Species column, as a vector — how long is it?</em> <em>(b) rows 51–53, all columns — what species are they?</em> <em>(c) the single value in row 100, column Petal.Width;</em> <em>(d) the mean Sepal.Length of ONLY the first 50 rows (setosa);</em> <em>(e) build <code>my_list2 &lt;- list(flowers = iris, n = nrow(iris))</code> and pull <code>n</code> back out with <code>[[ ]]</code>, then with <code>$</code>. Same answer?</em> <em>Stretch: which of the three tools did you use most? Why?</em></p>
+<p><em>YT4 (6 min). ➕ Insert a chunk. Rewrite each nested line as a pipe, one step per line, and confirm the answer doesn’t change:</em> <em>(a) <code>sqrt(mean(airquality$Wind))</code></em> <em>(b) <code>round(mean(airquality$Ozone, na.rm = TRUE), 2)</code></em> <em>(c) <code>length(unique(iris$Species))</code></em> <em>Then write ONE pipe of your own: three steps, any data, and a comment reading it as a sentence.</em></p>
 </blockquote>
 <!-- ➕ insert a chunk here -->
+<div class="vspace" style="height:1.5rem" aria-hidden="true"></div>
 </section>
-<section id="how-big-is-data-10-min" class="level2">
-<h2 class="anchored" data-anchor-id="how-big-is-data-10-min">3 · How big is data? (10 min)</h2>
-<p><strong>LM9 — storage units (4 min).</strong> Data size is measured in bytes: <strong>byte → KB (thousand) → MB (million) → GB (billion) → TB (trillion)</strong>. Rough anchors: this class’s survey ≈ a few KB · a semester of sensor logs ≈ MBs · a music library ≈ GBs · a national census extract ≈ TBs.</p>
+<section id="how-big-is-data-13-min" class="level2">
+<h2 class="anchored" data-anchor-id="how-big-is-data-13-min">4 · How big is data? (13 min)</h2>
+<p><strong>LM8 — the ladder (4 min).</strong> Data size is measured in <strong>bytes</strong> — one byte is roughly one letter. Every step up the ladder multiplies by a thousand:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../assets/byte_ladder.svg" class="img-fluid figure-img" style="width:100.0%" alt="Ladder of storage units from byte to terabyte, each step ×1,000, with an everyday example on each step."></p>
+<figcaption>Each step is ×1,000. A byte is a letter; a kilobyte is a paragraph; a megabyte is a photo; a gigabyte is an hour of video; a terabyte is a whole laptop.</figcaption>
+</figure>
+</div>
+<p><strong>LM9 — where real things land (4 min).</strong> The bars below are on a <em>log</em> scale — each gridline is another ×1,000. Notice where <strong>your laptop’s memory</strong> sits, because that’s the ceiling for what R can hold:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../assets/how_big_is_it.svg" class="img-fluid figure-img" style="width:100.0%" alt="Horizontal bar chart on a log scale showing sizes of everyday things: a text message (bytes), a survey CSV (KB), a song (MB), an hour of HD video (GB), a laptop's RAM (8–16 GB), a laptop drive (512 GB), and a census extract (1 TB)."></p>
+<figcaption>Real-world sizes on a log scale, from one letter to a national census. The orange “laptop memory” bar is the amount of data R can hold at once.</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Unit</th>
+<th>≈ bytes</th>
+<th>Something you own that’s about that size</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>byte</strong></td>
+<td>1</td>
+<td>one letter of a text message</td>
+</tr>
+<tr class="even">
+<td><strong>kilobyte (KB)</strong></td>
+<td>1 thousand</td>
+<td>a long email; this class’s survey as a <code>.csv</code>; <code>airquality</code> (5.6 KB)</td>
+</tr>
+<tr class="odd">
+<td><strong>megabyte (MB)</strong></td>
+<td>1 million</td>
+<td>one phone photo (3 MB); one song (4 MB); a year of CA crime data (~100 MB)</td>
+</tr>
+<tr class="even">
+<td><strong>gigabyte (GB)</strong></td>
+<td>1 billion</td>
+<td>an hour of HD Netflix (3 GB); your laptop’s <strong>memory</strong> (8–16 GB)</td>
+</tr>
+<tr class="odd">
+<td><strong>terabyte (TB)</strong></td>
+<td>1 trillion</td>
+<td>two of your laptop’s drives; a full US census extract</td>
+</tr>
+<tr class="even">
+<td><strong>petabyte (PB)</strong></td>
+<td>1 quadrillion</td>
+<td>Netflix’s entire catalog; the data behind a weather forecast</td>
+</tr>
+</tbody>
+</table>
+<p>Now measure <strong>our</strong> objects:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM9: how big are OUR objects?</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(airquality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM9: how big are OUR objects?</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(airquality)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>5632 bytes</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(iris)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(iris)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>7256 bytes</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(mtcars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">object.size</span>(mtcars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>7208 bytes</code></pre>
 </div>
 </div>
 <blockquote class="blockquote">
-<p><em>Q5. Order the three from smallest to largest: ____</em></p>
+<p><em>Q5. Order the three from smallest to largest, and name the unit they’re in: ____</em></p>
 </blockquote>
-<p><strong>Why it matters:</strong> R holds data <strong>in memory</strong>. A 2 GB file on a 8 GB laptop imports; a 200 GB file does not — you’d need different tools. File size is the first thing to check <em>before</em> importing, which is exactly where next week begins.</p>
+<p><strong>Why it matters (3 min):</strong> R holds data <strong>in memory</strong> — the orange bar, not the red one. A 2 GB file on an 8 GB laptop imports (barely); a 200 GB file does not — you’d need different tools (a database, or a bigger machine). File size is the first thing to check <em>before</em> importing, which is exactly where next week begins.</p>
 <blockquote class="blockquote">
-<p><em>Q6. Your laptop has 8 GB of memory. Roughly how many copies of a 500 MB dataset could fit at once (ignore overhead)? ____</em></p>
+<p><em>Q6. Your laptop has 8 GB of memory. Roughly how many copies of a 500 MB dataset could fit at once (ignore overhead)? ____ How many hours of HD video is that? ____</em></p>
 </blockquote>
 <blockquote class="blockquote">
-<p><em>YT5 (3 min). ➕ Insert a chunk. Run <code>object.size(iris)</code> and then <code>object.size(iris$Sepal.Length)</code>. Roughly what fraction of the whole is one column? Does that match “1 of 5 columns”? One sentence on why or why not.</em></p>
+<p><em>YT5 (2 min). ➕ Insert a chunk. Run <code>object.size(iris)</code> and then <code>object.size(iris$Sepal.Length)</code>. Roughly what fraction of the whole is one column? Does that match “1 of 5 columns”? One sentence on why or why not.</em></p>
 </blockquote>
 <!-- ➕ insert a chunk here -->
+<div class="vspace" style="height:1.5rem" aria-hidden="true"></div>
 </section>
 <section id="where-this-is-going-5-min-watch" class="level2">
-<h2 class="anchored" data-anchor-id="where-this-is-going-5-min-watch">4 · Where this is going (5 min — watch)</h2>
-<p>Instructor runs one <strong>complete ETV cycle live</strong>, start to finish, no pauses: import a CSV → transform → plot. Every function you just learned appears in the first thirty seconds. Monday, you drive.</p>
+<h2 class="anchored" data-anchor-id="where-this-is-going-5-min-watch">5 · Where this is going (5 min — watch)</h2>
+<p>Instructor runs one <strong>complete ETV cycle live</strong>, start to finish, no pauses: import a CSV → transform → plot. Every function you just learned appears in the first thirty seconds — and every line is joined by <code>|&gt;</code>. Monday, you drive.</p>
 </section>
-<section id="exit-question-8-min" class="level2">
-<h2 class="anchored" data-anchor-id="exit-question-8-min">5 · Exit question (8 min)</h2>
+<section id="exit-question-5-min" class="level2">
+<h2 class="anchored" data-anchor-id="exit-question-5-min">6 · Exit question (5 min)</h2>
 <blockquote class="blockquote">
-<p><em>You’re handed <code>mysterydata</code>, a data frame you’ve never seen. Write the three lines you’d run FIRST, in order, and say what each tells you. Then write ONE more line that pulls out a single column named <code>score</code> as a vector.</em></p>
+<p><em>You’re handed <code>mysterydata</code>, a data frame you’ve never seen. Write the three lines you’d run FIRST, in order, and say what each tells you. Then write ONE pipe that takes the column <code>score</code>, removes NAs from its mean, and rounds to one decimal.</em></p>
 </blockquote>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your three inspection lines:</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># your one access line:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your three inspection lines:</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># your one pipe:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <blockquote class="blockquote">
 <p><em>Your explanation:</em></p>

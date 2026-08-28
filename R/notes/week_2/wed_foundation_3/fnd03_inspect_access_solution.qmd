@@ -16,16 +16,15 @@ execute:
 <!--
 CLO ALIGNMENT
   CLO 1 (1.6 containers in use · 1.12 storage magnitudes, object.size/file.size)
-  CLO 1 accessing: $, [ ], [[ ]]
+  CLO 1 accessing: $, [ ], [[ ]]  (kept light — the tidyverse verbs take over Monday)
   CLO 7 (7.6 is.na in practice)
   CLO 9 practiced: you insert your own chunks (➕)
 Time: 80 min. Datasets: airquality, iris, mtcars (built in).
-Timing: job 2' · inspecting 22' · accessing 33' · storage 10' · ETV preview 5'
-        · exit 8' = 80'
-Checkpoint: §2 starts at 24'. If behind, cut YT5 and shorten YT4 to (a)–(c).
+Timing: job 2' · inspecting 20' · accessing 20' · the pipe 15' · storage 13'
+        · ETV preview 5' · exit 5' = 80'
+Checkpoint: §3 (the pipe) starts by 42'. If behind, cut YT3(c) and YT5.
+Packages: tibble only (glimpse()). The pipe |> is base R — no package needed.
 Ends with a 5-minute live preview of a full ETV cycle — where all of this is going.
-The ETV preview closes foundations: run Cycle-0-style coffee import→plot live,
-narrating nothing but the three stage names. Monday they drive C1.
 LM = learning moment. YT = your turn. Times in headers are the section budget.
 -->
 
@@ -33,12 +32,13 @@ LM = learning moment. YT = your turn. Times in headers are the section budget.
 
 ```{r}
 #| label: setup
-library(tidyverse)
+library(tibble)   # for glimpse(). The pipe |> is built into R — nothing to load.
 ```
 
 ::: {.callout-warning title="Timing & checkpoints"}
-- **Budget:** job 2′ · inspecting 22′ · accessing 33′ · storage 10′ · ETV preview 5′ · exit 8′ = **80′**
-- **Checkpoint:** §2 starts at **24′** — if behind, cut YT5 and shorten YT4 to (a)–(c)
+- **Budget:** job 2′ · inspecting 20′ · accessing 20′ · the pipe 15′ · storage 13′ · ETV preview 5′ · exit 5′ = **80′**
+- **Checkpoint:** §3 (the pipe) starts by **42′** — if behind, cut YT3(c) and YT5
+- `$` / `[ ]` are deliberately lighter than before: enough to read code and grab a column, not a drill. The pipe and "how big is data" got the time instead
 - The ETV preview closes foundations: run a Cycle-0-style coffee import → plot live, narrating nothing but the three stage names — Monday they drive C1
 :::
 
@@ -46,10 +46,13 @@ library(tidyverse)
 
 You get handed a dataset. Before any analysis, you must answer three
 questions: **What is this? How big is it? What's inside?** Today is those
-three questions, as functions — and then, once you know what's inside,
-how to *reach in and take a piece*.
+three questions, as functions — then how to *reach in and take a piece* —
+and then the one symbol that will carry every line of code you write for
+the rest of the quarter.
 
-# 1 · Inspecting data [22 min]{.timing}
+{{< vspace 1.5rem >}}
+
+# 1 · Inspecting data [20 min]{.timing}
 
 We'll interrogate `airquality` — 1973 New York air measurements, built in.
 
@@ -76,7 +79,7 @@ ncol(airquality)
 - The observation question matters more than the numbers — every dataset this term starts with "what is a row?"
 :::
 
-**LM2 — names and structure (5 min).**
+**LM2 — names and structure (4 min).**
 
 ```{r}
 # LM2
@@ -90,15 +93,16 @@ glimpse(airquality)
 >
 > *Your answer:* `glimpse()` — one line per variable, and it fits any window
 > width. The `int` / `<int>` tags are the **data types from Monday**: every
-> column here is stored as integers (a `dbl` would mean doubles/decimals).
+> column here is stored as integers (a `dbl` would mean doubles/decimals) —
+> all quantitative, even though Month is really a category.
 
 ::: {.callout-tip title="Q2 model answer"}
 - [Q2]{.q} `glimpse()` is easier — one line per variable, fits any width
-- The tags are the **types from Monday**: `int` integers, `dbl` doubles
-- Point made: Monday's vocabulary is now reading equipment
+- The tags are the **types from Monday**: `int` integers, `dbl` doubles, `chr` character, `fct` factor
+- Point made: Monday's vocabulary is now reading equipment. Ask which *family* each column is — Month is stored quantitative but *means* categorical (Monday's item E)
 :::
 
-**LM3 — the numeric overview (4 min).**
+**LM3 — the numeric overview (3 min).**
 
 ```{r}
 # LM3
@@ -151,9 +155,12 @@ summary(mtcars)
 - Teaching note: the point of YT1 is that they choose the functions themselves — don't prescribe which
 :::
 
-# 2 · Accessing data [33 min]{.timing}
+{{< vspace 1.5rem >}}
 
-Three tools, three jobs:
+# 2 · Accessing data — just enough [20 min]{.timing}
+
+Three tools, three jobs. You need to *read* all three; you'll *write* mostly
+the first one:
 
 | Tool | Job | Returns |
 |---|---|---|
@@ -173,7 +180,7 @@ mean(airquality$Temp)
 - **77.88°F**
 :::
 
-> *YT2 (4 min). ➕ Insert a chunk. Using `$`, find:*
+> *YT2 (5 min). ➕ Insert a chunk. Using `$`, find:*
 > *(a) the mean of Wind;*
 > *(b) the max Temp;*
 > *(c) the mean of Ozone — it comes back `NA`. Fix it with the argument you
@@ -202,128 +209,162 @@ sum(airquality$Temp > 90)
 - **(d)** **14 days** — the first *logical vector doing arithmetic* (TRUE = 1); say it once, it returns with `filter()` Monday
 :::
 
-**LM5 — `[rows, columns]` (6 min).** Predict each before running:
+**LM5 — `[rows, columns]` and `[[ ]]`, in one pass (5 min).** Predict each
+before running. Square brackets take a *position or a name*; double brackets
+dig out *one thing*:
 
 ```{r}
 # LM5: predict, then run
-airquality[1, ]        # first row, all columns
-airquality[, 4]        # all rows, 4th column
-airquality[1:5, c("Ozone", "Temp")]
+airquality[1, ]                        # first row, all columns
+airquality[1:5, c("Ozone", "Temp")]    # a rectangle
+airquality[[1, "Temp"]]                # one cell, dug out
+
+# the same three tools on a list (Monday's junk drawer):
+my_list <- list(nums = c(1, 2, 3), word = "hello")
+my_list$word
+my_list[["nums"]]
 ```
 
-::: {.callout-important title="LM5 — predictions worth pausing on"}
-- [LM5]{.lm} `airquality[, 4]` returns a *vector* — a single column drops the frame in base R
-- Don't belabor it; Q4 lands it
+> *Q4. `airquality$Temp` and `airquality[["Temp"]]` give the same vector.
+> `airquality["Temp"]` does not — what is it instead? A one-column data
+> frame (the printed column header gives it away).*
+
+::: {.callout-tip title="Q4 answer — rule of thumb, and stop there"}
+- [Q4]{.q} `airquality["Temp"]` is still a **data frame** (one column); `$` and `[[ ]]` return the bare vector
+- Rule of thumb to leave them with, and *no more than this today*:
+  - `$` → a column you'll compute on (90% of what you'll write)
+  - `[rows, cols]` → a rectangle (you'll read it in other people's code; Monday `filter()`/`select()` replace it)
+  - `[[ ]]` → dig one thing out of a container (lists, week 8)
+- Deeper indexing rules are drill material, not lecture material
 :::
 
-> *YT3 (5 min). ➕ Insert a chunk. Write ONE line for each:*
-> *(a) rows 10 through 15 of ONLY the Month and Day columns;*
-> *(b) the last row of airquality (use `nrow()` inside the brackets — no
-> hard-coded 153);*
-> *(c) rows 1–3, columns 1–3, by position;*
-> *(d) all rows of the Temp column, but as a data frame not a vector (hint:
-> leave out the comma).*
+> *YT3 (5 min). ➕ Insert a chunk. Switch to `iris`. Write ONE line for each:*
+> *(a) the Species column as a vector — how long is it?*
+> *(b) rows 51–53, all columns — what species are they?*
+> *(c) the last row of iris (use `nrow()` inside the brackets — no
+> hard-coded 150).*
 
 <!-- ➕ insert a chunk here -->
 
 ```{r}
 # YT3
-airquality[10:15, c("Month", "Day")]       # (a)
-airquality[nrow(airquality), ]             # (b)
-airquality[1:3, 1:3]                       # (c)
-head(airquality["Temp"])                   # (d) — head() only to keep the output short
+length(iris$Species)          # (a) 150
+iris[51:53, ]                 # (b) versicolor
+iris[nrow(iris), ]            # (c) row 150 — virginica
 ```
 
 ::: {.callout-tip title="YT3 notes"}
-- [YT3]{.yt} **(b)** is the one to check: `nrow()` *inside* the bracket — ask "what if tomorrow the file has 200 rows?" — that's why we don't type 153
-- **(d)** previews Q4: no comma → column selection → still a data frame
+- [YT3]{.yt} **(a)** 150 · **(b)** versicolor · **(c)** row 150, virginica
+- **(c)** is the one to check: `nrow()` *inside* the bracket — ask "what if tomorrow the file has 200 rows?" — that's why we don't type 150
 :::
 
-**LM6 — `[[ ]]`, digging one thing out (4 min).**
+{{< vspace 1.5rem >}}
 
-```{r}
-# LM6: single element — row 1's Temp
-airquality[[1, "Temp"]]
+# 3 · The pipe `|>` — the symbol you'll type more than any other [15 min]{.timing}
 
-# and on a list:
-my_list <- list(nums = c(1, 2, 3), word = "hello")
-my_list[["nums"]]
-my_list$word
-```
-
-**LM7 — the comparison (4 min).** Run all three; look closely at what each
-returns:
-
-```{r}
-# LM7: three ways at the same column
-head(airquality$Temp)          # vector
-head(airquality["Temp"])       # still a data frame (note the header!)
-head(airquality[["Temp"]])     # vector again
-```
-
-> *Q4. Which of the three kept the data frame wrapping? The middle one —
-> `airquality["Temp"]` (the printed column header gives it away).*
-
-::: {.callout-tip title="Q4 answer — rule of thumb"}
-- [Q4]{.q} **the middle one — `airquality["Temp"]`** keeps the data frame wrapping (the printed header gives it away)
-- Rule of thumb to leave them with:
-  - `$` → a column you'll compute on
-  - `[rows, cols]` → a rectangle
-  - `[[ ]]` → dig one thing out of a container
-- Deeper indexing rules are drill material (M4), not lecture material
+::: {.callout-important title="Read this one out loud"}
+**`|>` means "and then."** Take the thing on the left, hand it to the function
+on the right. That's it. Everything from Monday on — every ETV cycle, every
+plot, every summary — is a chain of *and then*s.
 :::
 
-**LM8 — missing values, located (2 min).**
+**LM6 — the same code, two ways (5 min).** Question: *on average, how warm
+were the July days?* Without the pipe, you read this **inside-out**, from the
+deepest parentheses to the outermost:
 
 ```{r}
-# LM8: WHICH rows are missing Ozone?
-which(is.na(airquality$Ozone)) |> head()
+# LM6a: nested — read from the INSIDE out
+round(mean(airquality$Temp[airquality$Month == 7]), 1)
 ```
 
-::: {.callout-note title="Expected — first |> sighting"}
+With the pipe, you read it **top-to-bottom, like a recipe**:
+
+```{r}
+# LM6b: piped — read "and then", top to bottom
+airquality$Temp[airquality$Month == 7] |>
+  mean() |>
+  round(1)
+```
+
+Same answer, 83.9°F. But the second one you can *say*: "take July's
+temperatures, **and then** average them, **and then** round to one decimal."
+
+::: {.callout-note title="How the pipe works — the one rule"}
+- `x |> f()` is exactly `f(x)`. The left side becomes the **first argument** of the function on the right
+- `x |> f(y)` is `f(x, y)` — extra arguments go where they always did
+- So `airquality$Temp |> mean(na.rm = TRUE)` is `mean(airquality$Temp, na.rm = TRUE)`
+- Keyboard: **Cmd/Ctrl + Shift + M** types `|>` for you in Positron (if it types `%>%`, that's the older tidyverse pipe — same idea; set the *native pipe* option in Positron's settings)
+- Style: one step per line, indent the continuation. Your eye follows the recipe
+:::
+
+**LM7 — a real chain (4 min).** Which days are missing Ozone? Read each
+line as "and then":
+
+```{r}
+# LM7: WHICH rows are missing Ozone? — read it as a sentence
+airquality$Ozone |>
+  is.na() |>
+  which() |>
+  head()
+```
+
+::: {.callout-note title="Expected — LM7"}
 - **rows 5, 10, 25, 26, 27, 32**
-- Name the pipe ("read it as *then*"), promise it becomes the backbone Monday, move on
+- Have a student read the chain aloud: "take Ozone, and then flag the NAs, and then find their positions, and then show the first six." If they can say it, they can write it
+- The nested version is `head(which(is.na(airquality$Ozone)))` — put it on the projector next to the pipe. Nobody prefers the nested one
 :::
 
-> *YT4 — access challenge (7 min). ➕ Insert a chunk. Switch to `iris`.*
-> *(a) the Species column, as a vector — how long is it?*
-> *(b) rows 51–53, all columns — what species are they?*
-> *(c) the single value in row 100, column Petal.Width;*
-> *(d) the mean Sepal.Length of ONLY the first 50 rows (setosa);*
-> *(e) build `my_list2 <- list(flowers = iris, n = nrow(iris))` and pull `n`
-> back out with `[[ ]]`, then with `$`. Same answer?*
-> *Stretch: which of the three tools did you use most? Why?*
+> *YT4 (6 min). ➕ Insert a chunk. Rewrite each nested line as a pipe, one
+> step per line, and confirm the answer doesn't change:*
+> *(a) `sqrt(mean(airquality$Wind))`*
+> *(b) `round(mean(airquality$Ozone, na.rm = TRUE), 2)`*
+> *(c) `length(unique(iris$Species))`*
+> *Then write ONE pipe of your own: three steps, any data, and a comment
+> reading it as a sentence.*
 
 <!-- ➕ insert a chunk here -->
 
 ```{r}
-# YT4 — access challenge on iris
-length(iris$Species)                       # (a) 150
-iris[51:53, ]                              # (b) versicolor
-iris[[100, "Petal.Width"]]                 # (c) 1.3
-mean(iris$Sepal.Length[1:50])              # (d) 5.006
-my_list2 <- list(flowers = iris, n = nrow(iris))
-my_list2[["n"]]                            # (e) 150
-my_list2$n                                 # (e) 150 — same
+# YT4
+airquality$Wind |> mean() |> sqrt()                    # (a) 3.156
+airquality$Ozone |> mean(na.rm = TRUE) |> round(2)     # (b) 42.13
+iris$Species |> unique() |> length()                   # (c) 3
+
+# my own: "take Temp, and then keep the values above 90, and then count them"
+airquality$Temp[airquality$Temp > 90] |> length()
 ```
 
-> *(a) 150 · (b) versicolor · (c) 1.3 · (d) 5.006 · (e) 150 both ways — same
-> answer. Stretch: `$`, by a lot — most questions are "give me this column by
-> name", which is exactly what `$` does.*
-
 ::: {.callout-tip title="YT4 notes"}
-- [YT4]{.yt} **(a)** 150 · **(b)** versicolor · **(c)** 1.3 · **(d)** 5.006 · **(e)** 150
-- **(d)** is the sneaky one — `$` then `[1:50]` on the *vector*
-- Some students write `mean(iris[1:50, "Sepal.Length"])` — also correct; show both on the projector, same answer, say the rule of thumb again
-- **Stretch:** `$` wins, by a lot — that's the honest answer and it's why the tidyverse is built around column names
+- [YT4]{.yt} **(a)** 3.156 · **(b)** 42.13 · **(c)** 3
+- **(b)** is the check: `na.rm = TRUE` stays *inside* `mean()` — the pipe only fills the first argument
+- The "own pipe" is the deliverable: walk the room, ask three students to read theirs aloud. Monday's `coffee |> filter(...) |> ggplot(...)` is the same grammar with better verbs
 :::
 
-# 3 · How big is data? [10 min]{.timing}
+{{< vspace 1.5rem >}}
 
-**LM9 — storage units (4 min).** Data size is measured in bytes:
-**byte → KB (thousand) → MB (million) → GB (billion) → TB (trillion)**.
-Rough anchors: this class's survey ≈ a few KB · a semester of sensor logs ≈
-MBs · a music library ≈ GBs · a national census extract ≈ TBs.
+# 4 · How big is data? [13 min]{.timing}
+
+**LM8 — the ladder (4 min).** Data size is measured in **bytes** — one byte
+is roughly one letter. Every step up the ladder multiplies by a thousand:
+
+![Each step is ×1,000. A byte is a letter; a kilobyte is a paragraph; a megabyte is a photo; a gigabyte is an hour of video; a terabyte is a whole laptop.](/assets/byte_ladder.svg){fig-alt="Ladder of storage units from byte to terabyte, each step ×1,000, with an everyday example on each step." width="100%"}
+
+**LM9 — where real things land (4 min).** The bars below are on a *log*
+scale — each gridline is another ×1,000. Notice where **your laptop's
+memory** sits, because that's the ceiling for what R can hold:
+
+![Real-world sizes on a log scale, from one letter to a national census. The orange "laptop memory" bar is the amount of data R can hold at once.](/assets/how_big_is_it.svg){fig-alt="Horizontal bar chart on a log scale showing sizes of everyday things: a text message (bytes), a survey CSV (KB), a song (MB), an hour of HD video (GB), a laptop's RAM (8–16 GB), a laptop drive (512 GB), and a census extract (1 TB)." width="100%"}
+
+| Unit | ≈ bytes | Something you own that's about that size |
+|---|---|---|
+| **byte** | 1 | one letter of a text message |
+| **kilobyte (KB)** | 1 thousand | a long email; this class's survey as a `.csv`; `airquality` (5.6 KB) |
+| **megabyte (MB)** | 1 million | one phone photo (3 MB); one song (4 MB); a year of CA crime data (~100 MB) |
+| **gigabyte (GB)** | 1 billion | an hour of HD Netflix (3 GB); your laptop's **memory** (8–16 GB) |
+| **terabyte (TB)** | 1 trillion | two of your laptop's drives; a full US census extract |
+| **petabyte (PB)** | 1 quadrillion | Netflix's entire catalog; the data behind a weather forecast |
+
+Now measure **our** objects:
 
 ```{r}
 # LM9: how big are OUR objects?
@@ -332,27 +373,30 @@ object.size(iris)
 object.size(mtcars)
 ```
 
-> *Q5. Order the three from smallest to largest: airquality (≈ 5.6 KB) <
-> mtcars (≈ 7.2 KB) < iris (≈ 7.8 KB)*
+> *Q5. Order the three from smallest to largest, and name the unit they're
+> in: airquality (≈ 5.6 KB) < mtcars (≈ 7.2 KB) < iris (≈ 7.8 KB) — all
+> kilobytes, i.e. a few paragraphs each.*
 
-**Why it matters:** R holds data **in memory**. A 2 GB file on a 8 GB laptop
-imports; a 200 GB file does not — you'd need different tools. File size is
-the first thing to check *before* importing, which is exactly where next
-week begins.
+**Why it matters (3 min):** R holds data **in memory** — the orange bar, not
+the red one. A 2 GB file on an 8 GB laptop imports (barely); a 200 GB file
+does not — you'd need different tools (a database, or a bigger machine). File
+size is the first thing to check *before* importing, which is exactly where
+next week begins.
 
 > *Q6. Your laptop has 8 GB of memory. Roughly how many copies of a 500 MB
 > dataset could fit at once (ignore overhead)? About 16 — 8 GB ≈ 8,000 MB,
-> and 8,000 / 500 = 16.*
+> and 8,000 / 500 = 16. How many hours of HD video is that? Not even three.*
 
 ::: {.callout-tip title="Q5 & Q6 answers"}
-- [Q5]{.q} actually run it: airquality ≈ 5.6 KB, mtcars ≈ 7.2 KB, iris ≈ 7.8 KB → **airquality < mtcars < iris**
+- [Q5]{.q} actually run it: airquality ≈ 5.6 KB, mtcars ≈ 7.2 KB, iris ≈ 7.8 KB → **airquality < mtcars < iris**, all in KB
   - mtcars is small in rows but its row *names* cost bytes — a fun 20-second aside if asked; otherwise just confirm the order
-- [Q6]{.q} **about 16 copies** — 8 GB ≈ 8,000 MB; 8,000 / 500 = 16
-  - honest version: overhead means fewer in practice
+- [Q6]{.q} **about 16 copies** — 8 GB ≈ 8,000 MB; 8,000 / 500 = 16; that whole 8 GB is under three hours of HD video
+  - honest version: overhead means fewer in practice; R also copies objects when you modify them
   - the point is *order-of-magnitude* reasoning, which is sub-outcome 1.12's whole job
+- Land the contrast: their **phone camera roll** (tens of GB) is bigger than any dataset they'll open in this course — data science files are not the big files in their life
 :::
 
-> *YT5 (3 min). ➕ Insert a chunk. Run `object.size(iris)` and then
+> *YT5 (2 min). ➕ Insert a chunk. Run `object.size(iris)` and then
 > `object.size(iris$Sepal.Length)`. Roughly what fraction of the whole is
 > one column? Does that match "1 of 5 columns"? One sentence on why or why
 > not.*
@@ -376,24 +420,27 @@ object.size(iris$Sepal.Length)
 - Full credit: any answer noticing "less than 1/5, because the container itself costs something"
 :::
 
-# 4 · Where this is going [5 min — watch]{.timing}
+{{< vspace 1.5rem >}}
+
+# 5 · Where this is going [5 min — watch]{.timing}
 
 Instructor runs one **complete ETV cycle live**, start to finish, no pauses:
 import a CSV → transform → plot. Every function you just learned appears in
-the first thirty seconds. Monday, you drive.
+the first thirty seconds — and every line is joined by `|>`. Monday, you
+drive.
 
 ::: {.callout-important title="Teaching note — the ETV preview"}
 - Run the coffee import → `filter` → histogram in under three minutes
-- Say only: *"Extraction. Transformation. Visualization. Monday, this is yours."*
+- Say only: *"Extraction. Transformation. Visualization. Monday, this is yours."* — and point at each `|>` as you go: "and then"
 - No function explanations — the mystique is the motivation
 :::
 
-# 5 · Exit question [8 min]{.timing}
+# 6 · Exit question [5 min]{.timing}
 
 > *You're handed `mysterydata`, a data frame you've never seen. Write the
 > three lines you'd run FIRST, in order, and say what each tells you. Then
-> write ONE more line that pulls out a single column named `score` as a
-> vector.*
+> write ONE pipe that takes the column `score`, removes NAs from its mean,
+> and rounds to one decimal.*
 
 ```{r}
 #| eval: false
@@ -402,17 +449,18 @@ glimpse(mysterydata)      # structure: rows, columns, names, types
 summary(mysterydata)      # ranges + WHERE the NAs are
 head(mysterydata)         # what the values actually look like
 
-# your one access line:
-mysterydata$score         # one column, as a vector
+# your one pipe:
+mysterydata$score |>
+  mean(na.rm = TRUE) |>
+  round(1)
 ```
 
 > *Your explanation:* `glimpse()` first tells me the shape (rows, columns),
 > the names, and the type of every column. `summary()` then gives the range
 > of each numeric column and, crucially, where the `NA`s are. `head()` shows
 > what the values actually look like so I can sanity-check the types. Then
-> `mysterydata$score` pulls the one column out as a vector (so would
-> `mysterydata[["score"]]`; `mysterydata["score"]` would still be a data
-> frame).
+> the pipe reads "take score, and then average it ignoring NAs, and then
+> round to one decimal."
 
 ::: {.callout-tip title="Model answer"}
 ```{r}
@@ -421,12 +469,12 @@ glimpse(mysterydata)      # structure: rows, columns, names, types
 summary(mysterydata)      # ranges + WHERE the NAs are
 head(mysterydata)         # what the values actually look like
 
-mysterydata$score         # one column, as a vector
+mysterydata$score |> mean(na.rm = TRUE) |> round(1)
 ```
 
 - Passes: any three of {`glimpse`/`str`, `summary`, `head`/`tail`, `dim`/`nrow`+`ncol`, `names`} with correct one-line justifications
-- The access line must be `$score` or `[["score"]]` (a vector) — `["score"]` is a data frame: half credit with the explanation
-- The habit being graded: **inspect before you compute** — the E stage's second half, forever
+- The pipe must start from `mysterydata$score` (or `[["score"]]`) and keep `na.rm = TRUE` *inside* `mean()`; `mysterydata["score"]` is a data frame — half credit with the explanation
+- The habits being graded: **inspect before you compute**, and **write it as a recipe**
 :::
 
 Save as `fnd03_yourlastname.qmd` in your `R/` folder and **Render**.

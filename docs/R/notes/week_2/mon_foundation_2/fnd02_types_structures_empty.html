@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-3419c12d2d41a837959b2e6a2ea9a81c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../../site_libs/bootstrap/bootstrap-5c77d48b288134329f54619843bf6bbd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-2f657f143ef641edc334cc154b352bb9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -370,9 +370,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#the-one-distinction-and-your-own-chunks-8-min" id="toc-the-one-distinction-and-your-own-chunks-8-min" class="nav-link active" data-scroll-target="#the-one-distinction-and-your-own-chunks-8-min">0 · The one distinction, and your own chunks (8 min)</a></li>
-  <li><a href="#data-types-22-min" id="toc-data-types-22-min" class="nav-link" data-scroll-target="#data-types-22-min">1 · Data types (22 min)</a></li>
-  <li><a href="#data-structures-30-min" id="toc-data-structures-30-min" class="nav-link" data-scroll-target="#data-structures-30-min">2 · Data structures (30 min)</a></li>
+  <li><a href="#the-one-distinction-4-min" id="toc-the-one-distinction-4-min" class="nav-link active" data-scroll-target="#the-one-distinction-4-min">0 · The one distinction (4 min)</a></li>
+  <li><a href="#data-types-30-min" id="toc-data-types-30-min" class="nav-link" data-scroll-target="#data-types-30-min">1 · Data types (30 min)</a></li>
+  <li><a href="#data-structures-26-min" id="toc-data-structures-26-min" class="nav-link" data-scroll-target="#data-structures-26-min">2 · Data structures (26 min)</a></li>
   <li><a href="#in-class-activity-type-it-or-contain-it-15-min" id="toc-in-class-activity-type-it-or-contain-it-15-min" class="nav-link" data-scroll-target="#in-class-activity-type-it-or-contain-it-15-min">3 · In-class activity: type it or contain it (15 min)</a></li>
   <li><a href="#exit-question-5-min" id="toc-exit-question-5-min" class="nav-link" data-scroll-target="#exit-question-5-min">4 · Exit question (5 min)</a></li>
   </ul>
@@ -412,49 +412,99 @@ CLO ALIGNMENT
   CLO 1 (1.5 data types: numeric/character/factor/date · 1.6 containers:
          vector, data frame/tibble, list, matrix · 1.4 assignment reinforced)
   CLO 7 preview (7.6 is.na())
-  CLO 9 practiced: students INSERT THEIR OWN CHUNKS today
-Time: 80 min. Datasets: iris, airquality (built in) + tiny constructed examples.
+  CLO 9 practiced: you insert your own chunks (taught in Foundations 01)
+Time: 80 min. Datasets: tiny Cal Poly examples built in class + iris, airquality.
 Rule of the day: a TYPE is what one value is; a STRUCTURE is how values are held.
+Packages: ONLY tibble today. We load what the lesson needs, not the whole tidyverse.
 LM = learning moment. YT = your turn. Times in headers are the section budget.
 -->
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)   <span class="co"># today we need tibble() and tribble() — that's it</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="the-one-distinction-and-your-own-chunks-8-min" class="level2">
-<h2 class="anchored" data-anchor-id="the-one-distinction-and-your-own-chunks-8-min">0 · The one distinction, and your own chunks (8 min)</h2>
+<section id="the-one-distinction-4-min" class="level2">
+<h2 class="anchored" data-anchor-id="the-one-distinction-4-min">0 · The one distinction (4 min)</h2>
 <blockquote class="blockquote">
 <p><strong>Type</strong> = what a single value <em>is</em> (number? text? TRUE/FALSE?). <strong>Structure</strong> = the container holding many values (vector? data frame? list?).</p>
 </blockquote>
 <p>Everything today hangs off that sentence.</p>
-<p><strong>New skill today: you make the chunks.</strong> Last week every chunk was provided. From now on, when you see <strong>“➕ insert a chunk”</strong>, you create one yourself. Three ways — pick one and practice it until it’s automatic:</p>
-<ol type="1">
-<li>Keyboard: <strong>Cmd + Shift + I</strong> (Mac) / <strong>Ctrl + Shift + I</strong> (Windows).</li>
-<li>Command Palette (Cmd/Ctrl + Shift + P) → type <em>Quarto: Insert Code Cell</em>.</li>
-<li>Type it by hand: a line with <code>```{r}</code>, your code, then a line with <code>```</code>.</li>
-</ol>
-<blockquote class="blockquote">
-<p><em>YT0 (3 min). Directly below this line, insert a chunk. Inside it, write a comment <code># YT0</code> and the line <code>1 + 1</code>. Run it. If output appears under your chunk, you’re ready.</em></p>
-</blockquote>
-<!-- ➕ insert a chunk here -->
+<p>You already know how to insert a chunk (<strong>Cmd/Ctrl + Shift + I</strong>, from last week). Whenever you see <strong>“➕ insert a chunk”</strong>, make one — every YT today depends on it.</p>
+<div class="vspace" style="height:1.5rem" aria-hidden="true"></div>
 </section>
-<section id="data-types-22-min" class="level2">
-<h2 class="anchored" data-anchor-id="data-types-22-min">1 · Data types (22 min)</h2>
-<p><strong>LM1 — the four you’ll live with (4 min).</strong> Predict each <code>class()</code> before running:</p>
+<section id="data-types-30-min" class="level2">
+<h2 class="anchored" data-anchor-id="data-types-30-min">1 · Data types (30 min)</h2>
+<section id="the-types-defined-first-before-any-code-5-min" class="level3">
+<h3 class="anchored" data-anchor-id="the-types-defined-first-before-any-code-5-min">1.1 · The types, defined first (before any code) (5 min)</h3>
+<p>Every single value in R has a <strong>type</strong>. Here are the ones you’ll live with, each with a Cal Poly example:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>What it is</th>
+<th>Example value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>numeric</strong> (double)</td>
+<td>a number that can have decimals</td>
+<td><code>4.75</code> — a latte at Julian’s</td>
+</tr>
+<tr class="even">
+<td><strong>integer</strong></td>
+<td>a whole number (written with an <code>L</code>)</td>
+<td><code>38L</code> — people in the Rec Center at 7 am</td>
+</tr>
+<tr class="odd">
+<td><strong>character</strong></td>
+<td>text, in quotes</td>
+<td><code>"Scout Coffee"</code></td>
+</tr>
+<tr class="even">
+<td><strong>logical</strong></td>
+<td><code>TRUE</code> or <code>FALSE</code></td>
+<td><code>TRUE</code> — the drink is iced</td>
+</tr>
+<tr class="odd">
+<td><strong>factor</strong></td>
+<td>text from a <em>fixed menu</em> of allowed values</td>
+<td><code>"morning"</code> from {morning, afternoon, evening}</td>
+</tr>
+<tr class="even">
+<td><strong>Date</strong> / <strong>date-time</strong></td>
+<td>a calendar date; a date <em>and</em> clock time</td>
+<td><code>2026-09-22</code> / <code>2026-09-22 07:00:00</code></td>
+</tr>
+<tr class="odd">
+<td><strong>NA</strong></td>
+<td>a missing value — a hole, not a type of its own</td>
+<td>the headcount nobody recorded</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="finding-the-type-with-class-7-min" class="level3">
+<h3 class="anchored" data-anchor-id="finding-the-type-with-class-7-min">1.2 · Finding the type with <code>class()</code> (7 min)</h3>
+<p><strong>LM1 — <code>class()</code> tells you the type (4 min).</strong> Predict each <code>class()</code> from the table above, <em>then</em> run:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM1: predict, then run</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fl">4.75</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM1: predict from the table, then run</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fl">4.75</span>)            <span class="co"># Julian's latte</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="dv">4</span>L)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="dv">38</span>L)             <span class="co"># people in the Rec Center at 7 am</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "integer"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="st">"latte"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="st">"Scout Coffee"</span>)  <span class="co"># where the latte came from</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "character"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="cn">TRUE</span>)            <span class="co"># iced?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "logical"</code></pre>
 </div>
@@ -462,154 +512,226 @@ LM = learning moment. YT = your turn. Times in headers are the section budget.
 <blockquote class="blockquote">
 <p><em>Q1. Predictions: ____ · ____ · ____ · ____</em></p>
 </blockquote>
-<p><strong>LM2 — doubles vs integers (2 min).</strong> Both are numeric; <code>typeof()</code> tells them apart.</p>
+<p><strong>LM2 — doubles vs integers (1 min).</strong> Both are numeric; <code>typeof()</code> tells them apart.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM2</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fl">4.75</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "double"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="dv">4</span>L)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="dv">38</span>L)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "integer"</code></pre>
 </div>
 </div>
-<p><strong>LM3 — factors (4 min).</strong> A factor is text with a fixed menu of allowed values (levels). <code>iris$Species</code> is built in:</p>
+<p><strong>LM3 — dates and date-times (2 min).</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM3: character vs factor</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(iris<span class="sc">$</span>Species)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "factor"</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(iris<span class="sc">$</span>Species)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "setosa"     "versicolor" "virginica" </code></pre>
-</div>
-</div>
-<blockquote class="blockquote">
-<p><em>Q2. How many levels does Species have, and what are they?</em></p>
-<p><em>Your answer:</em></p>
-</blockquote>
-<p><strong>LM4 — dates and date-times (2 min).</strong></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM4</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>today <span class="ot">&lt;-</span> <span class="fu">Sys.Date</span>()</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(today)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM3</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>today <span class="ot">&lt;-</span> <span class="fu">Sys.Date</span>()</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(today)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Date"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>right_now <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(right_now)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>right_now <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(right_now)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "POSIXct" "POSIXt" </code></pre>
 </div>
 </div>
-<p><strong>LM5 — NA, the missing value (3 min).</strong> <code>airquality</code> (built in) has real missing ozone readings:</p>
+</section>
+<section id="three-families-quantitative-categorical-other-6-min" class="level3">
+<h3 class="anchored" data-anchor-id="three-families-quantitative-categorical-other-6-min">1.3 · Three families: quantitative, categorical, other (6 min)</h3>
+<p>R’s types sort into three families you’ll use to pick plots and summaries all term:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Question it answers</th>
+<th>R types</th>
+<th>Cal Poly examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Quantitative</strong></td>
+<td><em>how much? how many?</em> — you can average it</td>
+<td>numeric, integer</td>
+<td>latte price (<code>4.75</code>), Rec Center headcount (<code>38</code>), miles from campus (<code>2.3</code>)</td>
+</tr>
+<tr class="even">
+<td><strong>Categorical</strong></td>
+<td><em>which kind? which group?</em> — you count it</td>
+<td>character, factor, logical</td>
+<td>coffee shop (<code>"Julian's"</code>, <code>"Starbucks"</code>, <code>"Scout"</code>), time slot (<code>"morning"</code>), iced (<code>TRUE</code>)</td>
+</tr>
+<tr class="odd">
+<td><strong>Other</strong> (time/date)</td>
+<td><em>when?</em> — ordered, but not a plain number</td>
+<td>Date, date-time</td>
+<td>the day you bought the latte, the clock time you swiped into the Rec</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><em>Q2. Which family: (a) the number of people in the Rec Center at 5 pm · (b) the shop that made your latte · (c) the date of the game vs.&nbsp;UCSB · (d) whether you bought a latte today (yes/no)?</em></p>
+<p><em>Your answer:</em> (a) ____ · (b) ____ · (c) ____ · (d) ____</p>
+</blockquote>
+<p><strong>A small distinction — “string” vs “character”.</strong> Other languages call text a <em>string</em>. R calls the <em>type</em> <strong>character</strong>, and one piece of text (<code>"Scout Coffee"</code>) is a <strong>string</strong> — a character value of length one. So <code>"latte"</code> is a string, its class is character, and <code>c("latte", "mocha")</code> is a character <em>vector</em> of two strings. You’ll hear both words; they are not in conflict.</p>
+</section>
+<section id="factors-vs-characters-why-it-matters-6-min" class="level3">
+<h3 class="anchored" data-anchor-id="factors-vs-characters-why-it-matters-6-min">1.4 · Factors vs characters — why it matters (6 min)</h3>
+<p><strong>LM4 — the same text, two types (4 min).</strong> Rec Center headcounts come with a time slot. As character, the slots are just words; as a <strong>factor</strong>, they come with a fixed menu of allowed values (<strong>levels</strong>) <em>in an order you choose</em>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM5: count the missing values in Ozone</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(airquality<span class="sc">$</span>Ozone))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM4: character vs factor</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>slot_chr <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"evening"</span>, <span class="st">"morning"</span>, <span class="st">"afternoon"</span>, <span class="st">"morning"</span>, <span class="st">"evening"</span>, <span class="st">"evening"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>slot_fct <span class="ot">&lt;-</span> <span class="fu">factor</span>(slot_chr, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"morning"</span>, <span class="st">"afternoon"</span>, <span class="st">"evening"</span>))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(slot_chr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(slot_fct)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(slot_fct)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "morning"   "afternoon" "evening"  </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(slot_chr)   <span class="co"># alphabetical — afternoon first</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>slot_chr
+afternoon   evening   morning 
+        1         3         2 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(slot_fct)   <span class="co"># the order YOU chose — morning first</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>slot_fct
+  morning afternoon   evening 
+        2         1         3 </code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><em>Q3. How many levels does <code>slot_fct</code> have, and what order did we give them? Why would that order matter on a bar chart?</em></p>
+<p><em>Your answer:</em></p>
+</blockquote>
+<p><strong>LM5 — NA, the missing value (2 min).</strong> <code>airquality</code> (built in) has real missing ozone readings; <code>is.na()</code> finds them and <code>sum()</code> counts them:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM5: count the missing values in Ozone</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(airquality<span class="sc">$</span>Ozone))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 37</code></pre>
 </div>
 </div>
 <blockquote class="blockquote">
-<p><em>Q3. How many Ozone values are missing? ____</em></p>
+<p><em>Q4. How many Ozone values are missing? ____</em></p>
 </blockquote>
-<p><strong>LM6 — the is.* family (3 min).</strong> Test types with functions that return TRUE/FALSE:</p>
+<p><strong>LM6 — the is.* family (2 min).</strong> Test types with functions that return TRUE/FALSE:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM6: fill each blank so all four return TRUE, then delete the eval line</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(____)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">is.character</span>(____)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">is.logical</span>(____)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">is.factor</span>(____)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM6: fill each blank so all four return TRUE, then delete the eval line</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(____)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">is.character</span>(____)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">is.logical</span>(____)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">is.factor</span>(____)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <blockquote class="blockquote">
-<p><em>YT1 (4 min). ➕ Insert a chunk below. In it, find the <code>class()</code> of each of the following, predicting first: <code>"TRUE"</code> (with quotes) · <code>3 &gt; 2</code> · <code>mtcars$cyl</code> · <code>Sys.Date() + 7</code>. Then in the comment, write which one surprised you.</em></p>
+<p><em>YT1 (4 min). ➕ Insert a chunk below. In it, find the <code>class()</code> of each of the following, predicting first: <code>"TRUE"</code> (with quotes) · <code>4.75 &gt; 4.25</code> · <code>mtcars$cyl</code> · <code>Sys.Date() + 7</code>. Then in the comment, write which one surprised you.</em></p>
 </blockquote>
 <!-- ➕ insert a chunk here -->
 <blockquote class="blockquote">
 <p><em>Predictions: ____ · ____ · ____ · ____</em></p>
 </blockquote>
+<div class="vspace" style="height:1.5rem" aria-hidden="true"></div>
 </section>
-<section id="data-structures-30-min" class="level2">
-<h2 class="anchored" data-anchor-id="data-structures-30-min">2 · Data structures (30 min)</h2>
-<p><strong>LM7 — vector: one type, many values (4 min).</strong> Built with <code>c()</code>:</p>
+</section>
+<section id="data-structures-26-min" class="level2">
+<h2 class="anchored" data-anchor-id="data-structures-26-min">2 · Data structures (26 min)</h2>
+<p><strong>LM7 — vector: one type, many values (4 min).</strong> Built with <code>c()</code>. Three places to get a latte near campus:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM7: a vector</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>drinks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"latte"</span>, <span class="st">"drip"</span>, <span class="st">"mocha"</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>drinks</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM7: a vector</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>shops <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Julian's"</span>, <span class="st">"Starbucks"</span>, <span class="st">"Scout Coffee"</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>shops</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "latte" "drip"  "mocha"</code></pre>
+<pre><code>[1] "Julian's"     "Starbucks"    "Scout Coffee"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(drinks)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(shops)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(drinks)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(shops)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "character"</code></pre>
 </div>
 </div>
 <blockquote class="blockquote">
-<p><em>YT2 (4 min). ➕ Insert a chunk. Build THREE vectors and print each:</em> <em>(a) <code>prices</code> — three numbers, one price per drink above;</em> <em>(b) <code>sizes</code> — three sizes as text (“small”, “medium”, “large”);</em> <em>(c) <code>iced</code> — three TRUE/FALSE values, whether each drink is iced.</em> <em>Then run <code>class()</code> on each. What happens if you run <code>c(1, "two", 3)</code>? Try it and look at the class.</em></p>
+<p><em>YT2 (4 min). ➕ Insert a chunk. Build THREE vectors and print each:</em> <em>(a) <code>price</code> — what a latte costs at each shop above (Julian’s on campus, the Starbucks in the UU, Scout downtown — use real prices if you know them, e.g.&nbsp;4.75, 5.45, 5.95);</em> <em>(b) <code>size</code> — the size you’d order at each, as text (“small”, “medium”, “large”);</em> <em>(c) <code>iced</code> — three TRUE/FALSE values, whether you’d get it iced.</em> <em>Then run <code>class()</code> on each. What happens if you run <code>c(4.75, "five", 5.95)</code>? Try it and look at the class.</em></p>
 </blockquote>
 <!-- ➕ insert a chunk here -->
 <blockquote class="blockquote">
-<p><em>Q4. <code>c(1, "two", 3)</code> has class ____. In one phrase, why?</em></p>
+<p><em>Q5. <code>c(4.75, "five", 5.95)</code> has class ____. In one phrase, why?</em></p>
 <p><em>Your answer:</em></p>
 </blockquote>
 <p><strong>LM8 — data frame &amp; tibble: vectors standing side by side (6 min).</strong> Each column is a vector; every column has the same length.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM8: same data, two containers</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>menu_df  <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">drink =</span> drinks, <span class="at">price =</span> <span class="fu">c</span>(<span class="fl">4.75</span>, <span class="fl">2.75</span>, <span class="fl">5.25</span>))</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>menu_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">drink =</span> drinks, <span class="at">price =</span> <span class="fu">c</span>(<span class="fl">4.75</span>, <span class="fl">2.75</span>, <span class="fl">5.25</span>))</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>menu_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM8: same data, two containers</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>latte_df  <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">shop =</span> shops, <span class="at">price =</span> <span class="fu">c</span>(<span class="fl">4.75</span>, <span class="fl">5.45</span>, <span class="fl">5.95</span>))</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>latte_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">shop =</span> shops, <span class="at">price =</span> <span class="fu">c</span>(<span class="fl">4.75</span>, <span class="fl">5.45</span>, <span class="fl">5.95</span>))</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>latte_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["drink"],"name":[1],"type":["chr"],"align":["left"]},{"label":["price"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"latte","2":"4.75"},{"1":"drip","2":"2.75"},{"1":"mocha","2":"5.25"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["shop"],"name":[1],"type":["chr"],"align":["left"]},{"label":["price"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Julian's","2":"4.75"},{"1":"Starbucks","2":"5.45"},{"1":"Scout Coffee","2":"5.95"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>menu_tbl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>latte_tbl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["drink"],"name":[1],"type":["chr"],"align":["left"]},{"label":["price"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"latte","2":"4.75"},{"1":"drip","2":"2.75"},{"1":"mocha","2":"5.25"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["shop"],"name":[1],"type":["chr"],"align":["left"]},{"label":["price"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Julian's","2":"4.75"},{"1":"Starbucks","2":"5.45"},{"1":"Scout Coffee","2":"5.95"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
 <blockquote class="blockquote">
-<p><em>Q5. Name one visible difference between how the data frame and the tibble printed:</em></p>
+<p><em>Q6. Name one visible difference between how the data frame and the tibble printed:</em></p>
 <p><em>Your answer:</em></p>
 </blockquote>
 <blockquote class="blockquote">
-<p><em>YT3 (5 min). ➕ Insert a chunk. Build a tibble called <code>menu</code> from YOUR vectors from YT2 — columns <code>drink</code>, <code>price</code>, <code>size</code>, <code>iced</code>. Print it. Then run <code>nrow(menu)</code>, <code>ncol(menu)</code>, and <code>class(menu)</code>. What happens if one vector has only two values? Try it (make a broken one on purpose), read the error, then fix it.</em></p>
+<p><em>YT3 (5 min). ➕ Insert a chunk. Build a tibble called <code>lattes</code> from YOUR vectors from YT2 — columns <code>shop</code>, <code>price</code>, <code>size</code>, <code>iced</code>. Print it. Then run <code>nrow(lattes)</code>, <code>ncol(lattes)</code>, and <code>class(lattes)</code>. What happens if one vector has only two values? Try it (make a broken one on purpose), read the error, then fix it.</em></p>
 </blockquote>
 <!-- ➕ insert a chunk here -->
-<p><strong>LM9 — tribble: a tibble typed row by row (2 min)</strong> (brief — you’ll rarely need it):</p>
+<p><strong>LM9 — tribble: a tibble typed row by row, with a factor inside (3 min).</strong> Rec Center headcounts, three slots. Note the <code>slot</code> column is made a factor <em>with the order we want</em>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM9</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tribble</span>(</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>drink,  <span class="sc">~</span>price,</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"chai"</span>,   <span class="fl">4.50</span>,</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"espresso"</span>, <span class="fl">3.00</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM9: Rec Center headcounts — a tribble, then a factor column</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>rec <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>slot,       <span class="sc">~</span>hour, <span class="sc">~</span>people,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"morning"</span>,     <span class="dv">7</span>,     <span class="dv">38</span>,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"afternoon"</span>,  <span class="dv">13</span>,    <span class="dv">112</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"evening"</span>,    <span class="dv">18</span>,    <span class="dv">164</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>rec<span class="sc">$</span>slot <span class="ot">&lt;-</span> <span class="fu">factor</span>(rec<span class="sc">$</span>slot, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"morning"</span>, <span class="st">"afternoon"</span>, <span class="st">"evening"</span>))</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>rec</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["drink"],"name":[1],"type":["chr"],"align":["left"]},{"label":["price"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"chai","2":"4.5"},{"1":"espresso","2":"3.0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["slot"],"name":[1],"type":["fct"],"align":["left"]},{"label":["hour"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["people"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"morning","2":"7","3":"38"},{"1":"afternoon","2":"13","3":"112"},{"1":"evening","2":"18","3":"164"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
 <p><strong>LM10 — list: the junk drawer (4 min).</strong> A list holds <em>anything</em>, even other structures:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM10</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">name =</span> <span class="st">"week 2"</span>, <span class="at">nums =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">data =</span> menu_tbl)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>my_list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM10</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">name =</span> <span class="st">"week 2"</span>, <span class="at">nums =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">data =</span> latte_tbl)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>my_list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$name
 [1] "week 2"
@@ -619,25 +741,25 @@ $nums
 
 $data
 # A tibble: 3 × 2
-  drink price
-  &lt;chr&gt; &lt;dbl&gt;
-1 latte  4.75
-2 drip   2.75
-3 mocha  5.25</code></pre>
+  shop         price
+  &lt;chr&gt;        &lt;dbl&gt;
+1 Julian's      4.75
+2 Starbucks     5.45
+3 Scout Coffee  5.95</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(my_list)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(my_list)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>
 </div>
 <blockquote class="blockquote">
-<p><em>YT4 (3 min). ➕ Insert a chunk. Build a list called <code>me</code> with three named parts: your first name (text), the number of classes you’re taking, and your <code>menu</code> tibble. Print it. Notice how each part keeps its own type.</em></p>
+<p><em>YT4 (3 min). ➕ Insert a chunk. Build a list called <code>me</code> with three named parts: your first name (text), the number of classes you’re taking this quarter, and your <code>lattes</code> tibble. Print it. Notice how each part keeps its own type.</em></p>
 </blockquote>
 <!-- ➕ insert a chunk here -->
 <p><strong>LM11 — matrix: all one type, rows × columns (2 min)</strong> (brief):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM11</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LM11</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    3    5
@@ -645,25 +767,27 @@ $data
 </div>
 </div>
 <blockquote class="blockquote">
-<p><em>Q6. Which structure could hold a column of names AND a column of numbers: a matrix or a data frame? Why?</em></p>
+<p><em>Q7. Which structure could hold a column of shop names AND a column of prices: a matrix or a data frame? Why?</em></p>
 <p><em>Your answer:</em></p>
 </blockquote>
+<div class="vspace" style="height:1.5rem" aria-hidden="true"></div>
 </section>
 <section id="in-class-activity-type-it-or-contain-it-15-min" class="level2">
 <h2 class="anchored" data-anchor-id="in-class-activity-type-it-or-contain-it-15-min">3 · In-class activity: type it or contain it (15 min)</h2>
 <p>For each item, write <strong>T</strong> if the question is about a type and <strong>S</strong> if it’s about a structure, then answer it with code. ➕ Insert <strong>one chunk per item</strong> (A through F) so each answer is its own runnable piece.</p>
 <ul>
-<li><strong>A.</strong> What is <code>iris</code> — its structure?</li>
-<li><strong>B.</strong> What is <code>iris$Sepal.Length</code> — its type?</li>
+<li><strong>A.</strong> What is <code>rec</code> (from LM9) — its structure?</li>
+<li><strong>B.</strong> What is <code>rec$people</code> — its type? Which family?</li>
 <li><strong>C.</strong> Is there any NA anywhere in <code>airquality$Solar.R</code>? How many?</li>
-<li><strong>D.</strong> Build a tibble with 2 columns: your three favorite foods and a rating (1–10) for each.</li>
-<li><strong>E.</strong> What is <code>airquality$Month</code> — its type? Should it be? (Months are numbers here — would a factor make more sense? One sentence.)</li>
-<li><strong>F.</strong> Build a list holding your food tibble from D <em>and</em> a character vector of the three places you eat those foods.</li>
+<li><strong>D.</strong> Build a tibble with 2 columns: three places you eat near campus and a rating (1–10) for each.</li>
+<li><strong>E.</strong> What is <code>airquality$Month</code> — its type? Should it be? (Months are stored as numbers here — would a factor make more sense? One sentence.)</li>
+<li><strong>F.</strong> Build a list holding your food tibble from D <em>and</em> a character vector of what you order at each place.</li>
 </ul>
 <!-- ➕ insert chunks A–F here -->
 <blockquote class="blockquote">
 <p><em>A: ____ · B: ____ · C: ____ · D: ____ · E: ____ · F: ____</em></p>
 </blockquote>
+<div class="vspace" style="height:1.5rem" aria-hidden="true"></div>
 </section>
 <section id="exit-question-5-min" class="level2">
 <h2 class="anchored" data-anchor-id="exit-question-5-min">4 · Exit question (5 min)</h2>

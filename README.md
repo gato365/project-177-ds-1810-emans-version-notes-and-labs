@@ -38,3 +38,27 @@ Build the Word docs with `python R/check_in/scripts/build_checkins.py --week NN`
 **Nothing reaches the website until you run**
 `python R/check_in/scripts/publish_checkin.py --week NN --type self --version blank`
 (and, separately, `--version solution`). Full workflow: [R/check_in/README.md](R/check_in/README.md).
+
+## Vertical space between headers (`vspace`)
+
+Quarto collapses the gap between an `#` section and the `##` right after it.
+To add breathing room anywhere in a `.qmd`, drop in the shortcode:
+
+```
+{{< vspace >}}            <!-- 2rem -->
+{{< vspace 1.5rem >}}     <!-- any CSS length -->
+```
+
+It renders as an empty block (HTML) or `\vspace{}` (PDF) — never as text.
+The extension lives in `_extensions/vspace/` and is registered in `_quarto.yml`.
+
+**The "button":** in Positron/VS Code, type `vspace` (or `vs`) on a blank line
+and press **Tab** — the snippet in `.vscode/quarto.code-snippets` expands it and
+lets you Tab through the size choices. To put it on a key, add to your user
+`keybindings.json`:
+
+```json
+{ "key": "cmd+alt+v", "command": "editor.action.insertSnippet",
+  "when": "editorTextFocus && editorLangId == 'quarto'",
+  "args": { "name": "Vertical space (vspace shortcode)" } }
+```

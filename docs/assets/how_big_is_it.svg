@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" font-family="Source Sans 3, Helvetica Neue, Arial, sans-serif">
+<rect width="1000" height="560" fill="#ffffff"/>
+<text x="500.0" y="36" text-anchor="middle" font-size="21" font-weight="700" fill="#1f5f8b">How big is it, really? (log scale — each gridline is ×1,000)</text>
+<line x1="260" y1="60" x2="260" y2="500" stroke="#e5e8ec"/>
+<text x="260" y="522" text-anchor="middle" font-size="13" font-weight="700" fill="#5b6470">1 B</text>
+<line x1="410" y1="60" x2="410" y2="500" stroke="#e5e8ec"/>
+<text x="410" y="522" text-anchor="middle" font-size="13" font-weight="700" fill="#5b6470">1 KB</text>
+<line x1="560" y1="60" x2="560" y2="500" stroke="#e5e8ec"/>
+<text x="560" y="522" text-anchor="middle" font-size="13" font-weight="700" fill="#5b6470">1 MB</text>
+<line x1="710" y1="60" x2="710" y2="500" stroke="#e5e8ec"/>
+<text x="710" y="522" text-anchor="middle" font-size="13" font-weight="700" fill="#5b6470">1 GB</text>
+<line x1="860" y1="60" x2="860" y2="500" stroke="#e5e8ec"/>
+<text x="860" y="522" text-anchor="middle" font-size="13" font-weight="700" fill="#5b6470">1 TB</text>
+<rect x="260" y="72" width="5" height="26" fill="#1f5f8b"/>
+<text x="248" y="90" text-anchor="end" font-size="14" fill="#232629">one letter</text>
+<text x="275" y="90" font-size="12" fill="#5b6470">1 byte</text>
+<rect x="260" y="110" width="109" height="26" fill="#1f5f8b"/>
+<text x="248" y="128" text-anchor="end" font-size="14" fill="#232629">a text message</text>
+<text x="379" y="128" font-size="12" fill="#5b6470">≈ 150 bytes</text>
+<rect x="260" y="148" width="185" height="26" fill="#0f8b8d"/>
+<text x="248" y="166" text-anchor="end" font-size="14" fill="#232629">this class's survey (.csv)</text>
+<text x="455" y="166" font-size="12" fill="#5b6470">≈ 5 KB (airquality is 5.6 KB)</text>
+<rect x="260" y="186" width="215" height="26" fill="#0f8b8d"/>
+<text x="248" y="204" text-anchor="end" font-size="14" fill="#232629">a Quarto .qmd like this one</text>
+<text x="485" y="204" font-size="12" fill="#5b6470">≈ 20 KB</text>
+<rect x="260" y="224" width="330" height="26" fill="#2e8b57"/>
+<text x="248" y="242" text-anchor="end" font-size="14" fill="#232629">one song on Spotify</text>
+<text x="600" y="242" font-size="12" fill="#5b6470">≈ 4 MB</text>
+<rect x="260" y="262" width="400" height="26" fill="#2e8b57"/>
+<text x="248" y="280" text-anchor="end" font-size="14" fill="#232629">a year of CA crime data (.csv)</text>
+<text x="670" y="280" font-size="12" fill="#5b6470">≈ 100 MB</text>
+<rect x="260" y="300" width="474" height="26" fill="#e8a33d"/>
+<text x="248" y="318" text-anchor="end" font-size="14" fill="#232629">an hour of HD video</text>
+<text x="744" y="318" font-size="12" fill="#5b6470">≈ 3 GB</text>
+<rect x="260" y="338" width="504" height="26" fill="#e8a33d"/>
+<text x="248" y="356" text-anchor="end" font-size="14" fill="#232629">your laptop's memory (RAM)</text>
+<text x="774" y="356" font-size="12" fill="#5b6470">8–16 GB  ← R must fit data here</text>
+<rect x="260" y="376" width="585" height="26" fill="#c0392b"/>
+<text x="248" y="394" text-anchor="end" font-size="14" fill="#232629">your laptop's whole drive</text>
+<text x="855" y="394" font-size="12" fill="#5b6470">≈ 512 GB</text>
+<rect x="260" y="414" width="600" height="26" fill="#c0392b"/>
+<text x="248" y="432" text-anchor="end" font-size="14" fill="#232629">a full US census extract</text>
+<text x="870" y="432" font-size="12" fill="#5b6470">≈ 1 TB</text>
+<rect x="260" y="452" width="674" height="26" fill="#6f42c1"/>
+<text x="248" y="470" text-anchor="end" font-size="14" fill="#232629">Netflix's entire catalog</text>
+<text x="924" y="470" text-anchor="end" font-size="12" font-weight="700" fill="#ffffff">petabytes — off the chart</text>
+</svg>

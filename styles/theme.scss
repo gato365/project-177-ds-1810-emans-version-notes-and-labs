@@ -150,3 +150,6 @@ thead { background: #eef5fb; }
 .prep-big .lm, .prep-big .yt { font-size: 1.05rem; padding: .15rem .6rem; }
 .prep-big .callout .callout-body-container, .prep-big .callout .callout-body, .prep-big .callout p, .prep-big .callout li { font-size: 1.2rem; }
 .prep-big .callout .callout-title-container { font-size: 1.25rem; }
+
+/* ---------- {{< vspace >}} shortcode: breathing room between sections ---------- */
+.vspace { display: block; width: 100%; }
