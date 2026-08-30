@@ -105,7 +105,7 @@ each with a Cal Poly example:
 
 ## 1.2 · Finding the type with `class()` [7 min]{.timing}
 
-**LM1 — `class()` tells you the type (4 min).** Three lattes, three prices.
+**LM1 — `class()` tells you the type (4 min).**
 Predict each `class()` from the table above, *then* run:
 
 ```{r}
@@ -158,6 +158,8 @@ term:
 | **Quantitative** | *how much? how many?* — you can average it | numeric, integer | latte price (`4.75`), Rec Center headcount (`38`), miles from campus (`2.3`) |
 | **Categorical** | *which kind? which group?* — you count it | character, factor, logical | coffee shop (`"Julian's"`, `"Starbucks"`, `"Scout"`), time slot (`"morning"`), iced (`TRUE`) |
 | **Other** (time/date) | *when?* — ordered, but not a plain number | Date, date-time | the day you bought the latte, the clock time you swiped into the Rec |
+
+![The three families and, inside categorical, the character-vs-factor split. The dashed "Morning"? chip is the trap: a value not on a factor's menu becomes NA with no error.](/assets/types_families_map.svg){fig-alt="Three columns — quantitative (average it: numeric, integer), categorical (count it: character, factor, logical), other/time-date (Date, date-time) — each with Cal Poly examples and glimpse tags; below, a panel contrasting character (free text, four spellings of morning make four groups, alphabetical order) with factor (a fixed menu of levels in your order, where a value off the menu becomes NA silently)." width="100%"}
 
 > *Q2. Which family: (a) the number of people in the Rec Center at 5 pm ·
 > (b) the shop that made your latte · (c) the date of the game vs. UCSB ·

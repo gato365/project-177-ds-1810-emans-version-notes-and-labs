@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 620" font-family="Source Sans 3, Helvetica Neue, Arial, sans-serif">
+  <rect width="980" height="620" fill="#ffffff"/>
+  <text x="490" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#1f5f8b">What kind of variable is it?</text>
+  <text x="490" y="60" text-anchor="middle" font-size="14" fill="#5b6470">Ask the question in the header — the answer picks the family, the family picks the plot</text>
+
+  <!-- ===== three family columns ===== -->
+  <!-- QUANTITATIVE -->
+  <g transform="translate(28,84)">
+    <rect width="296" height="290" rx="10" fill="#eef5fb" stroke="#1f5f8b" stroke-width="2.5"/>
+    <rect width="296" height="58" rx="10" fill="#1f5f8b"/>
+    <rect y="30" width="296" height="28" fill="#1f5f8b"/>
+    <text x="148" y="26" text-anchor="middle" font-size="17" font-weight="700" fill="#ffffff">QUANTITATIVE</text>
+    <text x="148" y="47" text-anchor="middle" font-size="13" fill="#dcebf7">“how much? how many?”</text>
+    <text x="20" y="86" font-size="13.5" font-weight="700" fill="#1f5f8b">You can AVERAGE it</text>
+    <g font-size="13" fill="#232629">
+      <text x="20" y="112">• latte price — <tspan font-family="JetBrains Mono, Menlo, monospace" font-size="12">4.75</tspan></text>
+      <text x="20" y="134">• Rec Center headcount — <tspan font-family="JetBrains Mono, Menlo, monospace" font-size="12">38L</tspan></text>
+      <text x="20" y="156">• miles from campus — <tspan font-family="JetBrains Mono, Menlo, monospace" font-size="12">2.3</tspan></text>
+    </g>
+    <line x1="18" y1="176" x2="278" y2="176" stroke="#c6dbee"/>
+    <text x="20" y="200" font-size="12.5" font-weight="700" fill="#5b6470">R TYPES</text>
+    <g transform="translate(20,212)">
+      <rect width="92" height="26" rx="13" fill="#1f5f8b"/><text x="46" y="18" text-anchor="middle" font-size="13" fill="#fff">numeric</text>
+      <rect x="102" width="92" height="26" rx="13" fill="#1f5f8b"/><text x="148" y="18" text-anchor="middle" font-size="13" fill="#fff">integer</text>
+    </g>
+    <text x="20" y="270" font-size="12.5" fill="#5b6470">glimpse tags: <tspan font-family="JetBrains Mono, Menlo, monospace">&lt;dbl&gt; &lt;int&gt;</tspan></text>
+  </g>
+
+  <!-- CATEGORICAL -->
+  <g transform="translate(342,84)">
+    <rect width="296" height="290" rx="10" fill="#fff4e3" stroke="#e8a33d" stroke-width="2.5"/>
+    <rect width="296" height="58" rx="10" fill="#e8a33d"/>
+    <rect y="30" width="296" height="28" fill="#e8a33d"/>
+    <text x="148" y="26" text-anchor="middle" font-size="17" font-weight="700" fill="#ffffff">CATEGORICAL</text>
+    <text x="148" y="47" text-anchor="middle" font-size="13" fill="#fff4e0">“which kind? which group?”</text>
+    <text x="20" y="86" font-size="13.5" font-weight="700" fill="#8a5a0c">You COUNT it, not average it</text>
+    <g font-size="13" fill="#232629">
+      <text x="20" y="112">• coffee shop — <tspan font-family="JetBrains Mono, Menlo, monospace" font-size="12">"Scout Coffee"</tspan></text>
+      <text x="20" y="134">• time slot — <tspan font-family="JetBrains Mono, Menlo, monospace" font-size="12">"morning"</tspan></text>
+      <text x="20" y="156">• iced? — <tspan font-family="JetBrains Mono, Menlo, monospace" font-size="12">TRUE</tspan> (a 2-level category)</text>
+    </g>
+    <line x1="18" y1="176" x2="278" y2="176" stroke="#f0ddb8"/>
+    <text x="20" y="200" font-size="12.5" font-weight="700" fill="#5b6470">R TYPES</text>
+    <g transform="translate(20,212)">
+      <rect width="92" height="26" rx="13" fill="#e8a33d"/><text x="46" y="18" text-anchor="middle" font-size="13" fill="#fff">character</text>
+      <rect x="102" width="72" height="26" rx="13" fill="#e8a33d"/><text x="138" y="18" text-anchor="middle" font-size="13" fill="#fff">factor</text>
+      <rect x="184" width="72" height="26" rx="13" fill="#e8a33d"/><text x="220" y="18" text-anchor="middle" font-size="13" fill="#fff">logical</text>
+    </g>
+    <text x="20" y="270" font-size="12.5" fill="#5b6470">glimpse tags: <tspan font-family="JetBrains Mono, Menlo, monospace">&lt;chr&gt; &lt;fct&gt; &lt;lgl&gt;</tspan></text>
+  </g>
+
+  <!-- OTHER -->
+  <g transform="translate(656,84)">
+    <rect width="296" height="290" rx="10" fill="#e6f4f4" stroke="#0f8b8d" stroke-width="2.5"/>
+    <rect width="296" height="58" rx="10" fill="#0f8b8d"/>
+    <rect y="30" width="296" height="28" fill="#0f8b8d"/>
+    <text x="148" y="26" text-anchor="middle" font-size="17" font-weight="700" fill="#ffffff">OTHER · time &amp; date</text>
+    <text x="148" y="47" text-anchor="middle" font-size="13" fill="#dff2f2">“when?”</text>
+    <text x="20" y="86" font-size="13.5" font-weight="700" fill="#0b6a6c">Ordered, but not a plain number</text>
+    <g font-size="13" fill="#232629">
+      <text x="20" y="112">• day you bought the latte —</text>
+      <text x="34" y="132" font-family="JetBrains Mono, Menlo, monospace" font-size="12">2026-09-22</text>
+      <text x="20" y="156">• Rec swipe-in time — <tspan font-family="JetBrains Mono, Menlo, monospace" font-size="12">07:00:00</tspan></text>
+    </g>
+    <line x1="18" y1="176" x2="278" y2="176" stroke="#bfe3e3"/>
+    <text x="20" y="200" font-size="12.5" font-weight="700" fill="#5b6470">R TYPES</text>
+    <g transform="translate(20,212)">
+      <rect width="72" height="26" rx="13" fill="#0f8b8d"/><text x="36" y="18" text-anchor="middle" font-size="13" fill="#fff">Date</text>
+      <rect x="82" width="112" height="26" rx="13" fill="#0f8b8d"/><text x="138" y="18" text-anchor="middle" font-size="13" fill="#fff">date-time</text>
+    </g>
+    <text x="20" y="270" font-size="12.5" fill="#5b6470">glimpse tags: <tspan font-family="JetBrains Mono, Menlo, monospace">&lt;date&gt; &lt;dttm&gt;</tspan></text>
+  </g>
+
+  <!-- ===== bottom band: factor vs character ===== -->
+  <g transform="translate(28,398)">
+    <rect width="924" height="196" rx="10" fill="#fbf8ff" stroke="#6f42c1" stroke-width="2.5"/>
+    <text x="462" y="30" text-anchor="middle" font-size="16" font-weight="700" fill="#6f42c1">Inside CATEGORICAL: character vs factor — same words, different powers</text>
+
+    <!-- character half -->
+    <g transform="translate(26,48)">
+      <text x="0" y="16" font-size="14.5" font-weight="700" fill="#232629">character — free text</text>
+      <text x="0" y="38" font-size="12.5" fill="#5b6470">any string is welcome: names, comments, typos too</text>
+      <g transform="translate(0,50)" font-family="JetBrains Mono, Menlo, monospace" font-size="12">
+        <rect width="84" height="24" rx="4" fill="#eef0f3" stroke="#c9ced6"/><text x="42" y="16" text-anchor="middle" fill="#232629">"morning"</text>
+        <rect x="92" width="84" height="24" rx="4" fill="#eef0f3" stroke="#c9ced6"/><text x="134" y="16" text-anchor="middle" fill="#232629">"Morning"</text>
+        <rect x="184" width="60" height="24" rx="4" fill="#eef0f3" stroke="#c9ced6"/><text x="214" y="16" text-anchor="middle" fill="#232629">"AM"</text>
+        <rect x="252" width="110" height="24" rx="4" fill="#eef0f3" stroke="#c9ced6"/><text x="307" y="16" text-anchor="middle" fill="#232629">"morning "</text>
+      </g>
+      <text x="0" y="102" font-size="12.5" fill="#c0392b">→ four DIFFERENT groups · tables sort alphabetically</text>
+      <text x="0" y="122" font-size="12.5" fill="#5b6470">use for: names, free-form answers, anything typed</text>
+    </g>
+
+    <!-- divider -->
+    <line x1="452" y1="46" x2="452" y2="180" stroke="#ddd0f0" stroke-width="2"/>
+
+    <!-- factor half -->
+    <g transform="translate(478,48)">
+      <text x="0" y="16" font-size="14.5" font-weight="700" fill="#232629">factor — text with a fixed menu (levels), in YOUR order</text>
+      <text x="0" y="38" font-size="12.5" font-family="JetBrains Mono, Menlo, monospace" fill="#5b6470">levels = c("morning", "afternoon", "evening")</text>
+      <g transform="translate(0,50)" font-family="JetBrains Mono, Menlo, monospace" font-size="12">
+        <rect width="84" height="24" rx="12" fill="#6f42c1"/><text x="42" y="16" text-anchor="middle" fill="#fff">morning</text>
+        <rect x="92" width="94" height="24" rx="12" fill="#6f42c1"/><text x="139" y="16" text-anchor="middle" fill="#fff">afternoon</text>
+        <rect x="194" width="84" height="24" rx="12" fill="#6f42c1"/><text x="236" y="16" text-anchor="middle" fill="#fff">evening</text>
+        <rect x="296" width="94" height="24" rx="12" fill="#ffffff" stroke="#c0392b" stroke-dasharray="4 3"/><text x="343" y="16" text-anchor="middle" fill="#c0392b">"Morning"?</text>
+      </g>
+      <text x="0" y="102" font-size="12.5" fill="#c0392b">→ not on the menu → becomes NA — silently, no error</text>
+      <text x="0" y="122" font-size="12.5" fill="#5b6470">use for: categories with a known set · plots &amp; tables follow YOUR level order</text>
+    </g>
+  </g>
+</svg>
