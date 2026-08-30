@@ -118,7 +118,7 @@ term:
 | **Categorical** | *which kind? which group?* — you count it | character, factor, logical | coffee shop (`"Julian's"`, `"Starbucks"`, `"Scout"`), time slot (`"morning"`), iced (`TRUE`) |
 | **Other** (time/date) | *when?* — ordered, but not a plain number | Date, date-time | the day you bought the latte, the clock time you swiped into the Rec |
 
-![The three families and, inside categorical, the character-vs-factor split. The dashed "Morning"? chip is the trap: a value not on a factor's menu becomes NA with no error.](/assets/types_families_map.svg){fig-alt="Three columns — quantitative (average it: numeric, integer), categorical (count it: character, factor, logical), other/time-date (Date, date-time) — each with Cal Poly examples and glimpse tags; below, a panel contrasting character (free text, four spellings of morning make four groups, alphabetical order) with factor (a fixed menu of levels in your order, where a value off the menu becomes NA silently)." width="100%"}
+![The three families and, inside categorical, the character-vs-factor split. The dashed "Morning"? chip is the trap: a value not on a factor's menu becomes NA with no error.](/images/types_families_map.svg){fig-alt="Three columns — quantitative (average it: numeric, integer), categorical (count it: character, factor, logical), other/time-date (Date, date-time) — each with Cal Poly examples and glimpse tags; below, a panel contrasting character (free text, four spellings of morning make four groups, alphabetical order) with factor (a fixed menu of levels in your order, where a value off the menu becomes NA silently)." width="100%"}
 
 > *Q2. Which family: (a) the number of people in the Rec Center at 5 pm ·
 > (b) the shop that made your latte · (c) the date of the game vs. UCSB ·
@@ -232,6 +232,8 @@ latte_tbl <- tibble(shop = shops, price = c(4.75, 5.45, 5.95))
 latte_df
 latte_tbl
 ```
+
+![Same three-latte table printed by `data.frame()` and by `tibble()`, and the class() proof that a tibble is a data frame with extra labels.](/images/tibble_vs_dataframe.svg){fig-alt="Left panel: a data.frame printout with no dimensions and no column types. Right panel: the same table as a tibble announcing '# A tibble: 3 × 2' and showing <chr> and <dbl> type tags. Bottom panel: a nesting diagram of tibbles inside data frames, with class(menu_tbl) returning tbl_df, tbl, data.frame as proof." width="100%"}
 
 > *Q6. Name one visible difference between how the data frame and the tibble
 > printed:*

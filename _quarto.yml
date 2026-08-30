@@ -9,6 +9,7 @@ project:
     - "!R/check_in/generated/**"
   resources:
     - "assets/*"
+    - "images/*"
     - "R/check_in/public/**/*.docx"
     - "R/notes/**/*_empty.qmd"
     - "Data/*"

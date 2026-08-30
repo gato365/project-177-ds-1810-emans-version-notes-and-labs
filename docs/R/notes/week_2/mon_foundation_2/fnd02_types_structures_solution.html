@@ -713,7 +713,7 @@ LM = learning moment. YT = your turn. Times in headers are the section budget.
 </table>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../../../assets/types_families_map.svg" class="img-fluid figure-img" style="width:100.0%" alt="Three columns — quantitative (average it: numeric, integer), categorical (count it: character, factor, logical), other/time-date (Date, date-time) — each with Cal Poly examples and glimpse tags; below, a panel contrasting character (free text, four spellings of morning make four groups, alphabetical order) with factor (a fixed menu of levels in your order, where a value off the menu becomes NA silently)."></p>
+<p><img src="../../../../images/types_families_map.svg" class="img-fluid figure-img" style="width:100.0%" alt="Three columns — quantitative (average it: numeric, integer), categorical (count it: character, factor, logical), other/time-date (Date, date-time) — each with Cal Poly examples and glimpse tags; below, a panel contrasting character (free text, four spellings of morning make four groups, alphabetical order) with factor (a fixed menu of levels in your order, where a value off the menu becomes NA silently)."></p>
 <figcaption>The three families and, inside categorical, the character-vs-factor split. The dashed “Morning”? chip is the trap: a value not on a factor’s menu becomes NA with no error.</figcaption>
 </figure>
 </div>
@@ -994,6 +994,12 @@ afternoon   evening   morning
   </script>
 </div>
 </div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../../../images/tibble_vs_dataframe.svg" class="img-fluid figure-img" style="width:100.0%" alt="Left panel: a data.frame printout with no dimensions and no column types. Right panel: the same table as a tibble announcing '# A tibble: 3 × 2' and showing <chr> and <dbl> type tags. Bottom panel: a nesting diagram of tibbles inside data frames, with class(menu_tbl) returning tbl_df, tbl, data.frame as proof."></p>
+<figcaption>Same three-latte table printed by <code>data.frame()</code> and by <code>tibble()</code>, and the class() proof that a tibble is a data frame with extra labels.</figcaption>
+</figure>
 </div>
 <blockquote class="blockquote">
 <p><em>Q6. Name one visible difference between how the data frame and the tibble printed:</em></p>

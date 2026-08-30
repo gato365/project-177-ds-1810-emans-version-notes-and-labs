@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 664" font-family="Source Sans 3, Helvetica Neue, Arial, sans-serif">
+  <rect width="980" height="664" fill="#ffffff"/>
+  <text x="490" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#1f5f8b">Same data, two printouts: data.frame vs tibble</text>
+  <text x="490" y="58" text-anchor="middle" font-size="14" fill="#5b6470">Both hold columns of equal length. The tibble just tells you more about what you're looking at.</text>
+
+  <!-- ============ LEFT: data.frame ============ -->
+  <g transform="translate(36,86)">
+    <rect width="420" height="298" rx="10" fill="#f8f9fb" stroke="#9aa3ad" stroke-width="2"/>
+    <rect width="420" height="42" rx="10" fill="#9aa3ad"/><rect y="22" width="420" height="20" fill="#9aa3ad"/>
+    <text x="210" y="27" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">data.frame — the 1990s printout</text>
+    <text x="20" y="66" font-family="JetBrains Mono, Menlo, monospace" font-size="13" fill="#6f42c1">menu_df</text>
+    <g font-family="JetBrains Mono, Menlo, monospace" font-size="13" fill="#232629">
+      <text x="150" y="92" text-anchor="end">shop</text><text x="215" y="92" text-anchor="end">price</text>
+      <text x="20" y="112">1</text><text x="150" y="112" text-anchor="end">Julian's</text><text x="215" y="112" text-anchor="end">4.75</text>
+      <text x="20" y="132">2</text><text x="150" y="132" text-anchor="end">Starbucks</text><text x="215" y="132" text-anchor="end">5.45</text>
+      <text x="20" y="152">3</text><text x="150" y="152" text-anchor="end">Scout Coffee</text><text x="215" y="152" text-anchor="end">5.95</text>
+    </g>
+    <g font-size="12.5" fill="#c0392b">
+      <text x="20" y="190">✗ no size announced — is this 3 rows or 3,000?</text>
+      <text x="20" y="212">✗ no column types — is price numeric or text?</text>
+      <text x="20" y="234">✗ 50 columns? it floods the whole Console</text>
+    </g>
+    <text x="20" y="266" font-size="12.5" fill="#5b6470">You must ask separately: <tspan font-family="JetBrains Mono, Menlo, monospace" font-size="11.5">dim()</tspan>, <tspan font-family="JetBrains Mono, Menlo, monospace" font-size="11.5">class(menu_df$price)</tspan></text>
+    <text x="20" y="286" font-size="12.5" fill="#5b6470">Built with: <tspan font-family="JetBrains Mono, Menlo, monospace" font-size="11.5">data.frame()</tspan> — base R, since forever</text>
+  </g>
+
+  <!-- ============ RIGHT: tibble ============ -->
+  <g transform="translate(524,86)">
+    <rect width="420" height="298" rx="10" fill="#eef5fb" stroke="#1f5f8b" stroke-width="2.5"/>
+    <rect width="420" height="42" rx="10" fill="#1f5f8b"/><rect y="22" width="420" height="20" fill="#1f5f8b"/>
+    <text x="210" y="27" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">tibble — the same table, with manners</text>
+    <text x="20" y="66" font-family="JetBrains Mono, Menlo, monospace" font-size="13" fill="#6f42c1">menu_tbl</text>
+    <g font-family="JetBrains Mono, Menlo, monospace" font-size="13" fill="#232629">
+      <text x="20" y="92"># A tibble: 3 × 2</text>
+      <text x="38" y="112">shop</text><text x="218" y="112" text-anchor="end">price</text>
+      <text x="38" y="132" fill="#0f8b8d">&lt;chr&gt;</text><text x="218" y="132" text-anchor="end" fill="#0f8b8d">&lt;dbl&gt;</text>
+      <text x="20" y="152">1</text><text x="38" y="152">Julian's</text><text x="218" y="152" text-anchor="end">4.75</text>
+      <text x="20" y="172">2</text><text x="38" y="172">Starbucks</text><text x="218" y="172" text-anchor="end">5.45</text>
+      <text x="20" y="192">3</text><text x="38" y="192">Scout Coffee</text><text x="218" y="192" text-anchor="end">5.95</text>
+    </g>
+    <!-- annotations -->
+    <g font-size="12" font-weight="700" fill="#c0392b">
+      <text x="230" y="92">← its size: 3 rows × 2 cols</text>
+      <text x="230" y="132">← the TYPES from §1!</text>
+    </g>
+    <g font-size="12.5" fill="#2e8b57">
+      <text x="20" y="228">✓ 50 columns? shows only what fits + first 10 rows</text>
+    </g>
+    <text x="20" y="258" font-size="12.5" fill="#5b6470">Never silently changes your text or column names</text>
+    <text x="20" y="286" font-size="12.5" fill="#5b6470">Built with: <tspan font-family="JetBrains Mono, Menlo, monospace" font-size="11.5">tibble()</tspan> or <tspan font-family="JetBrains Mono, Menlo, monospace" font-size="11.5">tribble()</tspan> — needs <tspan font-family="JetBrains Mono, Menlo, monospace" font-size="11.5">library(tibble)</tspan></text>
+  </g>
+
+  <!-- ============ BOTTOM: the relationship ============ -->
+  <g transform="translate(36,412)">
+    <rect width="908" height="234" rx="10" fill="#fffdf6" stroke="#e8a33d" stroke-width="2.5"/>
+    <text x="454" y="32" text-anchor="middle" font-size="16" font-weight="700" fill="#8a5a0c">The relationship: a tibble IS a data frame</text>
+
+    <!-- nesting diagram -->
+    <g transform="translate(48,56)">
+      <rect width="380" height="146" rx="12" fill="#f2f4f7" stroke="#9aa3ad" stroke-width="2"/>
+      <text x="16" y="28" font-size="13.5" font-weight="700" fill="#5b6470">data frames — everything here obeys the rules:</text>
+      <text x="16" y="48" font-size="12.5" fill="#5b6470">columns are vectors · all the same length</text>
+      <rect x="70" y="64" width="240" height="64" rx="10" fill="#dcebf7" stroke="#1f5f8b" stroke-width="2"/>
+      <text x="190" y="90" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1f5f8b">tibbles</text>
+      <text x="190" y="110" text-anchor="middle" font-size="12" fill="#1f5f8b">= data frames with better printing</text>
+    </g>
+
+    <!-- class() proof -->
+    <g transform="translate(470,48)">
+      <text x="0" y="16" font-size="13.5" font-weight="700" fill="#232629">The proof, in code:</text>
+      <g font-family="JetBrains Mono, Menlo, monospace" font-size="13">
+        <text x="0" y="42" fill="#6f42c1">class(menu_df)</text>
+        <text x="0" y="61" fill="#232629">[1] "data.frame"</text>
+        <text x="0" y="88" fill="#6f42c1">class(menu_tbl)</text>
+        <text x="0" y="107" fill="#232629">[1] "tbl_df" "tbl" <tspan font-weight="700" fill="#c0392b">"data.frame"</tspan></text>
+      </g>
+      <text x="0" y="136" font-size="12.5" fill="#5b6470">"data.frame" is still on the list — extra labels on top, the</text>
+      <text x="0" y="154" font-size="12.5" fill="#5b6470">same object underneath. Anything that works on a data frame</text>
+      <text x="0" y="172" font-size="12.5" fill="#5b6470">works on a tibble. In this course we say "data frame" for both.</text>
+    </g>
+  </g>
+</svg>
